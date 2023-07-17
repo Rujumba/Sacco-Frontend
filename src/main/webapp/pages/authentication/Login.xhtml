@@ -73,7 +73,7 @@
             </p:inputText>
 
             <h:outputLabel for="password" value="Password:" />
-            <p:password id="password" name="password" required="true" />
+            <p:password id="password" name="password" required="true" toggleMask="true" redisplay="true" />
 
             <p:spacer />
 
@@ -103,6 +103,7 @@
               action="#{navigation.getDashboard()}"
               value="Login"
             />
+
           </div>
         </h:form>
         <h6>

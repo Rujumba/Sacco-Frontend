@@ -131,8 +131,16 @@
           -->
         </h:panelGrid>
         <div class="center-button" style="color: #45a049" >
-          <p:commandButton type="submit" value="Sign Up" />
+          <p:commandButton
+                  id="toLogin"
+                  icon="pi pi-check"
+                  value="Sign Up"
+                  outcome="#{navigation.getLogin()}"
+                  type ="submit"
+          />
         </div>
+
+
       </h:form>
       <h6>Have an account?<p:link outcome="/pages/authentication/Login.xhtml" value="Login"/></h6>
     </div>
