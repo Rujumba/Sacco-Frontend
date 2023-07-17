@@ -1,8 +1,8 @@
 package org.pahappa.systems.kimanyisacco.views.dashboard;
 
+import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import java.util.Date;
 
 @ViewScoped
 @ManagedBean(name = "dashboard")
