@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<style>
+			.container {
+				margin: 50px auto;
+				margin-top: 170px;
+				width: 450px;
+				padding: 20px;
+				background-color: #f4fafe;
+				border-radius: 10px;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+				text-align: center;}
+
+			.login-link {
+				margin-top: 20px;
+				font-size: 14px;
+				color: #777;
+			}
+			.login-link a {
+				color: #4CAF50;
+				text-decoration: none;
+			}
+			.login-link a:hover {
+				text-decoration: underline;
+			}
+			.center-button {
+				text-align: center;
+			}
+
+			.logo {
+				width: 110px;
+				height: 90px;
+				margin: 0 auto;
+				display: flex;
+				margin-left: 320px;
+			}
+
+
+		</style>
+		<h:outputStylesheet name="primeflex/3.3.1/primeflex.css" library="webjars"/>
+	</f:facet>
+</h:head>
+<h:body>
+	<f:view>
+		<div class="container">
+			<h1 style="position: absolute; margin-left: 30px">KIMWANYI SACCO </h1>
+			<h:graphicImage class="logo"  url="/resources/images/logo.png"/>
+			<h2>Welcomes you</h2>
+			<h6>LOGIN TO ACCESS THE SACCO</h6>
+			<h:form>
+				<p:messages id="messages"/>
+				<h:panelGrid columns="2" cellpadding="15">
+
+					<h:outputLabel for="email" value="Email:" />
+					<p:inputText id="email" name="email" required="true">
+						<f:validateRegex pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
+					</p:inputText>
+
+					<h:outputLabel for="password" value="Password:" />
+					<p:password id="password" name="password" required="true" />
+
+					<p:spacer />
+
+
+					<!-- For testing, don't remove!
+                    <p:outputLabel for="@next" value="Label which considers @NotNull:" />
+                    <p:inputText id="nullable" value="#{outputLabelView.nullableValue}" />
+
+                    <p:outputLabel for="@next" value="Label which considers @NotNull:" />
+                    <p:inputText id="notNull" value="#{outputLabelView.value}" />
+
+                    <p:outputLabel for="@next" value="Label for input wrapped in composite:" />
+                    <composite:inputTextWrapper id="nullableInComposite" value="#{outputLabelView.nullableValue}" required="true" />
+
+                    <p:outputLabel for="@next" value="Label for input wrapped in composite, considering @NotNull:" />
+                    <composite:inputTextWrapper id="notNullInComposite" value="#{outputLabelView.value}" />
+
+                    <p:outputLabel for="@next" value="Label for input wrapped wrapped in composite:" />
+                    <composite:inputTextWrapper id="nullableInCompositeComposite" value="#{outputLabelView.nullableValue}" required="true" />
+
+                    <p:outputLabel for="@next" value="Label for input wrapped wrapped in composite, considering @NotNull:" />
+                    <composite:inputTextWrapper id="notNullInCompositeComposite" value="#{outputLabelView.value}" />
+                    -->
+				</h:panelGrid>
+				<div class="center-button" style="color: #45a049" >
+					<p:commandButton type="submit" value="Login" />
+				</div>
+			</h:form>
+			<h6>Don't have an account?<p:link outcome="/pages/authentication/Register.xhtml" value="Register"/></h6>
+
+
+		</div>
+	</f:view>
+</h:body>
+</html>

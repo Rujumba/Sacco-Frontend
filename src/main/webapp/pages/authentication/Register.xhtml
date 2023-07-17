@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<h:head>
+  <f:facet name="first">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <style>
+      .container {
+        margin: 50px auto;
+        width: 800px;
+        padding: 20px;
+        background-color: #f4fafe;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;}
+
+      .login-link {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #777;
+      }
+      .login-link a {
+        color: #4CAF50;
+        text-decoration: none;
+      }
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+      .center-button {
+        text-align: center;
+      }
+
+      .logo {
+        width: 110px;
+        height: 90px;
+        margin: 0 auto;
+        display: flex;
+        margin-left: 550px;
+      }
+
+
+    </style>
+    <h:outputStylesheet name="primeflex/3.3.1/primeflex.css" library="webjars"/>
+  </f:facet>
+</h:head>
+<h:body>
+  <f:view>
+    <div class="container">
+      <h1 style="position: absolute; margin-left: 250px">KIMWANYI SACCO </h1>
+      <h:graphicImage class="logo"  url="/resources/images/logo.png"/>
+      <h2>Register form</h2>
+      <h:form>
+        <p:messages id="messages"/>
+        <h:panelGrid columns="4" cellpadding="10">
+          <h:outputLabel for="clientName" value="Client Name:" />
+          <p:inputText id="clientName" name="clientName" required="true" />
+
+          <h:outputLabel for="email" value="Email:" />
+          <p:inputText id="email" name="email" required="true">
+            <f:validateRegex pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
+          </p:inputText>
+
+          <h:outputLabel for="clientContact" value="Client Contact:" />
+          <p:inputText id="clientContact" name="clientContact" required="true" />
+
+          <h:outputLabel for="dateOfBirth" value="Date of Birth:" />
+          <p:inputText id="dateOfBirth" name="dateOfBirth" required="true" type="date"/>
+
+          <h:outputLabel for="gender" value="Gender:" />
+          <p:selectOneMenu id="gender" name="gender" required="true" styleClass="drop-hover">
+            <f:selectItem itemLabel="Select" itemValue="" />
+            <f:selectItem itemLabel="Male" itemValue="male" />
+            <f:selectItem itemLabel="Female" itemValue="female" />
+            <f:selectItem itemLabel="Other" itemValue="other" />
+          </p:selectOneMenu>
+
+          <h:outputLabel for="employmentStatus" value="Employment Status:" />
+          <p:selectOneMenu id="employmentStatus" name="employmentStatus" required="true" styleClass="drop-hover">
+            <f:selectItem itemLabel="Select" itemValue="" />
+            <f:selectItem itemLabel="Employed" itemValue="Employed" />
+            <f:selectItem itemLabel="Self-Employed" itemValue="Self-Employed" />
+            <f:selectItem itemLabel="Student" itemValue="Student" />
+            <f:selectItem itemLabel="Retired" itemValue="Retired" />
+          </p:selectOneMenu>
+
+          <h:outputLabel for="incomeRange" value="Income Range:" />
+          <p:selectOneMenu id="incomeRange" name="incomeRange" required="true" styleClass="drop-hover">
+            <f:selectItem itemLabel="Select" itemValue="" />
+            <f:selectItem itemLabel="&lt;500,000" itemValue="500000" />
+            <f:selectItem itemLabel="&lt;1,000,000" itemValue="1000000" />
+            <f:selectItem itemLabel="Above" itemValue="above" />
+          </p:selectOneMenu>
+
+          <h:outputLabel for="password" value="Password:" />
+          <p:password id="password" name="password" required="true" />
+
+          <h:outputLabel for="password1" value="Password:" />
+          <p:password id="password1" name="password" required="true" />
+
+
+
+
+          <p:spacer />
+
+
+          <!-- For testing, don't remove!
+          <p:outputLabel for="@next" value="Label which considers @NotNull:" />
+          <p:inputText id="nullable" value="#{outputLabelView.nullableValue}" />
+
+          <p:outputLabel for="@next" value="Label which considers @NotNull:" />
+          <p:inputText id="notNull" value="#{outputLabelView.value}" />
+
+          <p:outputLabel for="@next" value="Label for input wrapped in composite:" />
+          <composite:inputTextWrapper id="nullableInComposite" value="#{outputLabelView.nullableValue}" required="true" />
+
+          <p:outputLabel for="@next" value="Label for input wrapped in composite, considering @NotNull:" />
+          <composite:inputTextWrapper id="notNullInComposite" value="#{outputLabelView.value}" />
+
+          <p:outputLabel for="@next" value="Label for input wrapped wrapped in composite:" />
+          <composite:inputTextWrapper id="nullableInCompositeComposite" value="#{outputLabelView.nullableValue}" required="true" />
+
+          <p:outputLabel for="@next" value="Label for input wrapped wrapped in composite, considering @NotNull:" />
+          <composite:inputTextWrapper id="notNullInCompositeComposite" value="#{outputLabelView.value}" />
+          -->
+        </h:panelGrid>
+        <div class="center-button" style="color: #45a049" >
+          <p:commandButton type="submit" value="Sign Up" />
+        </div>
+      </h:form>
+      <h6>Have an account?<p:link outcome="/pages/authentication/Login.xhtml" value="Login"/></h6>
+    </div>
+  </f:view>
+</h:body>
+</html>
