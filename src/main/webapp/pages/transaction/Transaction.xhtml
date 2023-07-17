@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+  <h:head>
+    <f:facet name="first">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+
+      <h:outputStylesheet
+        name="primeflex/3.3.1/primeflex.css"
+        library="webjars"
+      />
+    </f:facet>
+    <script type="text/javascript">
+      function showFormDialog1() {
+        PF("formDialog1").show();
+      }
+
+      function showFormDialog2() {
+        PF("formDialog2").show();
+      }
+    </script>
+    <style>
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .card {
+        width: 500px;
+        background-color: #f4fafe;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .container {
+        margin: 5px auto;
+        width: auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);*/
+        text-align: center;
+        margin-right: 10px;
+      }
+
+      .img {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 10px;
+      }
+
+      .logo {
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .header {
+        width: 100%;
+        height: 100vh;
+        background: #f5f5f5;
+      }
+
+      .side-nav {
+        width: 250px;
+        height: 130%;
+        background-color: #f4fafe;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 20px 30px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .logo {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .logo-img {
+        width: 170px;
+        margin-top: 20px;
+      }
+      .nav-image {
+        width: 30px;
+        height: 30px;
+      }
+
+      .nav-links {
+        list-style: none;
+        position: relative;
+      }
+
+      .nav-links li {
+        padding: 10px 0;
+      }
+
+      .nav-links li a {
+        color: #000000;
+        text-decoration: none;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links li a i {
+        font-size: 22px;
+        margin-right: 20px;
+      }
+
+      .active {
+        background: #7c7a7a;
+        width: 100%;
+        height: 47px;
+        position: absolute;
+        left: 0;
+        top: 2.6%;
+        z-index: -1;
+        border-radius: 6px;
+        box-shadow: 0 5px 10px rgba(255, 255, 255, 0.4);
+        display: none;
+        transition: top 0.5s;
+      }
+
+      .nav-links li:hover a {
+        color: darkblue;
+        transition: 0.3s;
+      }
+
+      .nav-links li:hover ~ .active {
+        display: block;
+      }
+
+      .nav-links li:nth-child(1):hover ~ .active {
+        top: 2.6%;
+      }
+
+      .nav-links li:nth-child(2):hover ~ .active {
+        top: 19.2%;
+      }
+
+      .nav-links li:nth-child(3):hover ~ .active {
+        top: 35.8%;
+      }
+
+      .nav-links li:nth-child(4):hover ~ .active {
+        top: 52.4%;
+      }
+
+      .nav-links li:nth-child(5):hover ~ .active {
+        top: 69%;
+      }
+
+      .nav-links li:nth-child(6):hover ~ .active {
+        top: 85.6%;
+      }
+    </style>
+  </h:head>
+  <h:body>
+    <div class="container" style="background-color: white; width: 1200px">
+      <h:form style="background-color: white">
+        <p:menubar style="background-color: white">
+          <f:facet name="options">
+            <div class="ui-input-icon-left mr-2">
+              <i class="pi pi-fw pi-search" />
+              <p:inputText placeholder="Search" />
+            </div>
+          </f:facet>
+
+          <p:submenu
+            label="LEONARD"
+            icon="pi pi-fw pi-user"
+            style="float: right"
+          >
+            <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" />
+            <p:menuitem value="Report Issue" icon="" />
+          </p:submenu>
+        </p:menubar>
+      </h:form>
+    </div>
+    <div class="side-nav">
+      <div style="position: sticky">
+        <a href="#" class="logo">
+          <h:graphicImage
+            url="/resources/images/logo.png"
+            styleClass="logo-img"
+          />
+        </a>
+        <ul class="nav-links">
+          <li>
+            <p:link outcome="/pages/dashboard/Dashboard.xhtml">
+              <h:graphicImage
+                url="/resources/images/home.png"
+                styleClass="nav-image"
+              />
+              <p style="padding-left: 8px">HOME</p>
+            </p:link>
+          </li>
+          <li>
+            <p:link outcome="/pages/loan/Loan.xhtml">
+              <h:graphicImage
+                url="/resources/images/loan.png"
+                styleClass="nav-image"
+              />
+              <p style="padding-left: 8px">APPLY FOR LOAN</p>
+            </p:link>
+          </li>
+          <li>
+            <p:link outcome="/pages/transaction/Transaction.xhtml">
+              <h:graphicImage
+                url="/resources/images/transaction.png"
+                styleClass="nav-image"
+              />
+              <p style="padding-left: 8px">TRANSACTIONS</p>
+            </p:link>
+          </li>
+          <li>
+            <p:link outcome="/pages/account/Account.xhtml">
+              <h:graphicImage
+                      url="/resources/images/bank.png"
+                      styleClass="nav-image"
+              />
+              <p style="padding-left: 8px">MY ACCOUNT</p>
+            </p:link>
+          </li>
+          <li>
+            <a href="#">
+              <h:graphicImage
+                url="/resources/images/setting.png"
+                styleClass="nav-image"
+              />
+              <p style="padding-left: 8px">SETTINGS</p>
+            </a>
+          </li>
+          <li>
+            <p:link outcome="/pages/authentication/Login.xhtml">
+              <h:graphicImage
+                url="/resources/images/shutdown.png"
+                styleClass="nav-image"
+              />
+              <p style="padding-left: 8px">LOGOUT</p>
+            </p:link>
+          </li>
+          <li class="active"></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container" style="position: relative; margin-left: 280px">
+      <!--      Deposit or withdraw-->
+      <h2 style="text-align: center; color: darkblue; margin-bottom: 10px">
+        DEPOSIT TO YOUR SACCO ACCOUNT
+      </h2>
+      <h:form style="position: relative">
+        <!-- Center the cards using PrimeFlex -->
+        <div class="card-container">
+          <div class="card" style="margin-left: 80px">
+            <div class="icon">
+              <h:graphicImage
+                url="/resources/images/mtn.jpg"
+                styleClass="img"
+              />
+              <h:graphicImage
+                url="/resources/images/airtel.jpg"
+                styleClass="img"
+              />
+            </div>
+            <h3 style="color: darkblue">Mobile Money</h3>
+            <!-- Card content -->
+            <p style="margin-top: 10px">Use mobile money to deposit money</p>
+
+            <!-- Continue button -->
+            <p:commandButton
+              value="Continue"
+              onclick="showFormDialog1();"
+              style="margin-top: 10px"
+            />
+          </div>
+          <div class="card" style="margin-right: 60px">
+            <div class="icon">
+              <h:graphicImage
+                url="/resources/images/bankpicture.png"
+                styleClass="img"
+              />
+            </div>
+            <h3 style="color: darkblue">Bank Transfer</h3>
+            <p style="margin-top: 10px">Deposit from a bank</p>
+
+            <!-- Continue button -->
+            <p:commandButton
+              value="Continue"
+              onclick="showFormDialog2();"
+              style="margin-top: 10px"
+            />
+          </div>
+        </div>
+
+        <!-- Dialog for the first form -->
+        <p:dialog
+          header="Deposit From MobileMoney"
+          widgetVar="formDialog1"
+          modal="true"
+          resizable="false"
+        >
+          <h:panelGrid columns="2" cellpadding="5" cellspacing="10">
+            <h:outputLabel for="contact1" value="Contact:" />
+            <p:inputText id="contact1" />
+
+            <h:outputLabel for="amount1" value="Amount:" />
+            <p:inputText id="amount1" />
+
+            <p:commandButton
+              value="Deposit"
+              action="#{registrationBean.registerCard1}"
+            />
+          </h:panelGrid>
+        </p:dialog>
+
+        <!-- Dialog for the second form -->
+        <p:dialog
+          header="Deposit From MobileMoney"
+          widgetVar="formDialog2"
+          modal="true"
+          resizable="false"
+        >
+          <h:panelGrid columns="2" cellpadding="10" cellspacing="10">
+            <h:outputLabel for="bankNum" value="Account Number:" />
+            <p:inputText id="bankNum" />
+
+            <h:outputLabel for="bankName" value="Bank Name:" />
+            <p:inputText id="bankName" />
+
+            <h:outputLabel for="amount2" value="Amount:" />
+            <p:inputText id="amount2" />
+
+            <p:commandButton
+              value="Deposit"
+              action="#{registrationBean.registerCard2}"
+            />
+          </h:panelGrid>
+        </p:dialog>
+      </h:form>
+
+      <h2
+        style="
+          text-align: center;
+          color: darkblue;
+          margin-bottom: 10px;
+          margin-top: 60px;
+        "
+      >
+        WITHDRAW FROM YOUR SACCO ACCOUNT
+      </h2>
+      <h:form style="position: relative">
+        <!-- Center the cards using PrimeFlex -->
+        <div class="card-container">
+          <div class="card" style="margin-left: 80px">
+            <div class="icon">
+              <h:graphicImage
+                url="/resources/images/mtn.jpg"
+                styleClass="img"
+              />
+              <h:graphicImage
+                url="/resources/images/airtel.jpg"
+                styleClass="img"
+              />
+            </div>
+            <h3 style="color: darkblue">Mobile Money</h3>
+            <!-- Card content -->
+            <p style="margin-top: 10px">Withdraw to mobile money</p>
+
+            <!-- Continue button -->
+            <p:commandButton
+              value="Continue"
+              onclick="showFormDialog1();"
+              style="margin-top: 10px"
+            />
+          </div>
+          <div class="card" style="margin-right: 60px">
+            <div class="icon">
+              <h:graphicImage
+                url="/resources/images/bankpicture.png"
+                styleClass="img"
+              />
+            </div>
+            <h3 style="color: darkblue">Bank Transfer</h3>
+            <p style="margin-top: 10px">Withdraw to a bank</p>
+
+            <!-- Continue button -->
+            <p:commandButton
+              value="Continue"
+              onclick="showFormDialog2();"
+              style="margin-top: 10px"
+            />
+          </div>
+        </div>
+
+        <!-- Dialog for the first form -->
+        <p:dialog
+          header="Withdraw to MobileMoney"
+          widgetVar="formDialog1"
+          modal="true"
+          resizable="false"
+        >
+          <h:panelGrid columns="2" cellpadding="5" cellspacing="10">
+            <h:outputLabel for="contact2" value="Contact:" />
+            <p:inputText id="contact2" />
+
+            <h:outputLabel for="withDrawAmount1" value="Amount:" />
+            <p:inputText id="withDrawAmount1" />
+
+            <p:commandButton
+              value="Withdraw"
+              action="#{registrationBean.registerCard1}"
+            />
+          </h:panelGrid>
+        </p:dialog>
+
+        <!-- Dialog for the second form -->
+        <p:dialog
+          header="Withdraw to MobileMoney"
+          widgetVar="formDialog2"
+          modal="true"
+          resizable="false"
+        >
+          <h:panelGrid columns="2" cellpadding="10" cellspacing="10">
+            <h:outputLabel for="bankNum1" value="Account Number:" />
+            <p:inputText id="bankNum1" />
+
+            <h:outputLabel for="bankName" value="Bank Name:" />
+            <p:inputText id="bankName1" />
+
+            <h:outputLabel for="withDrawAmount2" value="Amount:" />
+            <p:inputText id="withDrawAmount2" />
+
+            <p:commandButton
+              value="Withdraw"
+              action="#{registrationBean.registerCard2}"
+            />
+          </h:panelGrid>
+        </p:dialog>
+      </h:form>
+
+      <!--table to show all transactions-->
+      <div style="margin-top: 40px">
+        <h2 style="color: darkblue; margin-bottom: 10px">MY TRANSACTIONS</h2>
+        <h:form style="background-color: #f4fafe">
+          <p:dataTable
+            var="customer"
+            value="#{dtFilterView.customers3}"
+            widgetVar="customersTable3"
+            emptyMessage="No customers found with given criteria"
+            filteredValue="#{dtFilterView.filteredCustomers3}"
+            globalFilterFunction="#{dtFilterView.globalFilterFunction}"
+            style="background-color: #f4fafe"
+          >
+            <f:facet name="header">
+              <div class="flex justify-content-end">
+                <p:inputText
+                  id="globalFilter"
+                  onkeyup="PF('customersTable3').filter()"
+                  style="width: 300px"
+                  placeholder="Search all fields using global function"
+                />
+              </div>
+            </f:facet>
+
+            <p:column field="name" filterable="false" />
+
+            <p:column
+              field="description"
+              headerText="Description"
+              filterable="false"
+            >
+              <p:graphicImage
+                name="images/avatar/#{customer.representative.image}"
+                library="demo"
+                width="32"
+                style="vertical-align: middle"
+              />
+              <h:outputText
+                style="vertical-align: middle; margin-left: 0.5rem"
+                value="#{customer.representative.name}"
+              />
+            </p:column>
+
+            <p:column field="date" filterable="false" />
+
+            <p:column field="status" filterable="false">
+              <span
+                class="customer-badge status-#{customer.status.name().toLowerCase()}"
+                >#{customer.status.toString()}</span
+              >
+            </p:column>
+          </p:dataTable>
+        </h:form>
+      </div>
+
+      <p:fieldset
+        legend="ABOUT US"
+        toggleable="true"
+        toggleSpeed="500"
+        style="
+          width: auto;
+          margin-left: 30px;
+          margin-top: 40px;
+          background-color: black;
+          color: white;
+        "
+      >
+        <p:ajax event="toggle" />
+        <p class="m-0">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Inventore sed
+          consequuntur error repudiandae numquam deserunt quisquam repellat
+          libero asperiores earum nam nobis, culpa ratione quam perferendis
+          esse, cupiditate neque quas! Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+          deserunt quisquam repellat libero asperiores earum nam nobis, culpa
+          ratione quam perferendis esse, cupiditate neque quas! Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit. Inventore sed
+          consequuntur error repudiandae numquam deserunt quisquam repellat
+          libero asperiores earum nam nobis, culpa ratione quam perferendis
+          esse, cupiditate neque quas!Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+          deserunt quisquam repellat libero asperiores earum nam nobis, culpa
+          ratione quam perferendis esse, cupiditate neque quas!
+        </p>
+      </p:fieldset>
+    </div>
+  </h:body>
+</html>
