@@ -47,6 +47,12 @@
         font-family: "Poppins", sans-serif;
       }
 
+      .header {
+        width: 100%;
+        height: 100vh;
+        background: #f5f5f5;
+      }
+
       .side-nav {
         width: 250px;
         height: 130%;
@@ -140,49 +146,23 @@
       .nav-links li:nth-child(6):hover ~ .active {
         top: 85.6%;
       }
-      .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin-top: 20px;
-      }
-      .card1 {
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-        transition: transform 0.3s;
-      }
-      .card1:hover {
-        transform: translateY(-10px);
-      }
-
-      .card {
-        width: 200px;
-        background-color: #f4fafe;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s;
-      }
-
-      .card:hover {
-        transform: translateY(-5px);
-      }
     </style>
   </h:head>
   <h:body>
     <div class="container" style="background-color: white; width: 1200px">
-      <h:form style="background-color: white; position: sticky" >
+      <h:form style="background-color: white">
         <p:menubar style="background-color: white">
           <f:facet name="options">
             <div class="ui-input-icon-left mr-2">
               <i class="pi pi-fw pi-search" />
-              <p:inputText placeholder="Search" style="color: black" />
+              <p:inputText placeholder="Search" />
             </div>
           </f:facet>
 
           <p:submenu
             label="LEONARD"
             icon="pi pi-fw pi-user"
-            style="float: right; color: black"
+            style="float: right"
           >
             <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" />
             <p:menuitem value="Report Issue" icon="" />
@@ -258,104 +238,123 @@
       </div>
     </div>
 
-    <div class="card-container">
-      <div class="card" style="margin-left: 350px">
-        <div class="icon">
-          <i class="pi pi-arrow-right-arrow-left" aria-hidden="true"></i>
-        </div>
-        <h3 style="color: darkblue">Transactions</h3>
-        <p>0</p>
-      </div>
-      <div class="card" style="margin-right: 100px">
-        <div class="icon">
-          <i class="pi pi-wallet" aria-hidden="true"></i>
-        </div>
-        <h3 style="color: darkblue">Account Balance</h3>
-        <p>shs.10,000</p>
-      </div>
-    </div>
-
     <div class="container" style="position: relative; margin-left: 280px">
-      <p:spacer />
+      <div class="card flex justify-content-center">
+        <f:view>
+          <div
+            class="w-9 h-auto border-50 bg-blue-50 shadow-1 p-2 border-round-sm"
+          >
+            <h:form>
+              <div style="margin-bottom: 20px; margin-top: 20px">
+                <h3>Confirm Personal Details</h3>
+              </div>
 
-      <h2 style="text-align: center; color: darkblue">
-        SERVICES OFFERED AT IN THE SACCO
-      </h2>
-      <p:panelGrid
-        columns="3"
-        layout="grid"
-        styleClass="showcase-text-align-center "
-        style="margin-left: 20px; width: auto; background-color: non"
-      >
-        <p:card
-          style="width: 320px; height: 450px; background-color: #f4fafe"
-          styleClass="card1"
-        >
-          <h:graphicImage
-            url="/resources/images/piggy.jpg"
-            style="width: 260px; height: auto"
-          />
-          <h3 style="margin-top: 12px; color: darkblue">SAVINGS ACCOUNT</h3>
-          <p style="color: #000000; margin-top: 10px">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
-            sed consequuntur error repudiandae numquam deserunt quisquam
-            repellat libero asperiores earum nam nobis, culpa ratione quam
-            perferendis esse, cupiditate neque quas!
-          </p>
+              <div class="formgrid grid">
+                <div class="field col-12 md:col-6">
+                  <label for="firstname6">First Name</label>
+                  <input
+                    id="firstname6"
+                    type="text"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  />
+                </div>
+                <div class="field col-12 md:col-6">
+                  <label for="lastname6">Last Name</label>
+                  <input
+                    id="lastname6"
+                    type="text"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  />
+                </div>
+                <div class="field col-12 md:col-6">
+                  <label for="city">NationalID Number</label>
+                  <input
+                    id="city"
+                    type="text"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  />
+                </div>
+                <div class="field col-12 md:col-6">
+                  <label for="date">Date of Birth</label>
+                  <input
+                    id="date"
+                    type="date"
+                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    style="appearance: auto"
+                  />
+                </div>
+                <div class="field col-12">
+                  <div class="field">
+                    <label for="email">Email</label>
+                    <input
+                      id="email"
+                      type="text"
+                      class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    />
+                  </div>
+                </div>
+              </div>
 
-          <p:link style="display: flex; margin-top: 20px; margin-left: 30%">
-            <h:graphicImage
-                    url="/resources/images/readmore.png"
-                    style="width: 20px; height: 20px"
-            />
-            <p style="padding-left: 8px">Read more</p>
-          </p:link>
-        </p:card>
+              <p:divider />
+              <div style="margin-bottom: 20px">
+                <h3>Financial Details</h3>
+              </div>
 
-        <p:card style="width: 320px; height: 450px; background-color: #f4fafe" styleClass="card1">
-          <h:graphicImage
-            url="/resources/images/finance2.jpg"
-            style="width: 260px; height: auto"
-          />
-          <h3 style="margin-top: 12px; color: darkblue">LOAN AQUISITION</h3>
-          <p style="color: #000000; margin-top: 10px">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
-            sed consequuntur error repudiandae numquam deserunt quisquam
-            repellat libero asperiores earum nam nobis, culpa ratione quam
-            perferendis esse, cupiditate neque quas!
-          </p>
+              <div class="formgrid grid">
+                <div class="field col-12 md:col-6">
+                  <label for="bank">Amount Required</label>
+                  <input
+                    id="bank"
+                    type="number"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    required="required"
+                  />
+                </div>
+                <div class="field col-12 md:col-6">
+                  <label for="account">Amount to Pay per month</label>
+                  <input
+                    id="account"
+                    type="number"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    required="required"
+                  />
+                </div>
 
-          <p:link style="display: flex; margin-top: 20px; margin-left: 30%">
-            <h:graphicImage
-                    url="/resources/images/readmore.png"
-                    style="width: 20px; height: 20px"
-            />
-            <p style="padding-left: 8px">Read more</p>
-          </p:link>
-        </p:card>
+                <div class="field col-12 md:col-6">
+                  <label for="income">Source of Income</label>
+                  <input
+                    id="income"
+                    type="text"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  />
+                </div>
+                <div class="field col-12 md:col-6">
+                  <label for="date1">Date expected to have loan finished</label>
+                  <input
+                    id="date1"
+                    type="date"
+                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                    style="appearance: auto"
+                  />
+                </div>
 
-        <p:card style="width: 320px; height: 450px; background-color: #f4fafe" styleClass="card1">
-          <h:graphicImage
-            url="/resources/images/R2.jpeg"
-            style="width: 260px; height: auto"
-          />
-          <h3 style="margin-top: 12px; color: darkblue">SACCO INVESTMENTS</h3>
-          <p style="color: #000000; margin-top: 10px">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
-            sed consequuntur error repudiandae numquam deserunt quisquam
-            repellat libero asperiores earum nam nobis, culpa ratione quam
-            perferendis esse, cupiditate neque quas!
-          </p>
+                <div class="field col-12">
+                  <label for="date1">Reason for getting the loan</label>
+                  <p:inputTextarea
+                    rows="6"
+                    col="33"
+                    styleClass="field col-12"
+                  />
+                </div>
 
-          <p:link style="display: flex; margin-top: 20px; margin-left: 30%">
-            <h:graphicImage
-                    url="/resources/images/readmore.png"
-                    style="width: 20px; height: 20px"
-            />
-            <p style="padding-left: 8px">Read more</p>
-          </p:link>
-        </p:card>
-      </p:panelGrid>
+                <div class="field col-12 flex justify-content-center">
+                  <p:button value="APPLY" />
+                </div>
+              </div>
+            </h:form>
+          </div>
+        </f:view>
+      </div>
 
       <p:fieldset
         legend="ABOUT US"
