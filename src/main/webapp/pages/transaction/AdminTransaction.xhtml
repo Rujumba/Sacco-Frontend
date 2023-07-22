@@ -180,7 +180,7 @@
          </a>
          <ul class="nav-links">
             <li>
-               <p:link outcome="/pages/admin/Admin.xhtml">
+               <p:link outcome="/pages/dashboard/AdminDashboard.xhtml">
                   <h:graphicImage
                           url="/resources/images/home.png"
                           styleClass="nav-image"
@@ -207,13 +207,13 @@
                </p:link>
             </li>
             <li>
-               <p:link outcome="/pages/account/Account.xhtml">
+               <p:commandLink action="#{adminAccount.getUsersOfStatus()}">
                   <h:graphicImage
-                          url="/resources/images/bank.png"
+                          url="/resources/images/account.png"
                           styleClass="nav-image"
                   />
                   <p style="padding-left: 8px">ACCOUNTS</p>
-               </p:link>
+               </p:commandLink>
             </li>
             <li>
                <a href="#">
@@ -250,25 +250,21 @@
 
                <f:facet name="header">
                   <div class="flex justify-content-end">
-                     <p:inputText id="globalFilter" onkeyup="PF('customersTable3').filter()" style="width:300px"
+                     <p:inputText id="fliter" onkeyup="PF('customersTable3').filter()" style="width:300px"
                                   placeholder="Search all fields using global function" />
                   </div>
                </f:facet>
 
                <p:column field="Name" filterable="false"/>
 
-               <p:column headerText="Income Range" sortBy="#{customer.country.name}" >
+               <p:column headerText="Method of Deposit" sortBy="#{customer.country.name}" >
                   <span class="flag flag-#{customer.country.code}" style="width: 30px; height: 20px" />
                   <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{customer.country.name}" />
                </p:column>
 
                <p:column field="Date" filterable="false"/>
 
-               <p:column headerText="Employment Status" sortBy="#{customer.activity}">
-                  <p:progressBar value="#{customer.activity}" displayOnly="true" style="height: .5rem" />
-               </p:column>
-
-               <p:column headerText="Loan Amount" sortBy="#{customer.loanAmount}">
+               <p:column headerText="Deposit Amount" sortBy="#{customer.WithdrawAmount}">
                   <p:progressBar value="#{customer.loanAmount}" displayOnly="true" style="height: .5rem" />
                </p:column>
 
@@ -280,7 +276,7 @@
       </div>
 
       <div class="card" style="width: auto">
-         <h1 style="color: darkblue; margin-top: 40px; margin-bottom: 20px">VERIFY WITHDRAWALS</h1>
+         <h1 style="color: darkblue; margin-top: 40px; margin-bottom: 20px">APPROVE WITHDRAWALS</h1>
          <h:form>
             <p:dataTable var="customer" value="#{dtFilterView.customers3}" widgetVar="customersTable3"
                          emptyMessage="No customers found with given criteria"
@@ -296,18 +292,14 @@
 
                <p:column field="Name" filterable="false"/>
 
-               <p:column headerText="Income Range" sortBy="#{customer.country.name}" >
+               <p:column headerText="Method of Withdrawal" sortBy="#{customer.country.name}" >
                   <span class="flag flag-#{customer.country.code}" style="width: 30px; height: 20px" />
                   <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{customer.country.name}" />
                </p:column>
 
                <p:column field="Date" filterable="false"/>
 
-               <p:column headerText="Employment Status" sortBy="#{customer.activity}">
-                  <p:progressBar value="#{customer.activity}" displayOnly="true" style="height: .5rem" />
-               </p:column>
-
-               <p:column headerText="Loan Amount" sortBy="#{customer.loanAmount}">
+               <p:column headerText="Withdraw Amount" sortBy="#{customer.loanAmount}">
                   <p:progressBar value="#{customer.loanAmount}" displayOnly="true" style="height: .5rem" />
                </p:column>
 

@@ -1,7 +1,8 @@
-package org.pahappa.systems.kimanyisacco.transactions;
+package org.pahappa.systems.kimanyisacco.views.transaction;
 
 ;
 import org.pahappa.systems.kimanyisacco.models.User;
+import org.pahappa.systems.kimanyisacco.models.UserTransaction;
 import org.pahappa.systems.kimanyisacco.services.SaccoServiceImp;
 import org.pahappa.systems.kimanyisacco.services.SaccoServices;
 
@@ -13,21 +14,13 @@ import java.util.Date;
 @ManagedBean (name = "transactionsBean")
 @SessionScoped
 public class Transactions {
-    private User user;
+    private UserTransaction userTransaction;
 
     private final String base = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
 
     private SaccoServices saccoServices;
 
     private Date systemTime;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public SaccoServices getSaccoServices() {
         return saccoServices;
@@ -46,8 +39,16 @@ public class Transactions {
     }
 
     public Transactions(){
-        this.user = new User();
+        this.userTransaction= new UserTransaction();
         this.saccoServices = new SaccoServiceImp();
         this.systemTime = new Date();
+    }
+
+    public UserTransaction getUserTransaction() {
+        return userTransaction;
+    }
+
+    public void setUserTransaction(UserTransaction userTransaction) {
+        this.userTransaction = userTransaction;
     }
 }

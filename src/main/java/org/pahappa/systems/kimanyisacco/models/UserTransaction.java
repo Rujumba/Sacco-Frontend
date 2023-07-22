@@ -3,12 +3,11 @@ package org.pahappa.systems.kimanyisacco.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "transactions")
-public class Transaction {
+public class UserTransaction {
     private String name;
     private String amount;
     private String type;
@@ -21,6 +20,8 @@ public class Transaction {
     private Date dateCreated;
 
     private String email;
+
+    private int TotalAmount;
 
     //getter and setter methods
 
@@ -88,5 +89,15 @@ public class Transaction {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    //should have a default of zero
+    @Column (name = "total_amount", nullable = false, columnDefinition = "int default 0")
+    public int getTotalAmount() {
+        return TotalAmount;
+    }
+
+    public void setTotalAmount(int totalAmount) {
+        TotalAmount = totalAmount;
     }
 }

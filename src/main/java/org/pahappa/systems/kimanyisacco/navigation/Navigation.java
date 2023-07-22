@@ -13,9 +13,11 @@ public class Navigation {
 
     private final String dashboard = "/pages/dashboard/Dashboard.xhtml";
 
+    private final String adminDashboard = "/pages/dashboard/AdminDashboard.xhtml";
+
     private final String landing = "/pages/landing/Landing.xhtml";
 
-    private final String transaction = "/pages/transaction/Transaction.xhtml";
+    private final String transaction = "/pages/transaction/UserTransaction.xhtml";
 
     private final String login = "/pages/authentication/Login.xhtml";
 
@@ -45,5 +47,9 @@ public class Navigation {
 
     public String getRegister() {
         return register;
+    }
+
+    public String getAdminDashboard() {
+        return adminDashboard;
     }
 }

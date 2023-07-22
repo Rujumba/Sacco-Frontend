@@ -40,7 +40,7 @@
 // Set Options
          const options = {
             title: 'SACCO ACCOUNTS',
-            is3D: true
+            is3D: true,
          };
 
 // Draw
@@ -76,6 +76,26 @@
    </script>
    <style>
 
+      .img {
+         width: 70px;
+         height: 70px;
+         margin-bottom: 10px;
+      }
+
+      .card-container {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: space-evenly;
+         margin-top: 20px;
+      }
+      .card1 {
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+         transition: transform 0.3s;
+      }
+      .card1:hover {
+         transform: translateY(-10px);
+      }
+
       .container {
          margin: 5px auto;
          width: auto;
@@ -85,6 +105,15 @@
          /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);*/
          text-align: center;
          margin-right: 10px;
+      }
+      .card {
+         width: auto;
+         background-color: #f4fafe;
+         border-radius: 10px;
+         margin-left: 20px;
+         padding: 20px;
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+         transition: transform 0.3s;
       }
 
       .logo {
@@ -227,7 +256,7 @@
          </a>
          <ul class="nav-links">
             <li>
-               <p:link outcome="/pages/admin/Admin.xhtml">
+               <p:link outcome="/pages/dashboard/AdminDashboard.xhtml">
                   <h:graphicImage
                           url="/resources/images/home.png"
                           styleClass="nav-image"
@@ -254,13 +283,13 @@
                </p:link>
             </li>
             <li>
-               <p:link outcome="/pages/account/Account.xhtml">
+               <p:commandLink action="#{adminAccount.getUsersOfStatus()}">
                   <h:graphicImage
                           url="/resources/images/account.png"
                           styleClass="nav-image"
                   />
                   <p style="padding-left: 8px">ACCOUNTS</p>
-               </p:link>
+               </p:commandLink>
             </li>
             <li>
                <a href="#">
@@ -285,50 +314,60 @@
       </div>
    </div>
 
-   <div class="container" style="position: relative; margin-left: 280px">
+   <div class="container" style="position: absolute; margin-left: 280px">
+      <h:outputText styleClass="text-6xl text-center  font-bold" style="color: darkblue" value="ADMINSTRATOR DASHBOARD"/>
 
-      <h1 style="text-align: center; color: darkblue">
-         WELCOME TO THE ADMINSTRATOR DASHBOARD
-      </h1>
-      <div id="myChart" style="width:100%; max-width:800px; height:700px; margin-left: 220px">
+      <div class="card-container">
+         <div id="myChart" class="card1" style="width:100%; max-width:500px; height:480px; background-color: white">
 
+         </div>
+
+
+         <div class="card-container">
+
+            <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center " >
+               <p:card styleClass="card1" style="height: 200px; width: 200px; background-color: #f4fafe">
+
+                     <div class="icon">
+                        <p:graphicImage url="/resources/images/group.png" styleClass="img" />
+                     </div>
+                     <h3 style="color: darkblue">MEMBERS</h3>
+                  <h4 style="margin-top: 23px">shs.10,000</h4>
+
+               </p:card>
+
+               <p:card styleClass="card1" style="height: 200px; width: 200px; background-color: #f4fafe">
+
+                     <div class="IMG">
+                        <p:graphicImage url="/resources/images/file.png" styleClass="img" />
+                     </div>
+                     <h4 style="color: red">PENDING TRANSACTIONS</h4>
+
+                  <h4 style="margin-top: 15px">shs.10,000</h4>
+
+
+               </p:card>
+
+            <p:card styleClass="card1" style="height: 200px; width: 200px; background-color: #f4fafe">
+                  <div class="icon">
+                     <p:graphicImage url="/resources/images/available.png" styleClass="img" />
+                  </div>
+                     <h4 style="color: darkblue">AVAILABLE</h4>
+                     <h4 style="color: darkblue"> LOANABLE AMOUNT</h4>
+               <h4 style="margin-top: 15px">shs.10,000</h4>
+            </p:card>
+
+            <p:card styleClass="card1" style="height: 200px; width: 200px; background-color: #f4fafe">
+                  <div class="icon">
+                     <p:graphicImage url="/resources/images/loan.png" styleClass="img" />
+                  </div>
+                  <h3 style="color: darkblue;">UNPAID LOANS</h3>
+                  <h4 style="margin-top: 23px">shs.10,000</h4>
+            </p:card>
+            </p:panelGrid>
+
+         </div>
       </div>
-
-   <div class="card">
-      <h2>ACCOUNTS WAITING FOR VERIFICATION</h2>
-      <h:form>
-         <p:dataTable var="customer" value="#{dtFilterView.customers3}" widgetVar="customersTable3"
-                      emptyMessage="No customers found with given criteria"
-                      filteredValue="#{dtFilterView.filteredCustomers3}"
-                      globalFilterFunction="#{dtFilterView.globalFilterFunction}">
-
-            <f:facet name="header">
-               <div class="flex justify-content-end">
-                  <p:inputText id="globalFilter" onkeyup="PF('customersTable3').filter()" style="width:300px"
-                               placeholder="Search all fields using global function" />
-               </div>
-            </f:facet>
-
-            <p:column field="Name" filterable="false"/>
-
-            <p:column headerText="Income Range" sortBy="#{customer.country.name}" >
-               <span class="flag flag-#{customer.country.code}" style="width: 30px; height: 20px" />
-               <h:outputText style="vertical-align: middle; margin-left: .5rem" value="#{customer.country.name}" />
-            </p:column>
-
-            <p:column field="Date" filterable="false"/>
-
-            <p:column field="status" filterable="false">
-               <span class="customer-badge status-#{customer.status.name().toLowerCase()}">#{customer.status.toString()}</span>
-            </p:column>
-
-            <p:column headerText="Employment Status" sortBy="#{customer.activity}">
-               <p:progressBar value="#{customer.activity}" displayOnly="true" style="height: .5rem" />
-            </p:column>
-         </p:dataTable>
-      </h:form>
-   </div>
-
 
       <p:fieldset
               legend="ABOUT US"
@@ -367,6 +406,8 @@
             ratione quam perferendis esse, cupiditate neque quas!
          </p>
       </p:fieldset>
+
+
    </div>
 </h:body>
 </html>

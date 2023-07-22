@@ -1,2 +1,14 @@
-package org.pahappa.systems.kimanyisacco.constants;public class EmployStatus {
+package org.pahappa.systems.kimanyisacco.constants;
+
+public enum EmployStatus {
+
+    EMPLOYED,
+
+    UNEMPLOYED,
+
+    SELF_EMPLOYED,
+
+    RETIRED,
+
+    STUDENT
 }

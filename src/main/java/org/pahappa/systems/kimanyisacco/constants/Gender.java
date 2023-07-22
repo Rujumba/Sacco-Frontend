@@ -1,2 +1,10 @@
-package org.pahappa.systems.kimanyisacco.constants;public class Gender {
+package org.pahappa.systems.kimanyisacco.constants;
+
+public enum Gender {
+    MALE,
+
+    FEMALE,
+
+    OTHER
+
 }

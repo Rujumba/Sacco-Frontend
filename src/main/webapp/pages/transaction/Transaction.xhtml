@@ -30,6 +30,14 @@
       function showFormDialog2() {
         PF("formDialog2").show();
       }
+
+      function showFormDialog3(){
+        PF("formDialog3").show();
+      }
+
+      function showFormDialog4(){
+        PF("formDialog4").show();
+      }
     </script>
     <style>
       .card-container {
@@ -345,7 +353,7 @@
 
         <!-- Dialog for the second form -->
         <p:dialog
-          header="Deposit From MobileMoney"
+          header="Deposit From Bank"
           widgetVar="formDialog2"
           modal="true"
           resizable="false"
@@ -399,7 +407,7 @@
             <!-- Continue button -->
             <p:commandButton
               value="Continue"
-              onclick="showFormDialog1();"
+              onclick="showFormDialog3();"
               style="margin-top: 10px"
             />
           </div>
@@ -414,18 +422,15 @@
             <p style="margin-top: 10px">Withdraw to a bank</p>
 
             <!-- Continue button -->
-            <p:commandButton
-              value="Continue"
-              onclick="showFormDialog2();"
-              style="margin-top: 10px"
-            />
+            <p:commandButton value="Continue"
+                             type="submit" onclick="showFormDialog4()" styleClass="center-button" style="margin-top: 10px"/>
           </div>
         </div>
 
         <!-- Dialog for the first form -->
         <p:dialog
-          header="Withdraw to MobileMoney"
-          widgetVar="formDialog1"
+          header="Withdraw to Mobile Money"
+          widgetVar="formDialog3"
           modal="true"
           resizable="false"
         >
@@ -436,17 +441,15 @@
             <h:outputLabel for="withDrawAmount1" value="Amount:" />
             <p:inputText id="withDrawAmount1" />
 
-            <p:commandButton
-              value="Withdraw"
-              action="#{registrationBean.registerCard1}"
-            />
+
+            <p:commandButton value="Withdraw" type="submit" styleClass="center-button" />
           </h:panelGrid>
         </p:dialog>
 
         <!-- Dialog for the second form -->
         <p:dialog
-          header="Withdraw to MobileMoney"
-          widgetVar="formDialog2"
+          header="Withdraw to Bank"
+          widgetVar="formDialog4"
           modal="true"
           resizable="false"
         >
@@ -460,10 +463,13 @@
             <h:outputLabel for="withDrawAmount2" value="Amount:" />
             <p:inputText id="withDrawAmount2" />
 
-            <p:commandButton
-              value="Withdraw"
-              action="#{registrationBean.registerCard2}"
-            />
+<!--            <p:commandButton-->
+<!--              value="Withdraw"-->
+<!--              action="#{registrationBean.registerCard2}"-->
+<!--              styleClass="center-button"-->
+<!--            />-->
+            <p:commandButton value="Withdraw" styleClass="center-button"
+                             type="submit" action="#{registrationBean.registerCard2}"/>
           </h:panelGrid>
         </p:dialog>
       </h:form>

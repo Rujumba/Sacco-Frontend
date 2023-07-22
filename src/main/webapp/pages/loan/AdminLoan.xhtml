@@ -180,7 +180,7 @@
             </a>
             <ul class="nav-links">
                 <li>
-                    <p:link outcome="/pages/admin/Admin.xhtml">
+                    <p:link outcome="/pages/dashboard/AdminDashboard.xhtml">
                         <h:graphicImage
                                 url="/resources/images/home.png"
                                 styleClass="nav-image"
@@ -207,13 +207,13 @@
                     </p:link>
                 </li>
                 <li>
-                    <p:link outcome="/pages/account/Account.xhtml">
+                    <p:commandLink action="#{adminAccount.getUsersOfStatus()}">
                         <h:graphicImage
-                                url="/resources/images/bank.png"
+                                url="/resources/images/account.png"
                                 styleClass="nav-image"
                         />
                         <p style="padding-left: 8px">ACCOUNTS</p>
-                    </p:link>
+                    </p:commandLink>
                 </li>
                 <li>
                     <a href="#">

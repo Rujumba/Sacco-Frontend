@@ -18,7 +18,7 @@
       <style>
         .container {
           margin: 50px auto;
-          margin-top: 170px;
+          margin-top: 120px;
           width: 450px;
           padding: 20px;
           background-color: #f4fafe;
@@ -67,13 +67,19 @@
         <h:form>
           <p:messages id="messages" />
           <h:panelGrid columns="2" cellpadding="15">
+            <h:outputLabel for="userType" value="User:" />
+            <p:selectOneMenu id="userType" name="userType" required="true" >
+              <f:selectItem itemLabel="Select User Type" itemValue="" />
+              <f:selectItem itemLabel="Admin" itemValue="admin" />
+              <f:selectItem itemLabel="user" itemValue="user" />
+            </p:selectOneMenu>
             <h:outputLabel for="email" value="Email:" />
-            <p:inputText id="email" name="email" required="true">
+            <p:inputText id="email" name="email" required="true" value="#{loginForm.user.email}">
               <f:validateRegex pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
             </p:inputText>
 
             <h:outputLabel for="password" value="Password:" />
-            <p:password id="password" name="password" required="true" toggleMask="true" redisplay="true" />
+            <p:password id="password" name="password" required="true" toggleMask="true" redisplay="true" value="#{loginForm.user.password}"/>
 
             <p:spacer />
 
@@ -97,14 +103,12 @@
                     <composite:inputTextWrapper id="notNullInCompositeComposite" value="#{outputLabelView.value}" />
                     -->
           </h:panelGrid>
-          <div class="center-button" style="color: #45a049">
-            <p:commandButton
-              type="submit"
-              action="#{navigation.getDashboard()}"
-              value="Login"
-            />
+          <div style="color: #45a049">
+
+            <p:commandButton value="Log In" type="submit" styleClass="center-button" action="#{loginForm.doLogin()}"/>
 
           </div>
+          <p:growl update="message" />
         </h:form>
         <h6>
           Don't have an account?<p:link
