@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 @SessionScoped
@@ -43,7 +44,7 @@ public class Dashboard {
     }
 
     public Dashboard(){
-        this.user = new User();
+        this.user = getCurrentUser();
         this.saccoServices = new SaccoServiceImp();
     }
 
@@ -55,13 +56,12 @@ public class Dashboard {
         this.userList = userList;
     }
 
-    public void getUsersOfStatus() throws IOException {
-        userList = saccoServices.getAllUsersOfStatus();
-        FacesContext.getCurrentInstance().getExternalContext().redirect(base + Hyperlinks.ADMINACCOUNT);
-        for (User user : userList) {
-            System.out.println(user.getName());
 
-        }
-
+    public User getCurrentUser() {
+        // Used to fetch currently logged in user
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        return (User) externalContext.getSessionMap().get("currentUser");
     }
+
 }

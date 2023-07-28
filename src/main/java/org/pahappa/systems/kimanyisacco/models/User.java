@@ -4,12 +4,11 @@ import org.pahappa.systems.kimanyisacco.constants.Gender;
 import org.pahappa.systems.kimanyisacco.constants.IncomeRange;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class User {
-
-    private long id;
+public class User implements Serializable {
 
     private String name;
     private EmployStatus employmentStatus;
@@ -26,22 +25,11 @@ public class User {
 
     private String password;
 
-    private String confirmPassword;
-
-    private String accountNumber;
+    private Account account;
 
     private String status;
 
     //getter and setter methods
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id", nullable = false, updatable = false)
-    public long getId(){
-        return id;
-    }
-    public void setId(long id){
-        this.id = id;
-    }
 
     @Column(name = "client_name", nullable = false)
     public String getName(){
@@ -118,21 +106,14 @@ public class User {
         this.password = password;
     }
 
-    public String getConfirmPassword(){
-        return confirmPassword;
+    @OneToOne(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @JoinColumn(name = "account_number")
+    public Account getAccount(){
+        return account;
     }
 
-    public void setConfirmPassword(String confirmPassword){
-        this.confirmPassword = confirmPassword;
-    }
-
-    @Column(name = "account_number", nullable = false)
-    public String getAccountNumber(){
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber){
-        this.accountNumber = accountNumber;
+    public void setAccount(Account account){
+        this.account = account;
     }
 
     @Column(name = "status", nullable = false)

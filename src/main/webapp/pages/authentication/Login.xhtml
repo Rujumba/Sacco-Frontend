@@ -60,55 +60,46 @@
   <h:body>
     <f:view>
       <div class="container">
+        <p:messages id="message" />
         <h1 style="position: absolute; margin-left: 30px">KIMWANYI SACCO</h1>
         <h:graphicImage class="logo" url="/resources/images/logo.png" />
         <h2>Welcomes you</h2>
         <h6>LOGIN TO ACCESS THE SACCO</h6>
-        <h:form>
-          <p:messages id="messages" />
+        <h:form id="LoginForm">
           <h:panelGrid columns="2" cellpadding="15">
-            <h:outputLabel for="userType" value="User:" />
-            <p:selectOneMenu id="userType" name="userType" required="true" >
-              <f:selectItem itemLabel="Select User Type" itemValue="" />
-              <f:selectItem itemLabel="Admin" itemValue="admin" />
-              <f:selectItem itemLabel="user" itemValue="user" />
-            </p:selectOneMenu>
             <h:outputLabel for="email" value="Email:" />
-            <p:inputText id="email" name="email" required="true" value="#{loginForm.user.email}">
+            <p:inputText
+              id="email"
+              name="email"
+              required="true"
+              value="#{loginForm.user.email}"
+            >
               <f:validateRegex pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
             </p:inputText>
 
             <h:outputLabel for="password" value="Password:" />
-            <p:password id="password" name="password" required="true" toggleMask="true" redisplay="true" value="#{loginForm.user.password}"/>
+            <p:password
+              id="password"
+              name="password"
+              required="true"
+              toggleMask="true"
+              redisplay="true"
+              value="#{loginForm.user.password}"
+            />
 
             <p:spacer />
-
-            <!-- For testing, don't remove!
-                    <p:outputLabel for="@next" value="Label which considers @NotNull:" />
-                    <p:inputText id="nullable" value="#{outputLabelView.nullableValue}" />
-
-                    <p:outputLabel for="@next" value="Label which considers @NotNull:" />
-                    <p:inputText id="notNull" value="#{outputLabelView.value}" />
-
-                    <p:outputLabel for="@next" value="Label for input wrapped in composite:" />
-                    <composite:inputTextWrapper id="nullableInComposite" value="#{outputLabelView.nullableValue}" required="true" />
-
-                    <p:outputLabel for="@next" value="Label for input wrapped in composite, considering @NotNull:" />
-                    <composite:inputTextWrapper id="notNullInComposite" value="#{outputLabelView.value}" />
-
-                    <p:outputLabel for="@next" value="Label for input wrapped wrapped in composite:" />
-                    <composite:inputTextWrapper id="nullableInCompositeComposite" value="#{outputLabelView.nullableValue}" required="true" />
-
-                    <p:outputLabel for="@next" value="Label for input wrapped wrapped in composite, considering @NotNull:" />
-                    <composite:inputTextWrapper id="notNullInCompositeComposite" value="#{outputLabelView.value}" />
-                    -->
           </h:panelGrid>
           <div style="color: #45a049">
-
-            <p:commandButton value="Log In" type="submit" styleClass="center-button" action="#{loginForm.doLogin()}"/>
-
+            <p:growl id="messages" showDetail="true" />
+            <p:commandButton
+              update="messages"
+              icon="pi pi-user"
+              value="Login In"
+              type="submit"
+              styleClass="center-button"
+              action="#{loginForm.doLogin()}"
+            />
           </div>
-          <p:growl update="message" />
         </h:form>
         <h6>
           Don't have an account?<p:link

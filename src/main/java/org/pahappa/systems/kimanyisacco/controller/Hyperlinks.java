@@ -11,7 +11,7 @@ public class Hyperlinks {
 
     public static final String ACCOUNT = "/pages/account/Account.xhtml";
 
-    public static final String TRANSACTION = "/pages/transaction/UserTransaction.xhtml";
+    public static final String TRANSACTION = "/pages/transaction/Transaction.xhtml";
 
     public static final String ADMINACCOUNT = "/pages/account/AdminAccount.xhtml";
 
@@ -21,8 +21,7 @@ public class Hyperlinks {
 
     public static final String ADMINDASHBOARD = "/pages/dashboard/AdminDashboard.xhtml";
 
-
-
+    public static final String HISTORY = "/pages/history/History.xhtml";
 }
 
 

@@ -1,39 +1,26 @@
 package org.pahappa.systems.kimanyisacco.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "transactions")
 public class UserTransaction {
-    private String name;
-    private String amount;
+
+    private Long id;
     private String type;
     private String status;
 
-    private String accountNumber;
+    private Account account;
 
     private String method;
 
     private Date dateCreated;
 
-    private String email;
-
-    private int TotalAmount;
+    private float amount;
 
     //getter and setter methods
 
-
-    @Column(name = "amount", nullable = false)
-    public String getAmount(){
-        return amount;
-    }
-
-    public void setAmount(String amount){
-        this.amount=amount;
-    }
 
     @Column (name = "transaction_type", nullable = false)
     public String getType(){
@@ -53,13 +40,14 @@ public class UserTransaction {
         this.status=status;
     }
 
-    @Column (name = "account_number", nullable = false)
-    public String getAccountNumber(){
-        return accountNumber;
+    @ManyToOne
+    @JoinColumn(name = "account", nullable = false)
+    public Account getAccount(){
+        return account;
     }
 
-    public void setAccountNumber(String accountNumber){
-        this.accountNumber=accountNumber;
+    public void setAccount(Account account){
+        this.account=account;
     }
 
     @Column (name = "transaction_method", nullable = false)
@@ -71,17 +59,6 @@ public class UserTransaction {
         this.method=method;
     }
 
-
-
-    @Column (name = "email", nullable = false)
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @Column (name = "date_created", nullable = false)
     public Date getDateCreated() {
         return dateCreated;
@@ -91,13 +68,21 @@ public class UserTransaction {
         this.dateCreated = dateCreated;
     }
 
-    //should have a default of zero
-    @Column (name = "total_amount", nullable = false, columnDefinition = "int default 0")
-    public int getTotalAmount() {
-        return TotalAmount;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
+        return id;
     }
 
-    public void setTotalAmount(int totalAmount) {
-        TotalAmount = totalAmount;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 }

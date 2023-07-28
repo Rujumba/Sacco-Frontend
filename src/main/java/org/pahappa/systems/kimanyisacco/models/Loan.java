@@ -1,53 +1,40 @@
 package org.pahappa.systems.kimanyisacco.models;
 
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
+@Table(name = "loans")
 public class Loan {
-    private int id;
-    private String name;
-    private String date;
-    private String amount;
+
+
+    private Date dateCreated;
+    private double loanAmount;
     private String status;
-
-    private String accountNumber;
-
-    private String nin;
-
     private String reason;
 
-    private int duration;
+    private Date duration;
 
     private int amountPaidPerMonth;
 
     private String SourceOfIncome;
 
+    private String interestRate;
+
+    private double TotalLoanAmount;
+
+    private Account account;
+
+    private Long loanID;
+
+    private User user;
+
     //getter and setter methods
 
-    public int getId(){
-        return id;
-    }
-    public void setId(int id){
-        this.id = id;
-    }
 
-    public String getName(){
-        return name;
-    }
-    public void setName(String name){
-        this.name = name;
-    }
-    public String getDate(){
-        return date;
-    }
-    public void setDate(String date){
-        this.date=date;
-    }
-    public String getAmount(){
-        return amount;
-    }
 
-    public void setAmount(String amount){
-        this.amount=amount;
-    }
 
+    @Column (name = "loan_status", nullable = false)
     public String getStatus(){
         return status;
     }
@@ -56,22 +43,7 @@ public class Loan {
         this.status=status;
     }
 
-    public String getAccountNumber(){
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber){
-        this.accountNumber=accountNumber;
-    }
-
-    public String getNin(){
-        return nin;
-    }
-
-    public void setNin(String nin){
-        this.nin=nin;
-    }
-
+    @Column (name = "loan_reason", nullable = false)
     public String getReason(){
         return reason;
     }
@@ -80,14 +52,16 @@ public class Loan {
         this.reason=reason;
     }
 
-    public int getDuration(){
+    @Column (name = "loan_duration", nullable = false)
+    public Date getDuration(){
         return duration;
     }
 
-    public void setDuration(int duration){
+    public void setDuration(Date duration){
         this.duration=duration;
     }
 
+    @Column (name = "loan_amount_monthly", nullable = false)
     public int getAmountPaidPerMonth(){
         return amountPaidPerMonth;
     }
@@ -96,6 +70,7 @@ public class Loan {
         this.amountPaidPerMonth=amountPaidPerMonth;
     }
 
+    @Column (name = "source_of_income", nullable = false)
     public String getSourceOfIncome(){
         return SourceOfIncome;
     }
@@ -105,5 +80,70 @@ public class Loan {
     }
 
 
+    @Column (name = "interest_rate", nullable = false)
+    public String getInterestRate() {
+        return interestRate;
+    }
 
+    public void setInterestRate(String interestRate) {
+        this.interestRate = interestRate;
+    }
+
+
+    @Column (name = "total_loan_amount", nullable = false)
+    public double getTotalLoanAmount() {
+        return TotalLoanAmount;
+    }
+
+    public void setTotalLoanAmount(double totalLoanAmount) {
+        TotalLoanAmount = totalLoanAmount;
+    }
+
+    @Column (name = "loan_amount", nullable = false)
+    public double getLoanAmount() {
+        return loanAmount;
+    }
+
+    public void setLoanAmount(double loanAmount) {
+        this.loanAmount = loanAmount;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "account", nullable = false)
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public void setLoanID(Long loanID) {
+        this.loanID = loanID;
+    }
+
+    @Id
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    public Long getLoanID() {
+        return loanID;
+    }
+
+    @Column (name = "date_created", nullable = false)
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user", nullable = false)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

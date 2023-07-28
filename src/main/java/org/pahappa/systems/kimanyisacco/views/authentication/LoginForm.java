@@ -1,15 +1,19 @@
 package org.pahappa.systems.kimanyisacco.views.authentication;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.pahappa.systems.kimanyisacco.controller.Hyperlinks;
+import org.pahappa.systems.kimanyisacco.models.Account;
 import org.pahappa.systems.kimanyisacco.models.User;
 import org.pahappa.systems.kimanyisacco.services.SaccoServiceImp;
 import org.pahappa.systems.kimanyisacco.services.SaccoServices;
@@ -30,6 +34,8 @@ public class LoginForm{
 
     FacesMessage message;
 
+    private User currentUser;
+
     //getters and setters
 
     public LoginForm(){
@@ -45,9 +51,6 @@ public class LoginForm{
         this.user = user;
     }
 
-    public void doLogout() throws IOException {
-
-    }
 
     public SaccoServices getSaccoServices() {
         return saccoServices;
@@ -58,25 +61,69 @@ public class LoginForm{
     }
 
     //methods
+    @PostConstruct
+    public void init() {
+        currentUser = getCurrentUser();
+
+        // Prevent non authenticated users from accessing this page
+        try {
+            if (currentUser == null) {
+                FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                externalContext.getSessionMap().put("currentUser", null);
+                externalContext.redirect(externalContext.getRequestContextPath() + Hyperlinks.LOGIN);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public void doLogin() throws IOException {
-        users= saccoServices.getAllUsers();
 
-        for (User user: users) {
-            if(user.getEmail().equals(this.user.getEmail()) && user.getPassword().equals(this.user.getPassword())){
+        User loggedUser = saccoServices.do_Login(this.user.getEmail());
+
+        if(loggedUser != null){
+            if ( BCrypt.checkpw(this.user.getPassword(), loggedUser.getPassword()) && loggedUser.getStatus().equals("verified")){
+                FacesContext context = FacesContext.getCurrentInstance();
+                ExternalContext externalContext = context.getExternalContext();
+
                 if(this.user.getEmail().contains("admin@gmail.com")){
-
+                    externalContext.getSessionMap().put("currentUser", loggedUser);
                     FacesContext.getCurrentInstance().getExternalContext().redirect(base+Hyperlinks.ADMINDASHBOARD);
                 }else{
+                    externalContext.getSessionMap().put("currentUser", loggedUser);
                     FacesContext.getCurrentInstance().getExternalContext().redirect(base+Hyperlinks.DASHBOARD);
                 }
+            }else {
+                message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Warning", "Invalid credentials or your account is not verified!");
+                FacesContext.getCurrentInstance().addMessage("LoginForm:messages", message);
             }
-            else {
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Warning", "Email or password dont exist! or your account is not verified");
-                FacesContext.getCurrentInstance().addMessage("myForm:messages", message);
-            }
+
+        }else{
+            message = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Warning", "Invalid credentials or your account is not verified!");
+            FacesContext.getCurrentInstance().addMessage("LoginForm:messages", message);
         }
 
 
+    }
+
+    public void doLogout() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.getSessionMap().put("currentUser", null);
+        externalContext.redirect(base+Hyperlinks.LOGIN);
+
+    }
+
+    public User getCurrentUser() {
+        // Used to fetch currently logged in user
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        return (User) externalContext.getSessionMap().get("currentUser");
+    }
+
+    private String hashPassword(String password) {
+        // Use a strong hashing algorithm
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 }

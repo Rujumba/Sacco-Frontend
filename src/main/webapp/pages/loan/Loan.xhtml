@@ -159,8 +159,7 @@
             </div>
           </f:facet>
 
-          <p:submenu
-            label="LEONARD"
+          <p:submenu label="#{loginForm.currentUser.name}"
             icon="pi pi-fw pi-user"
             style="float: right"
           >
@@ -209,29 +208,29 @@
           <li>
             <p:link outcome="/pages/account/Account.xhtml">
               <h:graphicImage
-                      url="/resources/images/bank.png"
+                      url="/resources/images/account.png"
                       styleClass="nav-image"
               />
               <p style="padding-left: 8px">MY ACCOUNT</p>
             </p:link>
           </li>
           <li>
-            <a href="#">
+            <p:link outcome="/pages/history/History.xhtml">
               <h:graphicImage
-                url="/resources/images/setting.png"
-                styleClass="nav-image"
+                      url="/resources/images/History.png"
+                      styleClass="nav-image"
               />
-              <p style="padding-left: 8px">SETTINGS</p>
-            </a>
+              <p style="padding-left: 8px">HISTORY</p>
+            </p:link>
           </li>
           <li>
-            <p:link outcome="/pages/authentication/Login.xhtml">
+            <p:commandLink action="#{loginForm.doLogout()}">
               <h:graphicImage
-                url="/resources/images/shutdown.png"
-                styleClass="nav-image"
+                      url="/resources/images/shutdown.png"
+                      styleClass="nav-image"
               />
               <p style="padding-left: 8px">LOGOUT</p>
-            </p:link>
+            </p:commandLink>
           </li>
           <li class="active"></li>
         </ul>
@@ -245,96 +244,52 @@
             class="w-9 h-auto border-50 bg-blue-50 shadow-1 p-2 border-round-sm"
           >
             <h:form>
-              <div style="margin-bottom: 20px; margin-top: 20px">
-                <h3>Confirm Personal Details</h3>
-              </div>
-
-              <div class="formgrid grid">
-                <div class="field col-12 md:col-6">
-                  <label for="firstname6">First Name</label>
-                  <input
-                    id="firstname6"
-                    type="text"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                  />
-                </div>
-                <div class="field col-12 md:col-6">
-                  <label for="lastname6">Last Name</label>
-                  <input
-                    id="lastname6"
-                    type="text"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                  />
-                </div>
-                <div class="field col-12 md:col-6">
-                  <label for="city">NationalID Number</label>
-                  <input
-                    id="city"
-                    type="text"
-                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                  />
-                </div>
-                <div class="field col-12 md:col-6">
-                  <label for="date">Date of Birth</label>
-                  <input
-                    id="date"
-                    type="date"
-                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
-                    style="appearance: auto"
-                  />
-                </div>
-                <div class="field col-12">
-                  <div class="field">
-                    <label for="email">Email</label>
-                    <input
-                      id="email"
-                      type="text"
-                      class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <p:divider />
-              <div style="margin-bottom: 20px">
+              <div style="margin: 20px">
                 <h3>Financial Details</h3>
               </div>
 
-              <div class="formgrid grid">
+              <div class="formgrid grid" style="margin: 30px">
                 <div class="field col-12 md:col-6">
                   <label for="bank">Amount Required</label>
-                  <input
+                  <p:inputText
                     id="bank"
                     type="number"
                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     required="required"
+                    value="#{loanBean.loan.loanAmount}"
                   />
                 </div>
                 <div class="field col-12 md:col-6">
                   <label for="account">Amount to Pay per month</label>
-                  <input
+                  <p:inputText
                     id="account"
                     type="number"
                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     required="required"
+                    value="#{loanBean.loan.amountPaidPerMonth}"
                   />
                 </div>
 
                 <div class="field col-12 md:col-6">
                   <label for="income">Source of Income</label>
-                  <input
+                  <p:inputText
                     id="income"
                     type="text"
                     class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    required="required"
+                    value="#{loanBean.loan.sourceOfIncome}"
                   />
                 </div>
                 <div class="field col-12 md:col-6">
                   <label for="date1">Date expected to have loan finished</label>
-                  <input
+                  <p:inputText
                     id="date1"
-                    type="date"
-                    class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
                     style="appearance: auto"
+                    type="date"
+                    required="required"
+                    value="#{loanBean.loan.duration}"
+                    placeholder="select date"
+                    styleClass="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                   />
                 </div>
 
@@ -344,16 +299,69 @@
                     rows="6"
                     col="33"
                     styleClass="field col-12"
+                    required="required"
+                    value="#{loanBean.loan.reason}"
                   />
                 </div>
 
                 <div class="field col-12 flex justify-content-center">
-                  <p:button value="APPLY" />
+                  <p:commandButton update="message" value="APPLY" icon="pi pi-check-square" action="#{loanBean.saveLoan()}" />
                 </div>
               </div>
+              <p:growl id="message" showDetail="true" />
             </h:form>
           </div>
         </f:view>
+      </div>
+
+
+
+      <div style="margin-top: 50px; ">
+        <h2 style="margin-bottom: 30px">LOAN REQUESTS</h2>
+        <h:form>
+          <p:dataTable var="loans" value="#{loanBean.userLoans}" widgetVar="AllPLoanTable"
+                       emptyMessage="No customers found with given criteria" id="AllPLoanTable"
+          >
+
+            <f:facet name="header">
+              <div class="flex justify-content-end">
+                <p:inputText id="globalf" onkeyup="PF('AllPLoanTable').filter()" style="width:300px"
+                             placeholder="Search all fields using global function" />
+              </div>
+            </f:facet>
+
+            <p:column headerText="Account Number" sortBy="#{loans.account.accountNumber}" >
+              <span class="flag flag-#{loans.account.accountNumber}" style="width: 30px; height: 20px" />
+              <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.account.accountNumber}" />
+            </p:column>
+
+            <p:column  headerText="Loan status" filterable="false">
+              <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.status}" />
+            </p:column>
+
+            <p:column headerText="Date Created" sortBy="#{loans.sourceOfIncome}">
+
+              <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.dateCreated}" />
+            </p:column>
+
+            <p:column headerText="FullPaymentBy" sortBy="#{loans.duration}}">
+
+              <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.duration}" />
+            </p:column>
+
+
+            <p:column  headerText="AmountPerMonth" filterable="false">
+              <span>#{loans.amountPaidPerMonth}</span>
+            </p:column>
+
+            <p:column  headerText="Total Loan Amount" filterable="false">
+              <span >#{loans.totalLoanAmount}</span>
+            </p:column>
+
+            <p:growl id="messages" showDetail="true"/>
+
+          </p:dataTable>
+        </h:form>
       </div>
 
       <p:fieldset

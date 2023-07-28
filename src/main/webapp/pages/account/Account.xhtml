@@ -21,9 +21,14 @@
         name="primeflex/3.3.1/primeflex.css"
         library="webjars"
       />
-      <h:outputStylesheet library="primeflex" name="primeflex.min.css" />
-      <h:outputStylesheet library="primeicons" name="primeicons.css" />
     </f:facet>
+
+      <script>
+          $(document).ready(function() {
+              $("#dob").attr("min", "1970-01-01");
+              $("#dob").attr("max", "2005-12-31");
+          });
+      </script>
 
     <style>
       .container {
@@ -36,6 +41,12 @@
         text-align: center;
         margin-right: 10px;
 
+      }
+
+      .same-width-input {
+          width: 200px; /* Adjust the width as per your requirement */
+          margin-right: 50px;
+          float: right;
       }
 
       .logo {
@@ -149,19 +160,7 @@
         top: 85.6%;
       }
     </style>
-<!--      <script>-->
-<!--          function showEditDialog(fieldName) {-->
-<!--              var inputs = document.querySelectorAll('#myForm input');-->
-<!--              inputs.forEach(input => {-->
-<!--                  if (input.id === fieldName) {-->
-<!--                      input.style.display = 'block';-->
-<!--                  } else {-->
-<!--                      input.style.display = 'none';-->
-<!--                  }-->
-<!--              });-->
-<!--              PF("fieldName").show();-->
-<!--          }-->
-<!--      </script>-->
+
   </h:head>
   <h:body>
     <div class="container" style="background-color: white; width: 1200px">
@@ -175,7 +174,7 @@
           </f:facet>
 
           <p:submenu
-            label="LEONARD"
+                  label="#{loginForm.currentUser.name}"
             icon="pi pi-fw pi-user"
             style="float: right"
           >
@@ -221,32 +220,32 @@
               <p style="padding-left: 8px">TRANSACTIONS</p>
             </p:link>
           </li>
+            <li>
+                <p:link outcome="/pages/account/Account.xhtml">
+                    <h:graphicImage
+                            url="/resources/images/account.png"
+                            styleClass="nav-image"
+                    />
+                    <p style="padding-left: 8px">MY ACCOUNT</p>
+                </p:link>
+            </li>
+            <li>
+                <p:link outcome="/pages/history/History.xhtml">
+                    <h:graphicImage
+                            url="/resources/images/History.png"
+                            styleClass="nav-image"
+                    />
+                    <p style="padding-left: 8px">HISTORY</p>
+                </p:link>
+            </li>
           <li>
-            <p:link outcome="/pages/account/Account.xhtml">
+            <p:commandLink action="#{loginForm.doLogout()}">
               <h:graphicImage
-                url="/resources/images/bank.png"
-                styleClass="nav-image"
-              />
-              <p style="padding-left: 8px">MY ACCOUNT</p>
-            </p:link>
-          </li>
-          <li>
-            <a href="#">
-              <h:graphicImage
-                url="/resources/images/setting.png"
-                styleClass="nav-image"
-              />
-              <p style="padding-left: 8px">SETTINGS</p>
-            </a>
-          </li>
-          <li>
-            <p:link outcome="/pages/authentication/Login.xhtml">
-              <h:graphicImage
-                url="/resources/images/shutdown.png"
-                styleClass="nav-image"
+                      url="/resources/images/shutdown.png"
+                      styleClass="nav-image"
               />
               <p style="padding-left: 8px">LOGOUT</p>
-            </p:link>
+            </p:commandLink>
           </li>
           <li class="active"></li>
         </ul>
@@ -254,7 +253,7 @@
     </div>
 
     <div class="container" style="position: relative; margin-left: 600px; width: 700px;">
-      <h:form id="myForm">
+<!--      <h:form id="myForm">-->
         <!-- Personal Details Section -->
         <div class="pf-mb-3">
 
@@ -263,7 +262,7 @@
           <div
             class="w-9 h-auto border-50 bg-blue-50 shadow-1 p-2 border-round-sm"
           >
-            <h:form>
+<!--            <h:form>-->
               <div style="margin-bottom: 20px; margin-top: 20px">
                 <h:graphicImage url="/resources/images/account.png" width="80px" height="80px"/>
                   <h1 style="margin-top: 15px; color: darkblue">PERSONAL DETAILS</h1>
@@ -271,240 +270,141 @@
               </div>
 
               <div class="formgrid grid">
-                <div class="field col-12">
-                  <label for="name">Name:</label>
-                  <h:outputText value="leonard" id="name" style="margin-left: 15px"/>
-                  <p:link onclick="PF('editNameDialog').show(); return false;" style="float: right">
-                    <h:graphicImage
-                            url="/resources/images/edit.png"
-                            styleClass="img"
-                    />
 
-                  </p:link>
+                <div class="field col-12">
+                    <h:form>
+                        <label for="Name">Name:</label>
+                        <p:commandLink action="#{accountBean.updateUserName()}" onclick="PF('confirmDialog').show();" style="float: right; margin-right: 30px">
+                            <h:graphicImage
+                                    url="/resources/images/edit.png"
+                                    styleClass="img"
+                            />
+
+                        </p:commandLink>
+                        <p:inputText id="Name" value="#{accountBean.user.name}" name="clientName" required="true" placeholder="#{accountBean.currentUser.name}" style="margin-left: 20px" styleClass="same-width-input"/>
+
+                    </h:form>
+                </div>
+
+                <div class="field col-12">
+                    <h:form>
+                        <label for="Name">Contact: </label>
+
+                        <p:commandLink action="#{accountBean.updateUserContact()}" style="float: right; margin-right: 30px" onclick="PF('confirmDialog').show();">
+                            <h:graphicImage
+                                    url="/resources/images/edit.png"
+                                    styleClass="img"
+                            />
+
+                        </p:commandLink>
+                        <p:inputText id="contact" value="#{accountBean.user.contact}" name="contact" required="true" placeholder="#{accountBean.currentUser.contact}" style="margin-left: 20px" styleClass="same-width-input"/>
+                    </h:form>
                 </div>
                 <div class="field col-12">
-                  <label for="email">Email:  </label>
-                  <h:outputText value="#{userBean.user.email}" id="email" style="margin-left: 15px"/>
-                  <p:link onclick="PF('editEmailDialog').show(); return false;" style="float: right">
-                    <h:graphicImage
-                            url="/resources/images/edit.png"
-                            styleClass="img"
-                    />
+                    <h:form>
+                        <label for="Name">Date of Birth:</label>
+                        <p:commandLink action="#{accountBean.updateUserBirth()}" style="float: right; margin-right: 30px; " onclick="PF('confirmDialog').show();">
+                            <h:graphicImage
+                                    url="/resources/images/edit.png"
+                                    styleClass="img"
+                            />
 
-                  </p:link>
+                        </p:commandLink>
+                        <p:calendar id="dateOfBirth" value="#{accountBean.user.dateOfBirth}" required="true" placeholder="#{accountBean.currentUser.dateOfBirth}"
+                                    mindate="01/01/1970" maxdate="31/12/2005" pattern="dd/MM/yyyy" styleClass="same-width-input"/>
+
+                    </h:form>
                 </div>
                 <div class="field col-12">
-                  <label for="contact">Contact:  </label>
-                  <h:outputText value="#{userBean.user.email}" id="contact" style="margin-left: 15px"/>
-                  <p:link onclick="PF('editContactDialog').show(); return false;" style="float: right">
-                    <h:graphicImage
-                            url="/resources/images/edit.png"
-                            styleClass="img"
-                    />
+                      <h:form>
+                          <label for="Name">Income:</label>
 
-                  </p:link>
+                          <p:commandLink action="#{accountBean.updateUserIncome()}" style="float: right; margin-right: 30px" onclick="PF('confirmDialog').show();">
+                              <h:graphicImage
+                                      url="/resources/images/edit.png"
+                                      styleClass="img"
+                              />
+                          </p:commandLink>
+
+                          <p:selectOneMenu
+                                  id="incomeRange"
+                                  required="true"
+                                  styleClass="drop-hover same-width-input"
+                                  value="#{accountBean.user.incomeRange}"
+                                  style="margin-left: 20px"
+                                  placeholder="#{accountBean.currentUser.incomeRange}"
+                          >
+                              <f:selectItems itemLabel="#{g}" itemValue="#{g}" var="g" value="#{accountBean.incomeRange }"/>
+
+                          </p:selectOneMenu>
+                      </h:form>
+
                 </div>
                 <div class="field col-12">
-                  <label for="date">Date of Birth:  </label>
-                  <h:outputText value="#{userBean.user.email}" id="date" style="margin-left: 15px" />
-                  <p:link onclick="PF('editDateDialog').show(); return false;" style="float: right">
-                    <h:graphicImage
-                            url="/resources/images/edit.png"
-                            styleClass="img"
-                    />
+                    <h:form>
+                        <label for="Name">Gender:</label>
 
-                  </p:link>
+                        <p:commandLink action="#{accountBean.updateUserGender()}" style="float: right; margin-right: 30px" onclick="PF('confirmDialog').show();">
+                            <h:graphicImage
+                                    url="/resources/images/edit.png"
+                                    styleClass="img"
+                            />
+
+                        </p:commandLink>
+                        <p:selectOneMenu
+                                id="gender"
+                                required="true"
+                                styleClass="drop-hover same-width-input"
+                                value="#{accountBean.user.gender}"
+                                style="margin-left: 20px"
+                                placeholder="#{accountBean.currentUser.gender}"
+                        >
+                            <f:selectItems itemLabel="#{g}" itemValue="#{g}" var="g" value="#{accountBean.gender}"/>
+
+                        </p:selectOneMenu>
+                    </h:form>
+
                 </div>
-                <div class="field col-12">
-                  <div class="field">
-                    <label for="income">Income Range:  </label>
-                    <h:outputText value="#{userBean.user.email}" id="income" style="margin-left: 15px" />
-                    <p:link onclick="PF('editIncomeDialog').show(); return false;" style="float: right">
-                      <h:graphicImage
-                              url="/resources/images/edit.png"
-                              styleClass="img"
-                      />
+                <div class="field col-12" style="margin-bottom: 30px">
+                    <h:form>
+                        <label for="Name">EmployStatus:</label>
 
-                    </p:link>
-                  </div>
-                </div>
-                <div class="field col-12">
-                  <div class="field">
-                    <label for="gender">Gender:  </label>
-                    <h:outputText value="#{userBean.user.email}" id="gender" style="margin-left: 15px" />
-                    <p:link onclick="PF('editGenderDialog').show(); return false;" style="float: right">
-                      <h:graphicImage
-                              url="/resources/images/edit.png"
-                              styleClass="img"
-                      />
+                        <p:commandLink action="#{accountBean.updateUserEmploy()}" style="float: right; margin-right: 30px" onclick="PF('confirmDialog').show();" >
+                            <h:graphicImage
+                                    url="/resources/images/edit.png"
+                                    styleClass="img"
+                            />
 
-                    </p:link>
-                  </div>
-                </div>
-                <div class="field col-12">
-                  <div class="field">
-                    <label for="empStatus">Employment Status:  </label>
-                    <h:outputText
-                      value="#{userBean.user.email}"
-                      id="empStatus"
-                      style="margin-left: 15px"
-                    />
+                        </p:commandLink>
 
-                    <p:link onclick="PF('editEmploymentDialog').show(); return false;" style="float: right">
-                      <h:graphicImage
-                              url="/resources/images/edit.png"
-                              styleClass="img"
-                      />
+                        <p:selectOneMenu
+                                id="employmentStatus"
+                                name="employmentStatus"
+                                required="true"
+                                styleClass="drop-hover same-width-input"
+                                value="#{accountBean.user.employmentStatus}"
+                                style="margin-left: 20px"
+                                placeholder="#{accountBean.currentUser.employmentStatus}"
+                        >
+                            <f:selectItems itemLabel="#{g}" itemValue="#{g}" var="g" value="#{accountBean.employStatus}"/>
+                        </p:selectOneMenu>
+                    </h:form>
 
-                    </p:link>
-                  </div>
                 </div>
               </div>
-            </h:form>
+<!--            </h:form>-->
           </div>
         </div>
 
-        <!-- Edit Name Dialog -->
-        <p:dialog id="editNameDialog" header="Edit Name" widgetVar="editNameDialog" modal="true" resizable="true">
-          <h:form>
-            <h:panelGrid columns="2" cellpadding="5" cellspacing="10px">
-              <h:outputLabel for="editName" value="Client Name:" />
-              <p:inputText id="editName" required="true" value="#{userBean.editName}" />
-              <!-- Save Button -->
-              <p:commandButton value="Save" action="#{userBean.saveName}" update="myForm:confirmDialog"
-                               oncomplete="PF('editNameDialog').hide(); PF('confirmDialog').show();" />
-            </h:panelGrid>
-          </h:form>
-        </p:dialog>
-
-        <!-- Edit Email Dialog -->
-        <p:dialog id="editEmailDialog" header="Edit Email" widgetVar="editEmailDialog" modal="true" resizable="true">
-          <h:form>
-            <h:panelGrid columns="2" cellpadding="5" cellspacing="10px">
-              <h:outputLabel for="editEmail" value="Email:" />
-              <p:inputText id="editEmail" name="editEmail" required="true" value="#{userBean.editEmail}">
-                <f:validateRegex pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
-              </p:inputText>
-              <!-- Save Button -->
-              <p:commandButton value="Save" action="#{userBean.saveEmail}" update="myForm:confirmDialog"
-                               oncomplete="PF('editEmailDialog').hide(); PF('confirmDialog').show();" />
-            </h:panelGrid>
-          </h:form>
-        </p:dialog>
-
-        <!-- Edit Contact Dialog -->
-        <p:dialog id="editContactDialog" header="Edit Contact" widgetVar="editContactDialog" modal="true" resizable="true">
-          <h:form>
-            <h:panelGrid columns="2" cellpadding="5" cellspacing="10px">
-              <h:outputLabel for="editContact" value="Client Contact:" />
-              <p:inputText id="editContact" name="clientContact" required="true" value="#{userBean.editContact}" />
-              <!-- Save Button -->
-              <p:commandButton value="Save" action="#{userBean.saveEmail}" update="myForm:confirmDialog"
-                               oncomplete="PF('editEmailDialog').hide(); PF('confirmDialog').show();" />
-            </h:panelGrid>
-          </h:form>
-        </p:dialog>
-
-        <!-- Edit DateOfBirth Dialog -->
-        <p:dialog id="editDateDialog" header="Edit DateOfBirth" widgetVar="editDateDialog" modal="true" resizable="true">
-          <h:form>
-            <h:panelGrid columns="2" cellpadding="5" cellspacing="10px">
-              <h:outputLabel for="editDate" value="Date of Birth:" />
-              <p:inputText id="editDate" name="dateOfBirth" required="true" type="date" value="#{userBean.editDate}" />
-              <!-- Save Button -->
-              <p:commandButton value="Save" action="#{userBean.saveEmail}" update="myForm:confirmDialog"
-                               oncomplete="PF('editEmailDialog').hide(); PF('confirmDialog').show();" />
-            </h:panelGrid>
-          </h:form>
-        </p:dialog>
-
-        <!-- Edit Gender Dialog -->
-        <p:dialog id="editGenderDialog" header="Edit Gender" widgetVar="editGenderDialog" modal="true" resizable="true">
-          <h:form>
-            <h:panelGrid columns="2" cellpadding="5" cellspacing="10px">
-              <h:outputLabel for="editGender" value="Gender:" />
-              <p:selectOneMenu
-                      id="editGender"
-                      name="gender"
-                      required="true"
-                      styleClass="drop-hover"
-                      value="#{userBean.editGender}"
-              >
-                <f:selectItem itemLabel="Select" itemValue="" />
-                <f:selectItem itemLabel="Male" itemValue="male" />
-                <f:selectItem itemLabel="Female" itemValue="female" />
-                <f:selectItem itemLabel="Other" itemValue="other" />
-              </p:selectOneMenu>
-
-              <!-- Save Button -->
-              <p:commandButton value="Save" action="#{userBean.saveEmail}" update="myForm:confirmDialog"
-                               oncomplete="PF('editEmailDialog').hide(); PF('confirmDialog').show();" />
-            </h:panelGrid>
-          </h:form>
-        </p:dialog>
-
-        <!-- Edit Employment status Dialog -->
-        <p:dialog id="editEmploymentDialog" header="Edit Employment status " widgetVar="editEmploymentDialog" modal="true" resizable="true">
-          <h:form>
-            <h:panelGrid columns="2" cellpadding="5" cellspacing="10px">
-              <h:outputLabel for="editEmployment" value="Employment Status:" />
-              <p:selectOneMenu
-                      id="editEmployment"
-                      name="employmentStatus"
-                      required="true"
-                      styleClass="drop-hover"
-                      value="#{userBean.editEmployment}"
-              >
-                <f:selectItem itemLabel="Select" itemValue="" />
-                <f:selectItem itemLabel="Employed" itemValue="Employed" />
-                <f:selectItem
-                        itemLabel="Self-Employed"
-                        itemValue="Self-Employed"
-                />
-                <f:selectItem itemLabel="Student" itemValue="Student" />
-                <f:selectItem itemLabel="Retired" itemValue="Retired" />
-              </p:selectOneMenu>
-              <!-- Save Button -->
-              <p:commandButton value="Save" action="#{userBean.saveEmail}" update="myForm:confirmDialog"
-                               oncomplete="PF('editEmailDialog').hide(); PF('confirmDialog').show();" />
-            </h:panelGrid>
-          </h:form>
-        </p:dialog>
-
-        <!-- Edit Income range Dialog -->
-        <p:dialog id="editIncomeDialog" header="Edit Income range" widgetVar="editIncomeDialog" modal="true" resizable="true">
-          <h:form>
-            <h:panelGrid columns="2" cellpadding="5" cellspacing="10px">
-              <h:outputLabel for="editIncome" value="Income Range:" />
-              <p:selectOneMenu
-                      id="editIncome"
-                      name="incomeRange"
-                      required="true"
-                      styleClass="drop-hover"
-                      value="#{userBean.editIncome}"
-              >
-                <f:selectItem itemLabel="Select" itemValue="" />
-                <f:selectItem itemLabel="&lt;500,000" itemValue="500000" />
-                <f:selectItem itemLabel="&lt;1,000,000" itemValue="1000000" />
-                <f:selectItem itemLabel="Above" itemValue="above" />
-              </p:selectOneMenu>
-
-              <!-- Save Button -->
-              <p:commandButton value="Save" action="#{userBean.saveEmail}" update="myForm:confirmDialog"
-                               oncomplete="PF('editEmailDialog').hide(); PF('confirmDialog').show();" />
-            </h:panelGrid>
-          </h:form>
-        </p:dialog>
 
 
         <!-- Confirmation Dialog -->
-          <p:confirmDialog id="confirmDialog" header="Confirm Save" widgetVar="confirmDialog" modal="true" resizable="true">
-              <h:outputText value="Are you sure you want to save changes?" />
-            <br/>
-              <p:commandButton value="Continue" type="submit" action="#{userBean.confirmSave}"
-                               oncomplete="PF('confirmDialog').hide(); PF('successDialog').show();" style="margin-top: 20px"/>
+          <p:dialog id="confirmDialog" header="Confirm Save" widgetVar="confirmDialog" modal="true" resizable="true" >
+              <h:outputText value="Are you sure you want to save changes?" style="margin-bottom: 10px; margin-top: 10px" />
+              <p:commandButton value="Continue" type="submit"
+                               oncomplete="PF('confirmDialog').hide(); PF('successDialog').show();" style="margin-top: 20px" action="#{accountBean.redirect()}"/>
               <p:commandButton value="Cancel" onclick="PF('confirmDialog').hide();" />
-          </p:confirmDialog>
+          </p:dialog>
 
         <!-- Success Dialog -->
         <p:dialog
@@ -513,9 +413,10 @@
           modal="true"
           resizable="true"
         >
-          <h:outputText value="Details saved successfully." />
+          <h:outputText value="Detail saved successfully." />
+
         </p:dialog>
-      </h:form>
+<!--      </h:form>-->
 
 
     </div>

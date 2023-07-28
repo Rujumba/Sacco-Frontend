@@ -236,7 +236,7 @@
             </f:facet>
 
             <p:submenu
-                    label="LEONARD"
+                    label="#{loginForm.currentUser.name}"
                     icon="pi pi-fw pi-user"
                     style="float: right"
             >
@@ -283,13 +283,13 @@
                </p:link>
             </li>
             <li>
-               <p:commandLink action="#{adminAccount.getUsersOfStatus()}">
+               <p:link outcome="/pages/account/AdminAccount.xhtml">
                   <h:graphicImage
                           url="/resources/images/account.png"
                           styleClass="nav-image"
                   />
                   <p style="padding-left: 8px">ACCOUNTS</p>
-               </p:commandLink>
+               </p:link>
             </li>
             <li>
                <a href="#">
@@ -301,13 +301,13 @@
                </a>
             </li>
             <li>
-               <p:link outcome="/pages/authentication/Login.xhtml">
+               <p:commandLink action="#{loginForm.doLogout()}">
                   <h:graphicImage
                           url="/resources/images/shutdown.png"
                           styleClass="nav-image"
                   />
                   <p style="padding-left: 8px">LOGOUT</p>
-               </p:link>
+               </p:commandLink>
             </li>
             <li class="active"></li>
          </ul>
@@ -332,7 +332,7 @@
                         <p:graphicImage url="/resources/images/group.png" styleClass="img" />
                      </div>
                      <h3 style="color: darkblue">MEMBERS</h3>
-                  <h4 style="margin-top: 23px">shs.10,000</h4>
+                  <h1 style="margin-top: 15px"><h:outputText value="#{adminAccount.numberOfMembers}"/></h1>
 
                </p:card>
 
@@ -341,9 +341,9 @@
                      <div class="IMG">
                         <p:graphicImage url="/resources/images/file.png" styleClass="img" />
                      </div>
-                     <h4 style="color: red">PENDING TRANSACTIONS</h4>
+                     <h4 style="color: red">PENDING WITHDRAWALS</h4>
 
-                  <h4 style="margin-top: 15px">shs.10,000</h4>
+                  <h2 style="margin-top: 7px"><h:outputText value="#{adminTransactionsBean.numberOfTransactions}"/></h2>
 
 
                </p:card>
@@ -361,8 +361,8 @@
                   <div class="icon">
                      <p:graphicImage url="/resources/images/loan.png" styleClass="img" />
                   </div>
-                  <h3 style="color: darkblue;">UNPAID LOANS</h3>
-                  <h4 style="margin-top: 23px">shs.10,000</h4>
+                  <h3 style="color: darkblue;">LOAN REQUESTS</h3>
+               <h2 style="margin-top: 7px"><h:outputText value="#{loanBean.pendingRequests}"/></h2>
             </p:card>
             </p:panelGrid>
 

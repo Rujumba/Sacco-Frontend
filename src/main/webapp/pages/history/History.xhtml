@@ -22,7 +22,46 @@
               library="webjars"
       />
    </f:facet>
+   <script type="text/javascript">
+      function showFormDialog1() {
+         PF("formDialog1").show();
+      }
+
+      function closeFormDialog1() {
+         PF("formDialog1").close();
+      }
+
+      function showFormDialog2() {
+         PF("formDialog2").show();
+      }
+
+      function closeFormDialog2() {
+         PF("formDialog2").close();
+      }
+
+
+   </script>
    <style>
+      .card-container {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         margin-top: 20px;
+      }
+
+      .card {
+         width: 500px;
+         background-color: #f4fafe;
+         border-radius: 10px;
+         padding: 20px;
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+         transition: transform 0.3s;
+      }
+
+      .card:hover {
+         transform: translateY(-5px);
+      }
+
       .container {
          margin: 5px auto;
          width: auto;
@@ -32,6 +71,12 @@
          /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);*/
          text-align: center;
          margin-right: 10px;
+      }
+
+      .img {
+         width: 70px;
+         height: 70px;
+         margin-bottom: 10px;
       }
 
       .logo {
@@ -149,6 +194,8 @@
    </style>
 </h:head>
 <h:body>
+
+
    <div class="container" style="background-color: white; width: 1200px">
       <h:form style="background-color: white">
          <p:menubar style="background-color: white">
@@ -180,7 +227,7 @@
          </a>
          <ul class="nav-links">
             <li>
-               <p:link outcome="/pages/dashboard/AdminDashboard.xhtml">
+               <p:link outcome="/pages/dashboard/Dashboard.xhtml">
                   <h:graphicImage
                           url="/resources/images/home.png"
                           styleClass="nav-image"
@@ -189,40 +236,40 @@
                </p:link>
             </li>
             <li>
-               <p:link outcome="/pages/loan/AdminLoan.xhtml">
+               <p:link outcome="/pages/loan/Loan.xhtml">
                   <h:graphicImage
                           url="/resources/images/loan.png"
                           styleClass="nav-image"
                   />
-                  <p style="padding-left: 8px">LOAN REQUESTS</p>
+                  <p style="padding-left: 8px">APPLY FOR LOAN</p>
                </p:link>
             </li>
             <li>
-               <p:link outcome="/pages/transaction/AdminTransaction.xhtml">
+               <p:link outcome="/pages/transaction/Transaction.xhtml">
                   <h:graphicImage
                           url="/resources/images/transaction.png"
                           styleClass="nav-image"
                   />
-                  <p style="padding-left: 8px">VERIFY TRANSACTIONS</p>
+                  <p style="padding-left: 8px">TRANSACTIONS</p>
                </p:link>
             </li>
             <li>
-               <p:link outcome="/pages/account/AdminAccount.xhtml">
+               <p:link outcome="/pages/account/Account.xhtml">
                   <h:graphicImage
                           url="/resources/images/account.png"
                           styleClass="nav-image"
                   />
-                  <p style="padding-left: 8px">ACCOUNTS</p>
+                  <p style="padding-left: 8px">MY ACCOUNT</p>
                </p:link>
             </li>
             <li>
-               <a href="#">
+               <p:link outcome="/pages/history/History.xhtml">
                   <h:graphicImage
-                          url="/resources/images/setting.png"
+                          url="/resources/images/History.png"
                           styleClass="nav-image"
                   />
-                  <p style="padding-left: 8px">SETTINGS</p>
-               </a>
+                  <p style="padding-left: 8px">HISTORY</p>
+               </p:link>
             </li>
             <li>
                <p:commandLink action="#{loginForm.doLogout()}">
@@ -241,10 +288,10 @@
    <div class="container" style="position: relative; margin-left: 280px">
 
       <div style="margin-top: 50px; ">
-         <h2 style="margin-bottom: 30px">WITHDRAW TRANSACTIONS</h2>
-         <h:form>
-            <p:dataTable var="withdraws" value="#{adminTransactionsBean.allUserWithdrawals}" widgetVar="withdrawTable"
-                         emptyMessage="No customers found with given criteria" id="withdrawTable"
+         <h1 style="margin-bottom: 30px">APPROVED WITHDRAWS</h1>
+         <h:form id="form1">
+            <p:dataTable var="withdraw" value="#{transactionsBean.allWithDrawsOfUser}" widgetVar="WithdrawTable"
+                         emptyMessage="No customers found with given criteria" id="WithdrawTable"
                          paginator="true"
                          rows="5"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -255,52 +302,45 @@
 
                <f:facet name="header">
                   <div class="flex justify-content-end">
-                     <p:inputText id="global" onkeyup="PF('withdrawTable').filter()" style="width:300px"
+                     <p:inputText id="global" onkeyup="PF('WithdrawTable').filter()" style="width:300px"
                                   placeholder="Search all fields using global function" />
                   </div>
                </f:facet>
 
-               <p:column headerText="Account Number"  >
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{withdraws.account.accountNumber}" />
+               <p:column headerText="Method" sortBy="#{withdraw.method}">
+
+                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{withdraw.method}" />
                </p:column>
 
-               <p:column headerText="Date/Time"  sortBy="#{withdraws.dateCreated}">
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{withdraws.dateCreated}" />
-               </p:column>
+               <p:column headerText="Date/time" sortBy="#{withdraw.dateCreated}">
 
-               <p:column headerText="Method" sortBy="#{withdraws.method}">
-
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{withdraws.method}" />
-               </p:column>
-
-               <p:column headerText="Account Balance" sortBy="#{withdraws.account.amount}">
-
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{withdraws.account.amount}" />
-               </p:column>
-
-               <p:column headerText="Withdraw Amount" sortBy="#{withdraws.amount}">
-
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{withdraws.amount}" />
+                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{withdraw.dateCreated}" />
                </p:column>
 
 
                <p:column  headerText="Status" filterable="false">
-                  <span >#{withdraws.status}</span>
+                  <span >#{withdraw.status}</span>
                </p:column>
 
-               <p:column filterable="false">
-                  <p:commandButton value="Verify" icon="pi pi-check" styleClass="p-button-rounded p-button-success" update="withdrawTable" action="#{adminTransactionsBean.verifyWithdraw(withdraws)}" />
+               <p:column  headerText="Amount" filterable="false">
+                  <span>#{withdraw.amount}</span>
                </p:column>
+               <p:column headerText="Action" filterable="false" >
+                  <p:growl id="messages" showDetail="true" />
+                  <p:commandButton update="messages"  value="Withdraw" styleClass="p-button-rounded p-button-success" action="#{transactionsBean.ConfirmedWithdraw(withdraw)}" />
+               </p:column>
+               <p:messages />
 
             </p:dataTable>
          </h:form>
       </div>
 
+      <!--table to show all transactions-->
       <div style="margin-top: 50px; ">
-         <h2 style="margin-bottom: 30px">ALL SACCO TRANSACTIONS</h2>
-         <h:form>
-            <p:dataTable var="deposits" value="#{adminTransactionsBean.allUserTransactions}" widgetVar="withdrawTable"
-                         emptyMessage="No customers found with given criteria" id="depositTable"
+         <h2 style="margin-bottom: 30px">ALL MY TRANSACTIONS</h2>
+         <h:form id="form2">
+            <p:dataTable var="transactions" value="#{transactionsBean.allUserTransactions}" widgetVar="AllUserTable"
+                         emptyMessage="No customers found with given criteria" id="AllUserTable"
                          paginator="true"
                          rows="5"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -311,45 +351,33 @@
 
                <f:facet name="header">
                   <div class="flex justify-content-end">
-                     <p:inputText id="globalFilter" onkeyup="PF('depositTable').filter()" style="width:300px"
+                     <p:inputText id="global1" onkeyup="PF('transactionTable').filter()" style="width:300px"
                                   placeholder="Search all fields using global function" />
                   </div>
                </f:facet>
 
-               <p:column headerText="Account Number"  >
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{deposits.account.accountNumber}" />
+               <p:column headerText="Transaction Type" sortBy="#{transactions.type}" >
+                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{transactions.type}" />
                </p:column>
 
-               <p:column headerText="Method" sortBy="#{deposits.method}">
+               <p:column headerText="Method" sortBy="#{transactions.method}">
 
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{deposits.method}" />
+                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{transactions.method}" />
                </p:column>
 
-               <p:column headerText="Type" sortBy="#{deposits.type}">
+               <p:column headerText="Date/time" sortBy="#{transactions.dateCreated}">
 
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{deposits.type}" />
-               </p:column>
-
-               <p:column headerText="Method" sortBy="#{deposits.dateCreated}">
-
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{deposits.dateCreated}" />
-               </p:column>
-
-               <p:column headerText="Account Balance" sortBy="#{deposits.account.amount}">
-
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{deposits.account.amount}" />
-               </p:column>
-
-               <p:column headerText="Withdraw Amount" sortBy="#{deposits.amount}">
-
-                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{deposits.amount}" />
+                  <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{transactions.dateCreated}" />
                </p:column>
 
 
                <p:column  headerText="Status" filterable="false">
-                  <span >#{deposits.status}</span>
+                  <span >#{transactions.status}</span>
                </p:column>
 
+               <p:column  headerText="Amount" filterable="false">
+                  <span>#{transactions.amount}</span>
+               </p:column>
 
             </p:dataTable>
          </h:form>

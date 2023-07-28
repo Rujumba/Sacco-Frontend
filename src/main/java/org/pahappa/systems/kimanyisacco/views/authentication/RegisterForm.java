@@ -5,6 +5,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.pahappa.systems.kimanyisacco.constants.EmployStatus;
 import org.pahappa.systems.kimanyisacco.constants.Gender;
 import org.pahappa.systems.kimanyisacco.constants.IncomeRange;
@@ -63,32 +64,40 @@ public class RegisterForm {
 
     public void registerUsers() throws IOException {
         System.out.println("called");
-        users= saccoServices.getAllUsers();
+        boolean num= saccoServices.numberOfUsers();
         System.out.println("check1");
-        if (users.isEmpty()){
+        String password = hashPassword(this.user.getPassword());
+        this.user.setPassword(password);
+
+        if (num){
+
             System.out.println("check_empty");
             saccoServices.registerUser(this.user);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "User Registered Successfully"));
-            this.user = new User();
+            FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.LOGIN);
+
         }else {
-            for (User user: users){
+            boolean emailExists = saccoServices.emailExists(this.user.getEmail());
+            System.out.println("checkEmail");
 
-                if((user.getEmail()).equals(this.user.getEmail())){
-                    System.out.println("check2");
-                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Email already exists!");
-                    FacesContext.getCurrentInstance().addMessage("myForm:messages", message);
-                }else{
-                    System.out.println("check3");
-                    System.out.println(user.getEmail());
-                    saccoServices.registerUser(this.user);
-                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "User registered successfully!");
-                    FacesContext.getCurrentInstance().addMessage("myForm:messages", message);
-                    FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.LOGIN);
-                }
-                this.user = new User();
+            if(emailExists){
 
+                System.out.println("check2");
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Warning", "Email already exists!");
+                FacesContext.getCurrentInstance().addMessage("messages", message);
+
+
+            }else{
+                System.out.println("check3");
+                System.out.println(this.user.getEmail());
+                saccoServices.registerUser(this.user);
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "User registered successfully!");
+
+                FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.LOGIN);
+                FacesContext.getCurrentInstance().addMessage("message", message);
             }
         }
+        this.user = new User();
 
 
     }
@@ -117,5 +126,10 @@ public class RegisterForm {
 
     public Gender[] getGender(){
         return Gender.values();
+    }
+
+    private String hashPassword(String password) {
+        // Use a strong hashing algorithm
+        return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 }
