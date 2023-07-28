@@ -5,6 +5,7 @@
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:p="http://primefaces.org/ui"
   xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
   <h:head>
     <f:facet name="first">
@@ -22,20 +23,15 @@
       />
     </f:facet>
     <style>
-      .img {
-        width: 30px;
-        height: 30px;
-        margin-bottom: 10px;
-        margin-left: 30%;
-      }
       .container {
+        margin: 5px auto;
         width: auto;
         padding: 20px;
         background-color: #fff;
         border-radius: 10px;
         /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);*/
         text-align: center;
-        margin: 5px 10px 5px auto;
+        margin-right: 10px;
       }
 
       .logo {
@@ -49,6 +45,12 @@
         padding: 0;
         box-sizing: border-box;
         font-family: "Poppins", sans-serif;
+      }
+
+      .header {
+        width: 100%;
+        height: 100vh;
+        background: #f5f5f5;
       }
 
       .side-nav {
@@ -144,49 +146,22 @@
       .nav-links li:nth-child(6):hover ~ .active {
         top: 85.6%;
       }
-      .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin-top: 20px;
-      }
-      .card1 {
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-        transition: transform 0.3s;
-      }
-      .card1:hover {
-        transform: translateY(-10px);
-      }
-
-      .card {
-        width: 200px;
-        background-color: #f4fafe;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s;
-      }
-
-      .card:hover {
-        transform: translateY(-5px);
-      }
     </style>
   </h:head>
   <h:body>
     <div class="container" style="background-color: white; width: 1200px">
-      <h:form style="background-color: white; position: sticky" >
+      <h:form style="background-color: white">
         <p:menubar style="background-color: white">
           <f:facet name="options">
             <div class="ui-input-icon-left mr-2">
               <i class="pi pi-fw pi-search" />
-              <p:inputText placeholder="Search" style="color: black" />
+              <p:inputText placeholder="Search" />
             </div>
           </f:facet>
 
-          <p:submenu
-                  label="#{loginForm.currentUser.name}"
+          <p:submenu label="#{loginForm.currentUser.name}"
             icon="pi pi-fw pi-user"
-            style="float: right; color: black"
+            style="float: right"
           >
             <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" />
             <p:menuitem value="Report Issue" icon="" />
@@ -222,13 +197,13 @@
             </p:link>
           </li>
           <li>
-            <p:commandLink action="#{transactionsBean.UserTransactions()}">
+            <p:link outcome="/pages/transaction/Transaction.xhtml">
               <h:graphicImage
                 url="/resources/images/transaction.png"
                 styleClass="nav-image"
               />
               <p style="padding-left: 8px">TRANSACTIONS</p>
-            </p:commandLink>
+            </p:link>
           </li>
           <li>
             <p:link outcome="/pages/account/Account.xhtml">
@@ -242,8 +217,8 @@
           <li>
             <p:link outcome="/pages/history/History.xhtml">
               <h:graphicImage
-                url="/resources/images/History.png"
-                styleClass="nav-image"
+                      url="/resources/images/History.png"
+                      styleClass="nav-image"
               />
               <p style="padding-left: 8px">HISTORY</p>
             </p:link>
@@ -257,109 +232,137 @@
               <p style="padding-left: 8px">LOGOUT</p>
             </p:commandLink>
           </li>
-          <li class="active"/>
+          <li class="active"></li>
         </ul>
       </div>
     </div>
 
-    <div class="card-container">
-      <div class="card" style="margin-left: 350px">
-        <div class="icon" style="margin-left: 10px">
-          <p:graphicImage url="/resources/images/transaction.png" styleClass="img" />
-        </div>
-        <h3 style="color: darkblue; text-align: center">Transactions</h3>
-        <h2><h:outputText style="margin-left: 40%" value="#{transactionsBean.x}" /></h2>
-      </div>
-      <div class="card" style="margin-right: 100px">
-        <div class="icon" style="margin-left: 15px">
-          <p:graphicImage url="/resources/images/wallet.png" styleClass="img" />
-        </div>
-        <h3 style="color: darkblue; text-align: center">Account Balance</h3>
-        <h4><h:outputText style="margin-left: 30%" value="shs.#{transactionsBean.currentUser.account.amount}" /></h4>
-      </div>
-    </div>
-
     <div class="container" style="position: relative; margin-left: 280px">
-      <p:spacer />
+      <div class="card flex justify-content-center">
+        <f:view>
+          <div
+            class="w-9 h-auto border-50 bg-blue-50 shadow-1 p-2 border-round-sm"
+          >
+            <h:form>
+              <div style="margin: 20px">
+                <h3>Financial Details</h3>
+              </div>
 
-      <h2 style="text-align: center; color: darkblue">
-        SERVICES OFFERED AT IN THE SACCO
-      </h2>
-      <p:panelGrid
-        columns="3"
-        layout="grid"
-        styleClass="showcase-text-align-center "
-        style="margin-left: 20px; width: auto; background-color: non"
-      >
-        <p:card
-          style="width: 320px; height: 450px; background-color: #f4fafe"
-          styleClass="card1"
-        >
-          <h:graphicImage
-            url="/resources/images/piggy.jpg"
-            style="width: 260px; height: auto"
-          />
-          <h3 style="margin-top: 12px; color: darkblue">SAVINGS ACCOUNT</h3>
-          <p style="color: #000000; margin-top: 10px">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
-            sed consequuntur error repudiandae numquam deserunt quisquam
-            repellat libero asperiores earum nam nobis, culpa ratione quam
-            perferendis esse, cupiditate neque quas!
-          </p>
+              <div class="formgrid grid" style="margin: 30px">
+                <div class="field col-12 md:col-6">
+                  <label for="bank">Amount Required</label>
+                  <p:inputText
+                    id="bank"
+                    type="number"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    required="required"
+                    value="#{loanBean.loan.loanAmount}"
+                  />
+                </div>
+                <div class="field col-12 md:col-6">
+                  <label for="account">Amount to Pay per month</label>
+                  <p:inputText
+                    id="account"
+                    type="number"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    required="required"
+                    value="#{loanBean.loan.amountPaidPerMonth}"
+                  />
+                </div>
 
-          <p:link style="display: flex; margin-top: 20px; margin-left: 30%">
-            <h:graphicImage
-                    url="/resources/images/readmore.png"
-                    style="width: 20px; height: 20px"
-            />
-            <p style="padding-left: 8px">Read more</p>
-          </p:link>
-        </p:card>
+                <div class="field col-12 md:col-6">
+                  <label for="income">Source of Income</label>
+                  <p:inputText
+                    id="income"
+                    type="text"
+                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    required="required"
+                    value="#{loanBean.loan.sourceOfIncome}"
+                  />
+                </div>
+                <div class="field col-12 md:col-6">
+                  <label for="date1">Date expected to have loan finished</label>
+                  <p:inputText
+                    id="date1"
+                    style="appearance: auto"
+                    type="date"
+                    required="required"
+                    value="#{loanBean.loan.duration}"
+                    placeholder="select date"
+                    styleClass="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                  />
+                </div>
 
-        <p:card style="width: 320px; height: 450px; background-color: #f4fafe" styleClass="card1">
-          <h:graphicImage
-            url="/resources/images/finance2.jpg"
-            style="width: 260px; height: auto"
-          />
-          <h3 style="margin-top: 12px; color: darkblue">LOAN AQUISITION</h3>
-          <p style="color: #000000; margin-top: 10px">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
-            sed consequuntur error repudiandae numquam deserunt quisquam
-            repellat libero asperiores earum nam nobis, culpa ratione quam
-            perferendis esse, cupiditate neque quas!
-          </p>
+                <div class="field col-12">
+                  <label for="date1">Reason for getting the loan</label>
+                  <p:inputTextarea
+                    rows="6"
+                    col="33"
+                    styleClass="field col-12"
+                    required="required"
+                    value="#{loanBean.loan.reason}"
+                  />
+                </div>
 
-          <p:link style="display: flex; margin-top: 20px; margin-left: 30%">
-            <h:graphicImage
-                    url="/resources/images/readmore.png"
-                    style="width: 20px; height: 20px"
-            />
-            <p style="padding-left: 8px">Read more</p>
-          </p:link>
-        </p:card>
+                <div class="field col-12 flex justify-content-center">
+                  <p:commandButton update="message" value="APPLY" icon="pi pi-check-square" action="#{loanBean.saveLoan()}" />
+                </div>
+              </div>
+              <p:growl id="message" showDetail="true" />
+            </h:form>
+          </div>
+        </f:view>
+      </div>
 
-        <p:card style="width: 320px; height: 450px; background-color: #f4fafe" styleClass="card1">
-          <h:graphicImage
-            url="/resources/images/R2.jpeg"
-            style="width: 260px; height: auto"
-          />
-          <h3 style="margin-top: 12px; color: darkblue">SACCO INVESTMENTS</h3>
-          <p style="color: #000000; margin-top: 10px">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
-            sed consequuntur error repudiandae numquam deserunt quisquam
-            repellat libero asperiores earum nam nobis, culpa ratione quam
-            perferendis esse, cupiditate neque quas!
-          </p>
 
-          <p:link style="display: flex; margin-top: 20px; margin-left: 30%">
-            <h:graphicImage
-                    url="/resources/images/readmore.png"
-                    style="width: 20px; height: 20px"
-            />
-            <p style="padding-left: 8px">Read more</p>
-          </p:link>
-        </p:card>
-      </p:panelGrid>
+
+      <div style="margin-top: 50px; ">
+        <h2 style="margin-bottom: 30px">LOAN REQUESTS</h2>
+        <h:form>
+          <p:dataTable var="loans" value="#{loanBean.userLoans}" widgetVar="AllPLoanTable"
+                       emptyMessage="No customers found with given criteria" id="AllPLoanTable"
+          >
+
+            <f:facet name="header">
+              <div class="flex justify-content-end">
+                <p:inputText id="globalf" onkeyup="PF('AllPLoanTable').filter()" style="width:300px"
+                             placeholder="Search all fields using global function" />
+              </div>
+            </f:facet>
+
+            <p:column headerText="Account Number" sortBy="#{loans.account.accountNumber}" >
+              <span class="flag flag-#{loans.account.accountNumber}" style="width: 30px; height: 20px" />
+              <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.account.accountNumber}" />
+            </p:column>
+
+            <p:column  headerText="Loan status" filterable="false">
+              <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.status}" />
+            </p:column>
+
+            <p:column headerText="Date Created" sortBy="#{loans.sourceOfIncome}">
+
+              <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.dateCreated}" />
+            </p:column>
+
+            <p:column headerText="FullPaymentBy" sortBy="#{loans.duration}}">
+
+              <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.duration}" />
+            </p:column>
+
+
+            <p:column  headerText="AmountPerMonth" filterable="false">
+              <span>#{loans.amountPaidPerMonth}</span>
+            </p:column>
+
+            <p:column  headerText="Total Loan Amount" filterable="false">
+              <span >#{loans.totalLoanAmount}</span>
+            </p:column>
+
+            <p:growl id="messages" showDetail="true"/>
+
+          </p:dataTable>
+        </h:form>
+      </div>
 
       <p:fieldset
         legend="ABOUT US"

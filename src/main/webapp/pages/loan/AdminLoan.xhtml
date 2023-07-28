@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <h:outputStylesheet
+                name="primeflex/3.3.1/primeflex.css"
+                library="webjars"
+        />
+    </f:facet>
+    <style>
+        .container {
+            margin: 5px auto;
+            width: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);*/
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .logo {
+            width: auto;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .header {
+            width: 100%;
+            height: 100vh;
+            background: #f5f5f5;
+        }
+
+        .side-nav {
+            width: 250px;
+            height: 130%;
+            background-color: #f4fafe;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            width: 170px;
+            margin-top: 20px;
+        }
+        .nav-image {
+            width: 30px;
+            height: 30px;
+        }
+
+        .nav-links {
+            list-style: none;
+            position: relative;
+        }
+
+        .nav-links li {
+            padding: 10px 0;
+        }
+
+        .nav-links li a {
+            color: #000000;
+            text-decoration: none;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li a i {
+            font-size: 22px;
+            margin-right: 20px;
+        }
+
+        .active {
+            background: #7c7a7a;
+            width: 100%;
+            height: 47px;
+            position: absolute;
+            left: 0;
+            top: 2.6%;
+            z-index: -1;
+            border-radius: 6px;
+            box-shadow: 0 5px 10px rgba(255, 255, 255, 0.4);
+            display: none;
+            transition: top 0.5s;
+        }
+
+        .nav-links li:hover a {
+            color: darkblue;
+            transition: 0.3s;
+        }
+
+        .nav-links li:hover ~ .active {
+            display: block;
+        }
+
+        .nav-links li:nth-child(1):hover ~ .active {
+            top: 2.6%;
+        }
+
+        .nav-links li:nth-child(2):hover ~ .active {
+            top: 19.2%;
+        }
+
+        .nav-links li:nth-child(3):hover ~ .active {
+            top: 35.8%;
+        }
+
+        .nav-links li:nth-child(4):hover ~ .active {
+            top: 52.4%;
+        }
+
+        .nav-links li:nth-child(5):hover ~ .active {
+            top: 69%;
+        }
+
+        .nav-links li:nth-child(6):hover ~ .active {
+            top: 85.6%;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="container" style="background-color: white; width: 1200px">
+        <h:form style="background-color: white">
+            <p:menubar style="background-color: white">
+                <f:facet name="options">
+                    <div class="ui-input-icon-left mr-2">
+                        <i class="pi pi-fw pi-search" />
+                        <p:inputText placeholder="Search" />
+                    </div>
+                </f:facet>
+
+                <p:submenu
+                        label="#{loginForm.currentUser.name}"
+                        icon="pi pi-fw pi-user"
+                        style="float: right"
+                >
+                    <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" />
+                    <p:menuitem value="Report Issue" icon="" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </div>
+    <div class="side-nav">
+        <div style="position: sticky">
+            <a href="#" class="logo">
+                <h:graphicImage
+                        url="/resources/images/logo.png"
+                        styleClass="logo-img"
+                />
+            </a>
+            <ul class="nav-links">
+                <li>
+                    <p:link outcome="/pages/dashboard/AdminDashboard.xhtml">
+                        <h:graphicImage
+                                url="/resources/images/home.png"
+                                styleClass="nav-image"
+                        />
+                        <p style="padding-left: 8px">HOME</p>
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="/pages/loan/AdminLoan.xhtml">
+                        <h:graphicImage
+                                url="/resources/images/loan.png"
+                                styleClass="nav-image"
+                        />
+                        <p style="padding-left: 8px">LOAN REQUESTS</p>
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="/pages/transaction/AdminTransaction.xhtml">
+                        <h:graphicImage
+                                url="/resources/images/transaction.png"
+                                styleClass="nav-image"
+                        />
+                        <p style="padding-left: 8px">VERIFY TRANSACTIONS</p>
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="/pages/account/AdminAccount.xhtml">
+                        <h:graphicImage
+                                url="/resources/images/account.png"
+                                styleClass="nav-image"
+                        />
+                        <p style="padding-left: 8px">ACCOUNTS</p>
+                    </p:link>
+                </li>
+                <li>
+                    <a href="#">
+                        <h:graphicImage
+                                url="/resources/images/setting.png"
+                                styleClass="nav-image"
+                        />
+                        <p style="padding-left: 8px">SETTINGS</p>
+                    </a>
+                </li>
+                <li>
+                    <p:commandLink action="#{loginForm.doLogout()}">
+                        <h:graphicImage
+                                url="/resources/images/shutdown.png"
+                                styleClass="nav-image"
+                        />
+                        <p style="padding-left: 8px">LOGOUT</p>
+                    </p:commandLink>
+                </li>
+                <li class="active"></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container" style="position: relative; margin-left: 280px">
+
+        <div style="margin-top: 50px; ">
+            <h2 style="margin-bottom: 30px">LOAN REQUESTS</h2>
+            <h:form>
+                <p:dataTable var="loans" value="#{loanBean.loanRequestList}" widgetVar="AllPLoanTable"
+                             emptyMessage="No customers found with given criteria" id="AllPLoanTable"
+                             rows="6"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                >
+
+                    <f:facet name="header">
+                        <div class="flex justify-content-end">
+                            <p:inputText id="globalf" onkeyup="PF('AllPLoanTable').filter()" style="width:300px"
+                                         placeholder="Search all fields using global function" />
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="Account Number" sortBy="#{loans.account.accountNumber}" >
+                        <span class="flag flag-#{loans.account.accountNumber}" style="width: 30px; height: 20px" />
+                        <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.account.accountNumber}" />
+                    </p:column>
+
+                    <p:column  headerText="Client Name" filterable="false">
+                        <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.user.name}" />
+                    </p:column>
+
+                    <p:column headerText="SourceOfIncome" sortBy="#{loans.sourceOfIncome}">
+
+                        <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.sourceOfIncome}" />
+                    </p:column>
+
+                    <p:column headerText="FullPaymentBy" sortBy="#{loans.duration}}">
+
+                        <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loans.duration}" />
+                    </p:column>
+
+
+                    <p:column  headerText="AmountPerMonth" filterable="false">
+                        <span>#{loans.amountPaidPerMonth}</span>
+                    </p:column>
+
+                    <p:column  headerText="Income Range" filterable="false">
+                        <span >#{loans.user.incomeRange}</span>
+                    </p:column>
+
+
+                    <p:column headerText="Approve" filterable="false" >
+                        <p:commandButton  icon="pi pi-check" styleClass="p-button-rounded p-button-success"  action="#{loanBean.approveLoan(loans)}" update="AllPLoanTable messages"/>
+                        <p:commandButton  icon="pi pi-times" type="submit" styleClass="p-button-rounded " style="background-color: darkred; margin-left: 20px" update="AllPLoanTable" action="#{adminAccount.deleteUser(user)}" />
+                    </p:column>
+
+                    <p:growl id="messages" showDetail="true"/>
+
+                </p:dataTable>
+            </h:form>
+        </div>
+
+        <div style="margin-top: 50px; ">
+            <h2 style="margin-bottom: 30px">ALL LOANS</h2>
+            <h:form>
+                <p:dataTable var="loan" value="#{loanBean.allLoansList}" widgetVar="AllLoanTable"
+                             emptyMessage="No customers found with given criteria" id="AllLoanTable"
+                >
+
+                    <f:facet name="header">
+                        <div class="flex justify-content-end">
+                            <p:inputText id="global" onkeyup="PF('AllLoanTable').filter()" style="width:300px"
+                                         placeholder="Search all fields using global function" />
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="AccountNumber" sortBy="#{loan.account.accountNumber}">
+
+                        <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loan.account.accountNumber}" />
+                    </p:column>
+
+                    <p:column headerText="Client Name" sortBy="#{loan.user.name}" >
+                        <span class="flag flag-#{loans.user.name}" style="width: 30px; height: 20px" />
+                        <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loan.user.name}" />
+                    </p:column>
+
+                    <p:column headerText="SourceOfIncome" sortBy="#{loan.sourceOfIncome}">
+
+                        <h:outputText style="vertical-align: middle; margin-left: 2px" value="#{loan.sourceOfIncome}" />
+                    </p:column>
+
+
+                    <p:column  headerText="Status" filterable="false">
+                        <span >#{loan.status}</span>
+                    </p:column>
+
+                    <p:column  headerText="FullPaymentBy" filterable="false">
+                        <span>#{loan.duration}</span>
+                    </p:column>
+
+                    <p:column  headerText="AmountPerMonth" filterable="false">
+                        <span >#{loan.amountPaidPerMonth}</span>
+                    </p:column>
+
+                    <p:column  headerText="Total Amount" filterable="false">
+                        <span >#{loan.totalLoanAmount}</span>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </div>
+
+        <p:fieldset
+                legend="ABOUT US"
+                toggleable="true"
+                toggleSpeed="500"
+                style="
+          width: auto;
+          margin-left: 30px;
+          margin-top: 40px;
+          background-color: black;
+          color: white;
+        "
+        >
+            <p:ajax event="toggle" />
+            <p class="m-0">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
+                dolor sit amet, consectetur adipisicing elit. Inventore sed
+                consequuntur error repudiandae numquam deserunt quisquam repellat
+                libero asperiores earum nam nobis, culpa ratione quam perferendis
+                esse, cupiditate neque quas! Lorem ipsum dolor sit amet, consectetur
+                adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+                deserunt quisquam repellat libero asperiores earum nam nobis, culpa
+                ratione quam perferendis esse, cupiditate neque quas! Lorem ipsum
+                dolor sit amet, consectetur adipisicing elit. Inventore sed
+                consequuntur error repudiandae numquam deserunt quisquam repellat
+                libero asperiores earum nam nobis, culpa ratione quam perferendis
+                esse, cupiditate neque quas!Lorem ipsum dolor sit amet, consectetur
+                adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+                deserunt quisquam repellat libero asperiores earum nam nobis, culpa
+                ratione quam perferendis esse, cupiditate neque quas!
+            </p>
+        </p:fieldset>
+    </div>
+</h:body>
+</html>
