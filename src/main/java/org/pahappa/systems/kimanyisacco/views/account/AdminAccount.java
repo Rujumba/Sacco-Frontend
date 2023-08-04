@@ -7,8 +7,6 @@ import org.pahappa.systems.kimanyisacco.services.SaccoServices;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -33,6 +31,7 @@ public class AdminAccount {
     private List<User> userList;
 
     private List<User> allUserList;
+    private List<User> rejectedList;
 
     private User currentUser;
 
@@ -85,7 +84,8 @@ public class AdminAccount {
         }
         allUserList = saccoServices.getAllUsers();
         numberOfMembers = allUserList.size();
-        userList = saccoServices.getAllUsersOfStatus();
+        userList = saccoServices.getAllUsersOfStatus("pending");
+        rejectedList = saccoServices.getAllUsersOfStatus("rejected");
 
     }
     public User getCurrentUser() {
@@ -95,15 +95,6 @@ public class AdminAccount {
         return (User) externalContext.getSessionMap().get("currentUser");
     }
 
-//    public void getUsersOfStatus() throws IOException {
-//        FacesContext.getCurrentInstance().getExternalContext().redirect(base + Hyperlinks.ADMINACCOUNT);
-////        allUserList = saccoServices.getAllUsers();
-////        userList = saccoServices.getAllUsersOfStatus();
-////        for (User userlists: userList) {
-////            System.out.println(userlists.getName());
-////        }
-//
-//    }
     public void verifyUser(User user) throws IOException {
         user.setStatus("verified");
         saccoServices.updateUser(user);
@@ -114,14 +105,57 @@ public class AdminAccount {
         //message = "User verified successfully";
     }
 
-    public void deleteUser(User user) throws IOException {
-        saccoServices.deleteUser(user);
-//        getUsersOfStatus();
-        //message = "User deleted successfully";
+    public void rejectUser(User user) throws IOException {
+        user.setStatus("rejected");
+        saccoServices.updateUser(user);
+        System.out.println("User verified successfully");
+        FacesContext.getCurrentInstance().getExternalContext().redirect(base + Hyperlinks.ADMINACCOUNT);
+        sendRejectedEmail(user.getEmail());
+
     }
 
 
     private void sendApprovalEmail(String recipientEmail) {
+        // Configure the email properties
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+
+
+        // Set up the session with the authentication details
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("rujumbaleonard2@gmail.com", "emwimijkiwdemewg");
+            }
+        });
+
+        try {
+            // Create a new message
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("rujumbaleonard2@gmail.com","KIMWANYI SACCO"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+            message.setSubject("SACCO Membership Approval");
+            message.setText("Dear Member,\n\nYour account has been approved. You can now log in and start your savings journey with Kimwanyi SACCO.");
+
+            // Send the email
+            Transport.send(message);
+
+            System.out.println("Email sent successfully!");
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            // Handle the exception if the email sending fails
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            // Handle the exception if there's an issue with the encoding
+        }
+    }
+
+    private void sendRejectedEmail(String recipientEmail) {
         // Configure the email properties
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -176,5 +210,13 @@ public class AdminAccount {
 
     public void setNumberOfMembers(int numberOfMembers) {
         this.numberOfMembers = numberOfMembers;
+    }
+
+    public List<User> getRejectedList() {
+        return rejectedList;
+    }
+
+    public void setRejectedList(List<User> rejectedList) {
+        this.rejectedList = rejectedList;
     }
 }

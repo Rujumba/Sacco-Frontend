@@ -1,5 +1,6 @@
 package org.pahappa.systems.kimanyisacco.views.account;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.pahappa.systems.kimanyisacco.constants.EmployStatus;
 import org.pahappa.systems.kimanyisacco.constants.Gender;
 import org.pahappa.systems.kimanyisacco.constants.IncomeRange;
@@ -14,6 +15,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+
+
 
 @ManagedBean(name = "accountBean")
 @ViewScoped
@@ -44,58 +47,62 @@ public class Account {
         this.user = new User();
         this.currentUser = getCurrentUser();
     }
-    public void updateUser(){}
 
-    public void updateUserName(){
+    public void updateUserName() throws IOException {
         System.out.println(this.user.getName());
         currentUser.setName(this.user.getName());
         saccoServices.updateUser(currentUser);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.ACCOUNT);
     }
 
-    public void updateUserEmail(){
-        System.out.println(this.user.getName());
-        currentUser.setEmail(this.user.getEmail());
-        saccoServices.updateUser(currentUser);
-    }
-    public void updateUserContact(){
+    public void updateUserContact() throws IOException {
         System.out.println(this.user.getContact());
         currentUser.setContact(this.user.getContact());
         saccoServices.updateUser(currentUser);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.ACCOUNT);
     }
 
-    public void updateUserBirth(){
+    public void updateUserBirth() throws IOException {
         System.out.println(this.user.getDateOfBirth());
         currentUser.setDateOfBirth(this.user.getDateOfBirth());
         saccoServices.updateUser(currentUser);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.ACCOUNT);
     }
 
-    public void updateUserIncome(){
+    public void updateUserIncome() throws IOException {
         System.out.println(this.user.getIncomeRange());
         currentUser.setIncomeRange(this.user.getIncomeRange());
         saccoServices.updateUser(currentUser);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.ACCOUNT);
     }
 
-    public void updateUserGender(){
+    public void updateUserGender() throws IOException {
         System.out.println(this.user.getGender());
         currentUser.setGender(this.user.getGender());
         saccoServices.updateUser(currentUser);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.ACCOUNT);
     }
 
-    public void updateUserEmploy(){
+    public void updateUserEmploy() throws IOException {
         System.out.println(this.user.getEmploymentStatus());
         currentUser.setEmploymentStatus(this.user.getEmploymentStatus());
+        FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.ACCOUNT);
         saccoServices.updateUser(currentUser);
     }
 
-    public User getCurrentUser() {
+    public void updateUserPassword() throws IOException {
+
+        currentUser.setPassword( BCrypt.hashpw(this.user.getPassword(), BCrypt.gensalt()));
+        saccoServices.updateUser(currentUser);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.ACCOUNT);
+    }
+
+    public User getCurrentUser(){
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         return (User) externalContext.getSessionMap().get("currentUser");
     }
 
-    public void redirect() throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.ACCOUNT);
-    }
 
     public User getUser() {
         return user;

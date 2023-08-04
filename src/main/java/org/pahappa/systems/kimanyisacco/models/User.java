@@ -5,6 +5,7 @@ import org.pahappa.systems.kimanyisacco.constants.IncomeRange;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "users")
@@ -19,11 +20,15 @@ public class User implements Serializable {
 
     private IncomeRange incomeRange;
 
-    private String dateOfBirth;
+    private Date dateOfBirth;
 
     private String email;
 
     private String password;
+
+    private String nextOfKinName;
+
+    private String nextOfKinContact;
 
     private Account account;
 
@@ -79,11 +84,11 @@ public class User implements Serializable {
 
 
     @Column(name = "date_of_birth", nullable = false)
-    public String getDateOfBirth(){
+    public Date getDateOfBirth(){
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth){
+    public void setDateOfBirth(Date dateOfBirth){
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -123,5 +128,23 @@ public class User implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Column(name = "NextOfKinTel", nullable = false)
+    public String getNextOfKinContact() {
+        return nextOfKinContact;
+    }
+
+    public void setNextOfKinContact(String nextOfKinContact) {
+        this.nextOfKinContact = nextOfKinContact;
+    }
+
+    @Column(name = "NextOfKin", nullable = false)
+    public String getNextOfKinName() {
+        return nextOfKinName;
+    }
+
+    public void setNextOfKinName(String nextOfKinName) {
+        this.nextOfKinName = nextOfKinName;
     }
 }

@@ -19,7 +19,7 @@ public interface SaccoServices  {
 
     boolean numberOfUsers();
 
-    List<User> getAllUsersOfStatus();
+    List<User> getAllUsersOfStatus(String status);
 
     void updateUser(User user);
 

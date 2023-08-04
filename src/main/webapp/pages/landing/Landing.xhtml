@@ -19,126 +19,108 @@
 
 
 <h:body>
-  <div class="card">
-    <f:view>
-      <!--&lt;!&ndash;        The navbar&ndash;&gt;-->
-      <!--        <div class="card fixed w-full top-0 left-0">-->
-      <!--            <h:form>-->
-      <!--                <p:growl id="messages"/>-->
+  <div class="w-full surface-ground p-2 top-0 left-0 sticky shadow-3 flex justify-content-between">
+    <div class="flex justify-content-start align-items-center">
+      <p:avatar styleClass="ml-6" size="xlarge" shape="circle">
+        <p:graphicImage name="logo.png" library="images"/>
+      </p:avatar>
+    </div>
+    <div class="flex justify-content-end align-items-center gap-3">
 
-      <!--                <p:menubar>-->
-
-      <!--                        <div>-->
-      <!--                            <p:graphicImage name="logo.png" library="images" alt="image not found" style = "width:100%; height:250px; display:block;"/>-->
-      <!--                        </div>-->
-
-
-      <!--                    <p:divider layout="vertical"/>-->
-
-      <!--                    <p:submenu label="Users" icon="pi pi-fw pi-user">-->
-      <!--                        <p:menuitem value="Register" outcome="#{navigation.register}"/>-->
-      <!--                        <p:menuitem value="Login"  outcome="#{navigation.login}"/>-->
-      <!--                    </p:submenu>-->
-      <!--                </p:menubar>-->
-      <!--            </h:form>-->
-      <!--        </div>-->
+      <p:commandButton id="basic"  type="button" value="GET STARTED" styleClass="rounded-button ui-button-info ui-button-outlined mr-2 px-3"  />
+      <p:overlayPanel for="basic" style="width:200px">
+        <p:button type="button" value="Login" styleClass="ui-button-secondary ui-button-flat"
+                  icon="pi pi-fw pi-sign-in" outcome="#{navigation.login}"/>
+        <p:button type="button" value="Register" styleClass="ui-button-secondary ui-button-flat"
+                  icon="pi pi-fw pi-user-plus" outcome="#{navigation.register}"/>
+      </p:overlayPanel>
 
 
-
-      <div class="grid grid-nogutter surface-section text-800 mt-8">
-        <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
-          <section>
-            <span class="block text-6xl text-primary font-bold mb-1">KIMWANYI SACCO</span>
-            <div class="text-6xl font-bold mb-3">Welcomes you</div>
-            <p class="mt-0 mb-4 text-700 line-height-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-            <p:commandButton value="Learn More" type="button" class="mr-3 ui-button-raised"/>
-          </section>
-        </div>
-        <div class="col-12 md:col-6 overflow-hidden">
-          <h:graphicImage url="/resources/images/piggy.jpg"
-                          styleClass="md:ml-auto block md:h-29rem"
-                          style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)"/>
-        </div>
-      </div>
-
-      <div class="w-full surface-ground p-2 top-0 left-0 fixed shadow-3 flex justify-content-between">
-        <div class="flex justify-content-start align-items-center">
-          <p:avatar styleClass="ml-6" size="xlarge" shape="circle">
-            <p:graphicImage name="logo.png" library="images"/>
-          </p:avatar>
-        </div>
-        <div class="flex justify-content-end align-items-center gap-3">
-
-          <!--            <p:button icon="pi pi-user" styleClass="rounded-button ui-button-info ui-button-outlined mr-2 px-3" />-->
-          <!--                <p:avatar icon="pi pi-user" styleClass="mr-2" size="large" style="background-color:#2196F3; color:#fff" shape="circle" />-->
-          <!--                <p:button icon="pi pi-sign-out" styleClass="rounded-button ui-button-info ui-button-outlined mr-2 px-3" outcome="#{navigation.dashboard}"/>-->
-
-          <p:commandButton id="basic"  type="button" value="Members" styleClass="rounded-button ui-button-info ui-button-outlined mr-2 px-3" icon="pi pi-fw pi-user-plus" />
-          <p:overlayPanel for="basic" style="width:200px">
-            <p:button type="button" value="Login" styleClass="ui-button-secondary ui-button-flat"
-                      icon="pi pi-fw pi-sign-in" outcome="#{navigation.login}"/>
-            <p:button type="button" value="Register" styleClass="ui-button-secondary ui-button-flat"
-                      icon="pi pi-fw pi-user-plus" outcome="#{navigation.register}"/>
-          </p:overlayPanel>
-
-
-          <p:commandButton id="admin"  type="button" value="Admin" styleClass="rounded-button ui-button-info ui-button-outlined mr-2 px-3"/>
-          <p:overlayPanel for="admin" style="width:180px">
-            <p:button type="button" value="Login" styleClass="ui-button-secondary ui-button-flat"
-                      icon="pi pi-fw pi-sign-in" outcome="#{navigation.login}"/>
-          </p:overlayPanel>
-
-        </div>
-      </div>
-
-
-
-      <p:divider />
-
-      <div class="card">
-        <h3 class="text-center text-4xl">Our Services</h3>
-        <div class="flex flex-wrap md:justify-content-between justify-content-center card-container">
-          <div class="ml-8">
-            <div class="border-round m-1 " style="min-width: 300px; min-height: 150px">
-              <p:graphicImage name="student.jpg" library="images" alt="image not found" style = "width:300px; height: 150px; display:block;"/>
-            </div>
-            <h3 class=" text-2xl text-center">Our Services</h3>
-          </div>
-          <div>
-            <div class="border-round m-1 " style="min-width: 300px; min-height: 150px">
-              <p:graphicImage name="loan.jpg" library="images" alt="image not found" style = "width:300px; height: 150px; display:block;"/>
-            </div>
-            <h3 class=" text-2xl text-center ">Our Services</h3>
-          </div>
-          <div class="mr-8">
-            <div class="border-round m-1 " style="min-width: 300px; min-height: 150px">
-              <p:graphicImage name="regular.jpg" library="images" alt="image not found" style = "width:300px; height: 150px; display:block;"/>
-            </div>
-            <h3 class=" text-2xl text-center">Our Services</h3>
-          </div>
-        </div>
-      </div>
-
-      <p:divider />
-
-      <div>
-        <h3 class ="text-4xl text-center">About Us</h3>
-
-      </div>
-
-      <!--            </div>-->
-
-
-      <!--        <div>-->
-      <!--            <h:outputText value="Please Click this button"/>-->
-      <!--            <br/>-->
-      <!--            <p:button id="toDashboardButton" icon="pi pi-check" value="Navigate to Dashboard"-->
-      <!--                      outcome="/pages/dashboard/Dashboard.xhtml"/>-->
-      <!--        </div>-->
-    </f:view>
+    </div>
   </div>
 
+
+
+  <div class="surface-section text-700 text-center bg-blue-100" style="margin-top: 10%; "  >
+    <div class="text-blue-600 font-bold text-7xl mb-3">KIMWANYI SACCO</div>
+    <div class="text-900 font-bold text-5xl mb-3">Let's grow your saving culture</div>
+    <div class="text-700 text-2xl mb-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit numquam eligendi quos.</div>
+    <p:button type="button" value="Join Now" icon="pi pi-discord ml-4" outcome="#{navigation.register}"
+                     styleClass="font-bold px-4 py-2  rounded-button white-space-nowrap"/>
+  </div>
+
+  <div style="width: 80%; margin-left: 11%; margin-top: 5%">
+    <div class="text-900 font-bold text-6xl mb-4 text-center">Our Services</div>
+    <div class="grid">
+      <div class="col-12 lg:col-4">
+        <div class="p-3 h-full">
+          <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
+            <div class="text-900 font-medium text-xl mb-2">LOAN AQUISITION</div>
+            <hr class="my-3 mx-0 border-top-1 border-bottom-none surface-border"/>
+            <h:graphicImage
+                    url="/resources/images/finance3.jpg"
+                    style="width: 100%; height: 100%"
+            />
+            <hr class="my-3 mx-0 border-top-1 border-bottom-none surface-border"/>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+              sed consequuntur error repudiandae numquam deserunt quisquam
+              repellat libero asperiores earum nam nobis, culpa ratione quam
+              perferendis esse, cupiditate neque quas!
+            </div>
+            <hr class="mb-3 mx-0 border-top-1 border-bottom-none surface-border mt-auto"/>
+            <p:commandButton type="button" value="Read more" styleClass="px-3 py-2 w-full mt-auto"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 lg:col-4">
+        <div class="p-3 h-full">
+          <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
+            <div class="text-900 font-medium text-xl mb-2">SAVINGS</div>
+            <hr class="my-3 mx-0 border-top-1 border-bottom-none surface-border"/>
+            <h:graphicImage
+                    url="/resources/images/piggy.jpg"
+                    style="width: 100%; height: auto"
+            />
+            <hr class="my-3 mx-0 border-top-1 border-bottom-none surface-border"/>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+              sed consequuntur error repudiandae numquam deserunt quisquam
+              repellat libero asperiores earum nam nobis, culpa ratione quam
+              perferendis esse, cupiditate neque quas!
+            </div>
+            <hr class="mb-3 mx-0 border-top-1 border-bottom-none surface-border"/>
+            <p:commandButton type="button" value="Read more" styleClass="px-3 py-2 w-full"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 lg:col-4">
+        <div class="p-3 h-full">
+          <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
+            <div class="text-900 font-medium text-xl mb-2">SACCO INVESTMENTS</div>
+            <hr class="my-3 mx-0 border-top-1 border-bottom-none surface-border"/>
+            <h:graphicImage
+                    url="/resources/images/R2.jpeg"
+                    style="width: 100%; height: 100%"
+            />
+            <hr class="my-3 mx-0 border-top-1 border-bottom-none surface-border"/>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+              sed consequuntur error repudiandae numquam deserunt quisquam
+              repellat libero asperiores earum nam nobis, culpa ratione quam
+              perferendis esse, cupiditate neque quas!
+            </div>
+            <hr class="mb-3 mx-0 border-top-1 border-bottom-none surface-border"/>
+            <p:commandButton type="button" value="Read more" styleClass="px-3 py-2 w-full"/>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
 
 </h:body>
 

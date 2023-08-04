@@ -73,8 +73,10 @@
               name="email"
               required="true"
               value="#{loginForm.user.email}"
+              requiredMessage="The email field is required."
+              label="Email"
             >
-              <f:validateRegex pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
+              <f:validateRegex pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" for="email" />
             </p:inputText>
 
             <h:outputLabel for="password" value="Password:" />
@@ -101,12 +103,12 @@
             />
           </div>
         </h:form>
-        <h6>
+        <h5>
           Don't have an account?<p:link
             outcome="/pages/authentication/Register.xhtml"
             value="Register"
           />
-        </h6>
+        </h5>
       </div>
     </f:view>
   </h:body>

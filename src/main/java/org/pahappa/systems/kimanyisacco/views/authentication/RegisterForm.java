@@ -16,12 +16,18 @@ import org.pahappa.systems.kimanyisacco.services.SaccoServiceImp;
 import org.pahappa.systems.kimanyisacco.services.SaccoServices;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 @ManagedBean (name = "registerForm")
 @RequestScoped
 public class RegisterForm {
+    private String firstName;
+    private String lastName;
+    private String fullName;
 
     private User user;
 
@@ -30,6 +36,8 @@ public class RegisterForm {
     private EmployStatus employStatus;
 
     private Gender gender;
+
+    private boolean termsAccepted;
 
     private IncomeRange incomeRange;
 
@@ -41,10 +49,7 @@ public class RegisterForm {
 
     public RegisterForm(){
         this.user = new User();
-
         this.saccoServices =new SaccoServiceImp();
-
-
     }
     public User getUser() {
         return user;
@@ -63,6 +68,8 @@ public class RegisterForm {
     }
 
     public void registerUsers() throws IOException {
+        fullName = firstName + " " + lastName;
+        this.user.setName(fullName);
         System.out.println("called");
         boolean num= saccoServices.numberOfUsers();
         System.out.println("check1");
@@ -102,6 +109,16 @@ public class RegisterForm {
 
     }
 
+    public void redirectLogin() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.LOGIN);
+    }
+
+    public Date getMaxSelectableDate() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate maxDate = currentDate.minusYears(18);
+        return Date.from(maxDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
     public EmployStatus[] getEmployStatus() {
         return EmployStatus.values();
     }
@@ -131,5 +148,37 @@ public class RegisterForm {
     private String hashPassword(String password) {
         // Use a strong hashing algorithm
         return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public boolean isTermsAccepted() {
+        return termsAccepted;
+    }
+
+    public void setTermsAccepted(boolean termsAccepted) {
+        this.termsAccepted = termsAccepted;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

@@ -19,6 +19,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -82,7 +83,7 @@ public class LoanBean {
         this.loan.setTotalLoanAmount(this.loan.getLoanAmount() + (this.loan.getLoanAmount() * 0.12));
         saccoServices.createLoan(loan);
         System.out.println(this.loan.getDuration());
-        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Loan Request Submitted Successfully!");
+        message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Loan Request Submitted Successfully!", "");
         FacesContext.getCurrentInstance().addMessage("message", message);
     }
 
@@ -98,7 +99,16 @@ public class LoanBean {
         loan.setStatus("approved");
         saccoServices.updateLoanStatus(loan);
         FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.ADMINLOAN);
-        addFlashMessage(FacesMessage.SEVERITY_INFO, "Success", "Member approved successfully");
+        addFlashMessage(FacesMessage.SEVERITY_INFO, "Member loan approved successfully", "");
+        sendApprovalEmail(loan.getUser().getEmail());
+
+    }
+
+    public void rejectLoan(Loan loan) throws IOException {
+        loan.setStatus("rejected");
+        saccoServices.updateLoanStatus(loan);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.ADMINLOAN);
+        addFlashMessage(FacesMessage.SEVERITY_INFO, "Member loan approved successfully", "");
         sendApprovalEmail(loan.getUser().getEmail());
 
     }
@@ -115,6 +125,11 @@ public class LoanBean {
     public void getAllLoans(){
         allLoansList= saccoServices.getAllLoans();
 
+    }
+
+    public LocalDate getMinSelectableDate() {
+        LocalDate currentDate = LocalDate.now();
+        return currentDate;
     }
 
     public void getAllLoanRequests(){

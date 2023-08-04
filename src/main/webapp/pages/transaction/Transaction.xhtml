@@ -217,7 +217,7 @@
             icon="pi pi-fw pi-user"
             style="float: right"
           >
-            <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" />
+            <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" outcome="/pages/account/Account.xhtml"/>
             <p:menuitem value="Report Issue" icon="" />
           </p:submenu>
         </p:menubar>
@@ -357,7 +357,9 @@
               </p:selectOneMenu>
 
               <h:outputLabel for="amount1" value="Amount:" />
-              <p:inputText id="amount1" value="#{transactionsBean.userTransaction.amount}" styleClass="same-width-input"/>
+              <p:inputText id="amount1" label="Amount" value="#{transactionsBean.userTransaction.amount}" styleClass="same-width-input" required="true" requiredMessage="Amount is required">
+                <f:validateDoubleRange minimum="1000" maximum="1000000" />
+              </p:inputText>
 
               <p:commandButton
                       value="Transact"
@@ -369,7 +371,7 @@
               />
 
             </h:panelGrid>
-            <p:growl id="message" showDetail="true" />
+            <p:growl id="message" showDetail="false" />
           </h:form>
         </p:dialog>
 
@@ -388,7 +390,9 @@
                 <f:selectItem itemLabel="Withdrawal" itemValue="WITHDRAWAL" />
               </p:selectOneMenu>
               <h:outputLabel for="amount2" value="Amount:" />
-              <p:inputText id="amount2" value="#{transactionsBean.userTransaction.amount}" styleClass="same-width-input"/>
+              <p:inputText id="amount2" label="Amount" value="#{transactionsBean.userTransaction.amount}" styleClass="same-width-input" required="true" requiredMessage="Amount is required">
+                <f:validateDoubleRange minimum="1000" maximum="1000000" />
+              </p:inputText>
 
               <p:commandButton
                       value="Transact"
@@ -399,7 +403,7 @@
               />
 
             </h:panelGrid>
-            <p:growl id="messages" showDetail="true" />
+            <p:growl id="messages" showDetail="false" />
           </h:form>
         </p:dialog>
 

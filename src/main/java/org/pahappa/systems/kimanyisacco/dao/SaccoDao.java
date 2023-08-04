@@ -50,10 +50,10 @@ public class SaccoDao {
         }
     }
 
-    public List<User> getAllUsersOfStatus() {
+    public List<User> getAllUsersOfStatus(String status) {
         Session session = SessionConfiguration.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(User.class);
-        criteria.add(Restrictions.eq("status", "pending"));
+        criteria.add(Restrictions.eq("status", status));
         System.out.println("checked");
         return criteria.list();
     }

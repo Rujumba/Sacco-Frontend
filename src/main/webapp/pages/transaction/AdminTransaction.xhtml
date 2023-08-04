@@ -164,7 +164,7 @@
                     icon="pi pi-fw pi-user"
                     style="float: right"
             >
-               <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" />
+               <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" outcome="/pages/settings/Settings.xhtml"/>
                <p:menuitem value="Report Issue" icon="" />
             </p:submenu>
          </p:menubar>
@@ -216,13 +216,13 @@
                </p:link>
             </li>
             <li>
-               <a href="#">
+               <p:link outcome="/pages/settings/Settings.xhtml">
                   <h:graphicImage
                           url="/resources/images/setting.png"
                           styleClass="nav-image"
                   />
                   <p style="padding-left: 8px">SETTINGS</p>
-               </a>
+               </p:link>
             </li>
             <li>
                <p:commandLink action="#{loginForm.doLogout()}">
@@ -241,7 +241,7 @@
    <div class="container" style="position: relative; margin-left: 280px">
 
       <div style="margin-top: 50px; ">
-         <h2 style="margin-bottom: 30px">WITHDRAW TRANSACTIONS</h2>
+         <h2 style="margin-bottom: 30px">WITHDRAW REQUESTS</h2>
          <h:form>
             <p:dataTable var="withdraws" value="#{adminTransactionsBean.allUserWithdrawals}" widgetVar="withdrawTable"
                          emptyMessage="No customers found with given criteria" id="withdrawTable"
@@ -289,10 +289,20 @@
                </p:column>
 
                <p:column filterable="false">
-                  <p:commandButton value="Verify" icon="pi pi-check" styleClass="p-button-rounded p-button-success" update="withdrawTable" action="#{adminTransactionsBean.verifyWithdraw(withdraws)}" />
+
+                  <p:commandButton value="Approve"  action="#{adminTransactionsBean.verifyWithdraw(withdraws)}" update="message withdrawTable" styleClass="mr-2" icon="pi pi-check" style="position: relative">
+                     <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
+                  </p:commandButton>
+
                </p:column>
 
+               <p:growl id="message" showDetail="true"/>
+
             </p:dataTable>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+               <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+               <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+            </p:confirmDialog>
          </h:form>
       </div>
 

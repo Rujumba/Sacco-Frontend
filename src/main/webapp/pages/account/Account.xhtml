@@ -178,8 +178,8 @@
             icon="pi pi-fw pi-user"
             style="float: right"
           >
-            <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" />
-            <p:menuitem value="Report Issue" icon="" />
+              <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" outcome="/pages/account/Account.xhtml"/>
+              <p:menuitem value="Report Issue" icon="" />
           </p:submenu>
         </p:menubar>
       </h:form>
@@ -274,11 +274,12 @@
                 <div class="field col-12">
                     <h:form>
                         <label for="Name">Name:</label>
-                        <p:commandLink action="#{accountBean.updateUserName()}" onclick="PF('confirmDialog').show();" style="float: right; margin-right: 30px">
+                        <p:commandLink action="#{accountBean.updateUserName()}"  style="float: right; margin-right: 30px">
                             <h:graphicImage
                                     url="/resources/images/edit.png"
                                     styleClass="img"
                             />
+                            <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
 
                         </p:commandLink>
                         <p:inputText id="Name" value="#{accountBean.user.name}" name="clientName" required="true" placeholder="#{accountBean.currentUser.name}" style="margin-left: 20px" styleClass="same-width-input"/>
@@ -290,12 +291,12 @@
                     <h:form>
                         <label for="Name">Contact: </label>
 
-                        <p:commandLink action="#{accountBean.updateUserContact()}" style="float: right; margin-right: 30px" onclick="PF('confirmDialog').show();">
+                        <p:commandLink action="#{accountBean.updateUserContact()}" style="float: right; margin-right: 30px" >
                             <h:graphicImage
                                     url="/resources/images/edit.png"
                                     styleClass="img"
                             />
-
+                            <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
                         </p:commandLink>
                         <p:inputText id="contact" value="#{accountBean.user.contact}" name="contact" required="true" placeholder="#{accountBean.currentUser.contact}" style="margin-left: 20px" styleClass="same-width-input"/>
                     </h:form>
@@ -303,12 +304,12 @@
                 <div class="field col-12">
                     <h:form>
                         <label for="Name">Date of Birth:</label>
-                        <p:commandLink action="#{accountBean.updateUserBirth()}" style="float: right; margin-right: 30px; " onclick="PF('confirmDialog').show();">
+                        <p:commandLink action="#{accountBean.updateUserBirth()}" style="float: right; margin-right: 30px; " >
                             <h:graphicImage
                                     url="/resources/images/edit.png"
                                     styleClass="img"
                             />
-
+                            <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
                         </p:commandLink>
                         <p:calendar id="dateOfBirth" value="#{accountBean.user.dateOfBirth}" required="true" placeholder="#{accountBean.currentUser.dateOfBirth}"
                                     mindate="01/01/1970" maxdate="31/12/2005" pattern="dd/MM/yyyy" styleClass="same-width-input"/>
@@ -319,11 +320,12 @@
                       <h:form>
                           <label for="Name">Income:</label>
 
-                          <p:commandLink action="#{accountBean.updateUserIncome()}" style="float: right; margin-right: 30px" onclick="PF('confirmDialog').show();">
+                          <p:commandLink action="#{accountBean.updateUserIncome()}" style="float: right; margin-right: 30px" >
                               <h:graphicImage
                                       url="/resources/images/edit.png"
                                       styleClass="img"
                               />
+                              <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
                           </p:commandLink>
 
                           <p:selectOneMenu
@@ -340,16 +342,33 @@
                       </h:form>
 
                 </div>
+                  <div class="field col-12">
+                      <h:form>
+                          <label for="Name">Password:</label>
+
+                          <p:commandLink action="#{accountBean.updateUserPassword()}" style="float: right; margin-right: 30px" >
+                              <h:graphicImage
+                                      url="/resources/images/edit.png"
+                                      styleClass="img"
+                              />
+                              <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
+                          </p:commandLink>
+
+                          <p:password id="password" value="#{accountBean.user.password}" name="contact" required="true" style="margin-left: 20px" styleClass="same-width-input"/>
+                      </h:form>
+
+                  </div>
+
                 <div class="field col-12">
                     <h:form>
                         <label for="Name">Gender:</label>
 
-                        <p:commandLink action="#{accountBean.updateUserGender()}" style="float: right; margin-right: 30px" onclick="PF('confirmDialog').show();">
+                        <p:commandLink action="#{accountBean.updateUserGender()}" style="float: right; margin-right: 30px" >
                             <h:graphicImage
                                     url="/resources/images/edit.png"
                                     styleClass="img"
                             />
-
+                            <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
                         </p:commandLink>
                         <p:selectOneMenu
                                 id="gender"
@@ -369,12 +388,12 @@
                     <h:form>
                         <label for="Name">EmployStatus:</label>
 
-                        <p:commandLink action="#{accountBean.updateUserEmploy()}" style="float: right; margin-right: 30px" onclick="PF('confirmDialog').show();" >
+                        <p:commandLink action="#{accountBean.updateUserEmploy()}" style="float: right; margin-right: 30px" >
                             <h:graphicImage
                                     url="/resources/images/edit.png"
                                     styleClass="img"
                             />
-
+                            <p:confirm header="Confirmation" message="Are you sure you want to edit this detail?" icon="pi pi-exclamation-triangle"/>
                         </p:commandLink>
 
                         <p:selectOneMenu
@@ -399,12 +418,10 @@
 
 
         <!-- Confirmation Dialog -->
-          <p:dialog id="confirmDialog" header="Confirm Save" widgetVar="confirmDialog" modal="true" resizable="true" >
-              <h:outputText value="Are you sure you want to save changes?" style="margin-bottom: 10px; margin-top: 10px" />
-              <p:commandButton value="Continue" type="submit"
-                               oncomplete="PF('confirmDialog').hide(); PF('successDialog').show();" style="margin-top: 20px" action="#{accountBean.redirect()}"/>
-              <p:commandButton value="Cancel" onclick="PF('confirmDialog').hide();" />
-          </p:dialog>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
 
         <!-- Success Dialog -->
         <p:dialog

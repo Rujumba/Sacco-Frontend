@@ -240,7 +240,7 @@
                     icon="pi pi-fw pi-user"
                     style="float: right"
             >
-               <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" />
+               <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" outcome="/pages/settings/Settings.xhtml"/>
                <p:menuitem value="Report Issue" icon="" />
             </p:submenu>
          </p:menubar>
@@ -292,13 +292,13 @@
                </p:link>
             </li>
             <li>
-               <a href="#">
+               <p:link outcome="/pages/settings/Settings.xhtml">
                   <h:graphicImage
                           url="/resources/images/setting.png"
                           styleClass="nav-image"
                   />
                   <p style="padding-left: 8px">SETTINGS</p>
-               </a>
+               </p:link>
             </li>
             <li>
                <p:commandLink action="#{loginForm.doLogout()}">

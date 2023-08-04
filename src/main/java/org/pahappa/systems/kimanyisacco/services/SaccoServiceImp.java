@@ -47,9 +47,9 @@ public class SaccoServiceImp implements SaccoServices{
         return saccoDao.createIfEmpty();
     }
 
-    public List<User> getAllUsersOfStatus() {
+    public List<User> getAllUsersOfStatus(String status) {
 
-        return saccoDao.getAllUsersOfStatus();
+        return saccoDao.getAllUsersOfStatus(status);
     }
 
     public List<User> getAllUsers() {

@@ -1,6 +1,5 @@
 package org.pahappa.systems.kimanyisacco.views.transaction;
 
-;
 import org.pahappa.systems.kimanyisacco.controller.Hyperlinks;
 import org.pahappa.systems.kimanyisacco.models.Account;
 import org.pahappa.systems.kimanyisacco.models.User;
@@ -11,8 +10,6 @@ import org.pahappa.systems.kimanyisacco.services.SaccoServices;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -143,28 +140,43 @@ public class Transactions {
                 this.account = new Account();
                 userTransaction = new UserTransaction();
                 currentAmount= 0.0;
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Deposit is successful!");
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Deposit is successful!", "Deposit is successful!");
                 FacesContext.getCurrentInstance().addMessage("message", message);
             }else {
-                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "The amount field is null!");
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning : The amount field is null!", "");
                 FacesContext.getCurrentInstance().addMessage("messages", message);
             }
 
         }else{
-            if (userTransaction.getAmount() != 0.0) {
-                if (currentUser.getAccount().getAmount()>userTransaction.getAmount()){
-                    userTransaction.setStatus("pending approval");
-                    saccoServices.saveTransaction(userTransaction);
+            boolean exists = false;
+            for (UserTransaction x: allUserTransactions) {
 
-                    message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Withdraw is submitted successfully for approval!");
-                    FacesContext.getCurrentInstance().addMessage("message", message);
+                if(user.getAccount().getAccountNumber().equals(x.getAccount().getAccountNumber()) && x.getStatus().equals("pending approval") || x.getStatus().equals("approved") ){
+                    exists = true;
                 }else{
-                    message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Warning", "Withdraw amount is greater than your account balance!");
-                    FacesContext.getCurrentInstance().addMessage("message", message);
+                    exists=false;
                 }
 
+            }
+            if (userTransaction.getAmount() != 0.0 && userTransaction.getAmount() <= user.getAccount().getAmount() ) {
+               if(!exists){
+                   if (currentUser.getAccount().getAmount()>userTransaction.getAmount()){
+                       userTransaction.setStatus("pending approval");
+                       saccoServices.saveTransaction(userTransaction);
+
+                       message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Withdraw is submitted successfully for approval!", "");
+                       FacesContext.getCurrentInstance().addMessage("message", message);
+                   }else{
+                       message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Warning: Withdraw amount is greater than your account balance!", "");
+                       FacesContext.getCurrentInstance().addMessage("message", message);
+                   }
+               }else{
+                   message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Warning: You already have a pending or approved withdraw!", "");
+                   FacesContext.getCurrentInstance().addMessage("message", message);
+               }
+
             }else{
-                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "The amount field is null!");
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning: The amount field is null or less than zero!", "");
 
                 FacesContext.getCurrentInstance().addMessage("messages", message);
             }
@@ -189,7 +201,7 @@ public class Transactions {
         userTransaction = new UserTransaction();
         currentAmount= 0.0;
         FacesContext.getCurrentInstance().getExternalContext().redirect(base+ Hyperlinks.HISTORY);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Withdraw successful! Thank you for saving with us"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Withdraw successful! Thank you for saving with us", ""));
     }
 
     public Account getAccount() {

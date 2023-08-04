@@ -164,7 +164,7 @@
                         icon="pi pi-fw pi-user"
                         style="float: right"
                 >
-                    <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" />
+                    <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" outcome="/pages/settings/Settings.xhtml"/>
                     <p:menuitem value="Report Issue" icon="" />
                 </p:submenu>
             </p:menubar>
@@ -216,13 +216,13 @@
                     </p:link>
                 </li>
                 <li>
-                    <a href="#">
+                    <p:link outcome="/pages/settings/Settings.xhtml">
                         <h:graphicImage
                                 url="/resources/images/setting.png"
                                 styleClass="nav-image"
                         />
                         <p style="padding-left: 8px">SETTINGS</p>
-                    </a>
+                    </p:link>
                 </li>
                 <li>
                     <p:commandLink action="#{loginForm.doLogout()}">
@@ -287,13 +287,22 @@
 
 
                     <p:column headerText="Approve" filterable="false" >
-                        <p:commandButton  icon="pi pi-check" styleClass="p-button-rounded p-button-success"  action="#{loanBean.approveLoan(loans)}" update="AllPLoanTable messages"/>
-                        <p:commandButton  icon="pi pi-times" type="submit" styleClass="p-button-rounded " style="background-color: darkred; margin-left: 20px" update="AllPLoanTable" action="#{adminAccount.deleteUser(user)}" />
+                       <p:commandButton  action="#{loanBean.approveLoan(loans)}" update="messages AllPLoanTable" styleClass="mr-2" icon="pi pi-check" style="position: relative">
+                            <p:confirm header="Confirmation" message="Are you sure you want to verify this account?" icon="pi pi-exclamation-triangle"/>
+                        </p:commandButton>
+
+                        <p:commandButton  action="#{loanBean.rejectLoan(loans)}" update="messages AllPLoanTable" styleClass="ui-button-danger" icon="pi pi-times" style="position: relative">
+                            <p:confirm header="Confirmation" message="Do you want this account to be rejected?" icon="pi pi-info-circle"/>
+                        </p:commandButton>
                     </p:column>
 
                     <p:growl id="messages" showDetail="true"/>
 
                 </p:dataTable>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                </p:confirmDialog>
             </h:form>
         </div>
 
