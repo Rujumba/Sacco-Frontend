@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+<h:head>
+   <f:facet name="first">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+
+      <h:outputStylesheet
+              name="primeflex/3.3.1/primeflex.css"
+              library="webjars"
+      />
+      <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+   </f:facet>
+   <script>
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+// Set Data
+         const data = google.visualization.arrayToDataTable([
+            ['Status', 'Number'],
+            ['Approved', 80],
+            ['Pending', 45],
+
+         ]);
+
+// Set Options
+         const options = {
+            title: 'SACCO ACCOUNTS',
+            is3D: true,
+         };
+
+// Draw
+         const chart = new google.visualization.PieChart(document.getElementById('myChart'));
+         chart.draw(data, options);
+
+         function updateChart() {
+            // Get the values from the form
+            const approvedValue = parseInt(document.getElementById('approvedValue').value, 10);
+            const pendingValue = parseInt(document.getElementById('pendingValue').value, 10);
+
+            // Update the chart data
+            chartData[1][1] = approvedValue;
+            chartData[2][1] = pendingValue;
+
+            // Create a new DataTable
+            const data = google.visualization.arrayToDataTable(chartData);
+
+            // Draw the chart with updated data
+            chart.draw(data, options);
+         }
+
+         // Call updateChart() initially to draw the initial chart
+         updateChart();
+
+         // Add event listener to the form submit button
+         document.getElementById('chartForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+            updateChart(); // Call updateChart() when the form is submitted
+         });
+
+      }
+   </script>
+   <style>
+
+      .img {
+         width: 70px;
+         height: 70px;
+         margin-bottom: 10px;
+      }
+
+      .card-container {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: space-evenly;
+         margin-top: 20px;
+      }
+      .card1 {
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+         transition: transform 0.3s;
+      }
+      .card1:hover {
+         transform: translateY(-10px);
+      }
+
+      .container {
+         margin: 5px auto;
+         width: auto;
+         padding: 20px;
+         background-color: #fff;
+         border-radius: 10px;
+         /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);*/
+         text-align: center;
+         margin-right: 10px;
+      }
+      .card {
+         width: auto;
+         background-color: #f4fafe;
+         border-radius: 10px;
+         margin-left: 20px;
+         padding: 20px;
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+         transition: transform 0.3s;
+      }
+
+      .logo {
+         width: auto;
+         height: auto;
+         margin: 0 auto;
+         display: block;
+      }
+      * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         font-family: "Poppins", sans-serif;
+      }
+
+      .side-nav {
+         width: 250px;
+         height: 130%;
+         background-color: #f4fafe;
+         position: fixed;
+         top: 0;
+         left: 0;
+         padding: 20px 30px;
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .logo {
+         display: block;
+         margin-bottom: 10px;
+      }
+
+      .logo-img {
+         width: 170px;
+         margin-top: 20px;
+      }
+      .nav-image {
+         width: 30px;
+         height: 30px;
+      }
+
+      .nav-links {
+         list-style: none;
+         position: relative;
+      }
+
+      .nav-links li {
+         padding: 10px 0;
+      }
+
+      .nav-links li a {
+         color: #000000;
+         text-decoration: none;
+         padding: 10px 14px;
+         display: flex;
+         align-items: center;
+      }
+
+      .nav-links li a i {
+         font-size: 22px;
+         margin-right: 20px;
+      }
+
+      .active {
+         background: #7c7a7a;
+         width: 100%;
+         height: 47px;
+         position: absolute;
+         left: 0;
+         top: 2.6%;
+         z-index: -1;
+         border-radius: 6px;
+         box-shadow: 0 5px 10px rgba(255, 255, 255, 0.4);
+         display: none;
+         transition: top 0.5s;
+      }
+
+      .nav-links li:hover a {
+         color: darkblue;
+         transition: 0.3s;
+      }
+
+      .nav-links li:hover ~ .active {
+         display: block;
+      }
+
+      .nav-links li:nth-child(1):hover ~ .active {
+         top: 2.6%;
+      }
+
+      .nav-links li:nth-child(2):hover ~ .active {
+         top: 19.2%;
+      }
+
+      .nav-links li:nth-child(3):hover ~ .active {
+         top: 35.8%;
+      }
+
+      .nav-links li:nth-child(4):hover ~ .active {
+         top: 52.4%;
+      }
+
+      .nav-links li:nth-child(5):hover ~ .active {
+         top: 69%;
+      }
+
+      .nav-links li:nth-child(6):hover ~ .active {
+         top: 85.6%;
+      }
+   </style>
+</h:head>
+<h:body>
+   <div class="container" style="background-color: white; width: 1200px">
+      <h:form style="background-color: white">
+         <p:menubar style="background-color: white">
+            <f:facet name="options">
+               <div class="ui-input-icon-left mr-2">
+                  <i class="pi pi-fw pi-search" />
+                  <p:inputText placeholder="Search" />
+               </div>
+            </f:facet>
+
+            <p:submenu
+                    label="#{loginForm.currentUser.name}"
+                    icon="pi pi-fw pi-user"
+                    style="float: right"
+            >
+               <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" outcome="/pages/settings/Settings.xhtml"/>
+               <p:menuitem value="Report Issue" icon="" />
+            </p:submenu>
+         </p:menubar>
+      </h:form>
+   </div>
+   <div class="side-nav">
+      <div style="position: sticky">
+         <a href="#" class="logo">
+            <h:graphicImage
+                    url="/resources/images/logo.png"
+                    styleClass="logo-img"
+            />
+         </a>
+         <ul class="nav-links">
+            <li>
+               <p:link outcome="/pages/dashboard/AdminDashboard.xhtml">
+                  <h:graphicImage
+                          url="/resources/images/home.png"
+                          styleClass="nav-image"
+                  />
+                  <p style="padding-left: 8px">HOME</p>
+               </p:link>
+            </li>
+            <li>
+               <p:link outcome="/pages/loan/AdminLoan.xhtml">
+                  <h:graphicImage
+                          url="/resources/images/loan.png"
+                          styleClass="nav-image"
+                  />
+                  <p style="padding-left: 8px">LOAN REQUESTS</p>
+               </p:link>
+            </li>
+            <li>
+               <p:link outcome="/pages/transaction/AdminTransaction.xhtml">
+                  <h:graphicImage
+                          url="/resources/images/verified-commercial-list.png"
+                          styleClass="nav-image"
+                  />
+                  <p style="padding-left: 8px">VERIFY TRANSACTIONS</p>
+               </p:link>
+            </li>
+            <li>
+               <p:link outcome="/pages/account/AdminAccount.xhtml">
+                  <h:graphicImage
+                          url="/resources/images/account.png"
+                          styleClass="nav-image"
+                  />
+                  <p style="padding-left: 8px">ACCOUNTS</p>
+               </p:link>
+            </li>
+            <li>
+               <p:link outcome="/pages/settings/Settings.xhtml">
+                  <h:graphicImage
+                          url="/resources/images/setting.png"
+                          styleClass="nav-image"
+                  />
+                  <p style="padding-left: 8px">SETTINGS</p>
+               </p:link>
+            </li>
+            <li>
+               <p:commandLink action="#{loginForm.doLogout()}">
+                  <h:graphicImage
+                          url="/resources/images/shutdown.png"
+                          styleClass="nav-image"
+                  />
+                  <p style="padding-left: 8px">LOGOUT</p>
+               </p:commandLink>
+            </li>
+            <li class="active"></li>
+         </ul>
+      </div>
+   </div>
+
+   <div class="container" style="position: absolute; margin-left: 280px">
+      <h:outputText styleClass="text-6xl text-center  font-bold" style="color: darkblue" value="ADMINSTRATOR DASHBOARD"/>
+
+      <div class="card-container">
+         <div id="myChart" class="card1" style="width:100%; max-width:500px; height:480px; background-color: white">
+
+         </div>
+
+
+         <div class="card-container">
+
+            <p:panelGrid columns="2" layout="grid" styleClass="showcase-text-align-center " >
+               <p:card styleClass="card1" style="height: 200px; width: 200px; background-color: #f4fafe">
+
+                     <div class="icon">
+                        <p:graphicImage url="/resources/images/group.png" styleClass="img" />
+                     </div>
+                     <h3 style="color: darkblue">MEMBERS</h3>
+                  <h1 style="margin-top: 15px"><h:outputText value="#{adminAccount.numberOfMembers}"/></h1>
+
+               </p:card>
+
+               <p:card styleClass="card1" style="height: 200px; width: 200px; background-color: #f4fafe">
+
+                     <div class="IMG">
+                        <p:graphicImage url="/resources/images/file.png" styleClass="img" />
+                     </div>
+                     <h4 style="color: red">PENDING WITHDRAWALS</h4>
+
+                  <h2 style="margin-top: 7px"><h:outputText value="#{adminTransactionsBean.numberOfTransactions}"/></h2>
+
+
+               </p:card>
+
+            <p:card styleClass="card1" style="height: 200px; width: 200px; background-color: #f4fafe">
+                  <div class="icon">
+                     <p:graphicImage url="/resources/images/available.png" styleClass="img" />
+                  </div>
+                     <h4 style="color: darkblue">AVAILABLE</h4>
+                     <h4 style="color: darkblue"> LOANABLE AMOUNT</h4>
+               <h4 style="margin-top: 15px">shs.10,000</h4>
+            </p:card>
+
+            <p:card styleClass="card1" style="height: 200px; width: 200px; background-color: #f4fafe">
+                  <div class="icon">
+                     <p:graphicImage url="/resources/images/loan.png" styleClass="img" />
+                  </div>
+                  <h3 style="color: darkblue;">LOAN REQUESTS</h3>
+               <h2 style="margin-top: 7px"><h:outputText value="#{loanBean.pendingRequests}"/></h2>
+            </p:card>
+            </p:panelGrid>
+
+         </div>
+      </div>
+
+      <p:fieldset
+              legend="ABOUT US"
+              toggleable="true"
+              toggleSpeed="500"
+              style="
+          width: auto;
+          margin-left: 30px;
+          margin-top: 40px;
+          background-color: black;
+          color: white;
+        "
+      >
+         <p:ajax event="toggle" />
+         <p class="m-0">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
+            dolor sit amet, consectetur adipisicing elit. Inventore sed
+            consequuntur error repudiandae numquam deserunt quisquam repellat
+            libero asperiores earum nam nobis, culpa ratione quam perferendis
+            esse, cupiditate neque quas! Lorem ipsum dolor sit amet, consectetur
+            adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+            deserunt quisquam repellat libero asperiores earum nam nobis, culpa
+            ratione quam perferendis esse, cupiditate neque quas! Lorem ipsum
+            dolor sit amet, consectetur adipisicing elit. Inventore sed
+            consequuntur error repudiandae numquam deserunt quisquam repellat
+            libero asperiores earum nam nobis, culpa ratione quam perferendis
+            esse, cupiditate neque quas!Lorem ipsum dolor sit amet, consectetur
+            adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+            deserunt quisquam repellat libero asperiores earum nam nobis, culpa
+            ratione quam perferendis esse, cupiditate neque quas!
+         </p>
+      </p:fieldset>
+
+
+   </div>
+</h:body>
+</html>

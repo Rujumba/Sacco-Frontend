@@ -1,25 +1,67 @@
 package org.pahappa.systems.kimanyisacco.views.dashboard;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import java.util.Date;
+import org.pahappa.systems.kimanyisacco.controller.Hyperlinks;
+import org.pahappa.systems.kimanyisacco.models.User;
+import org.pahappa.systems.kimanyisacco.services.SaccoServiceImp;
+import org.pahappa.systems.kimanyisacco.services.SaccoServices;
 
-@ViewScoped
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+@SessionScoped
 @ManagedBean(name = "dashboard")
 public class Dashboard {
-    private Date systemTime;
+    private User user;
+
+    private SaccoServices saccoServices;
+
+    private List<User> userList;
+
+    String base = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
 
 
-    public Dashboard() {
-        this.systemTime = new Date();
+    public User getUser() {
+        return user;
     }
 
-    public Date getSystemTime() {
-        return systemTime;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setSystemTime(Date systemTime) {
-        this.systemTime = systemTime;
+    public SaccoServices getSaccoServices() {
+        return saccoServices;
+    }
+
+    public void setSaccoServices(SaccoServices saccoServices) {
+        this.saccoServices = saccoServices;
+    }
+
+    public Dashboard(){
+        this.user = getCurrentUser();
+        this.saccoServices = new SaccoServiceImp();
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+
+    public User getCurrentUser() {
+        // Used to fetch currently logged in user
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        return (User) externalContext.getSessionMap().get("currentUser");
     }
 
 }

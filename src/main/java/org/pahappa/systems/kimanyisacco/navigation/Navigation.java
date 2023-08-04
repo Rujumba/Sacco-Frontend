@@ -13,7 +13,17 @@ public class Navigation {
 
     private final String dashboard = "/pages/dashboard/Dashboard.xhtml";
 
+    private final String adminDashboard = "/pages/dashboard/AdminDashboard.xhtml";
+
     private final String landing = "/pages/landing/Landing.xhtml";
+
+    private final String transaction = "/pages/transaction/UserTransaction.xhtml";
+
+    private final String login = "/pages/authentication/Login.xhtml";
+
+    private final String register = "/pages/authentication/Register.xhtml";
+
+    private final String loan = "/pages/loan/Loan.xhtml";
 
     public String getDashboard() {
         return dashboard;
@@ -23,5 +33,23 @@ public class Navigation {
         return landing;
     }
 
+    public String getTransaction() {
+        return transaction;
+    }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public String getLoan() {
+        return loan;
+    }
+
+    public String getRegister() {
+        return register;
+    }
+
+    public String getAdminDashboard() {
+        return adminDashboard;
+    }
 }

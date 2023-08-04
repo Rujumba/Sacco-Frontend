@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+  <h:head>
+    <f:facet name="first">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+
+      <h:outputStylesheet
+        name="primeflex/3.3.1/primeflex.css"
+        library="webjars"
+      />
+    </f:facet>
+
+      <script>
+          $(document).ready(function() {
+              $("#dob").attr("min", "1970-01-01");
+              $("#dob").attr("max", "2005-12-31");
+          });
+      </script>
+
+    <style>
+      .container {
+        margin: 5px auto;
+        width: auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);*/
+        text-align: center;
+        margin-right: 10px;
+
+      }
+
+      .same-width-input {
+          width: 200px; /* Adjust the width as per your requirement */
+          margin-right: 50px;
+          float: right;
+      }
+
+      .logo {
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .side-nav {
+        width: 250px;
+        height: 130%;
+        background-color: #f4fafe;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 20px 30px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .logo {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .logo-img {
+        width: 170px;
+        margin-top: 20px;
+      }
+      .nav-image {
+        width: 30px;
+        height: 30px;
+      }
+      .img{
+        width: 20px;
+        height: 20px;
+      }
+
+      .nav-links {
+        list-style: none;
+        position: relative;
+      }
+
+      .nav-links li {
+        padding: 10px 0;
+      }
+
+      .nav-links li a {
+        color: #000000;
+        text-decoration: none;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links li a i {
+        font-size: 22px;
+        margin-right: 20px;
+      }
+
+      .active {
+        background: #7c7a7a;
+        width: 100%;
+        height: 47px;
+        position: absolute;
+        left: 0;
+        top: 2.6%;
+        z-index: -1;
+        border-radius: 6px;
+        box-shadow: 0 5px 10px rgba(255, 255, 255, 0.4);
+        display: none;
+        transition: top 0.5s;
+      }
+
+      .nav-links li:hover a {
+        color: darkblue;
+        transition: 0.3s;
+      }
+
+      .nav-links li:hover ~ .active {
+        display: block;
+      }
+
+      .nav-links li:nth-child(1):hover ~ .active {
+        top: 2.6%;
+      }
+
+      .nav-links li:nth-child(2):hover ~ .active {
+        top: 19.2%;
+      }
+
+      .nav-links li:nth-child(3):hover ~ .active {
+        top: 35.8%;
+      }
+
+      .nav-links li:nth-child(4):hover ~ .active {
+        top: 52.4%;
+      }
+
+      .nav-links li:nth-child(5):hover ~ .active {
+        top: 69%;
+      }
+
+      .nav-links li:nth-child(6):hover ~ .active {
+        top: 85.6%;
+      }
+    </style>
+
+  </h:head>
+  <h:body>
+    <div class="container" style="background-color: white; width: 1200px">
+      <h:form style="background-color: white">
+        <p:menubar style="background-color: white">
+          <f:facet name="options">
+            <div class="ui-input-icon-left mr-2">
+              <i class="pi pi-fw pi-search" />
+              <p:inputText placeholder="Search" />
+            </div>
+          </f:facet>
+
+          <p:submenu
+                  label="#{loginForm.currentUser.name}"
+            icon="pi pi-fw pi-user"
+            style="float: right"
+          >
+              <p:menuitem value="change password" icon="pi pi-fw pi-user-plus" outcome="/pages/account/Account.xhtml"/>
+              <p:menuitem value="Report Issue" icon="" />
+          </p:submenu>
+        </p:menubar>
+      </h:form>
+    </div>
+    <div class="side-nav">
+      <div style="position: sticky">
+        <a href="#" class="logo">
+          <h:graphicImage
+            url="/resources/images/logo.png"
+            styleClass="logo-img"
+          />
+        </a>
+        <ul class="nav-links">
+          <li>
+            <p:link outcome="/pages/dashboard/Dashboard.xhtml">
+              <h:graphicImage
+                url="/resources/images/home.png"
+                styleClass="nav-image"
+              />
+              <p style="padding-left: 8px">HOME</p>
+            </p:link>
+          </li>
+          <li>
+            <p:link outcome="/pages/loan/Loan.xhtml">
+              <h:graphicImage
+                url="/resources/images/loan.png"
+                styleClass="nav-image"
+              />
+              <p style="padding-left: 8px">APPLY FOR LOAN</p>
+            </p:link>
+          </li>
+          <li>
+            <p:link outcome="/pages/transaction/Transaction.xhtml">
+              <h:graphicImage
+                url="/resources/images/transaction.png"
+                styleClass="nav-image"
+              />
+              <p style="padding-left: 8px">TRANSACTIONS</p>
+            </p:link>
+          </li>
+            <li>
+                <p:link outcome="/pages/account/Account.xhtml">
+                    <h:graphicImage
+                            url="/resources/images/account.png"
+                            styleClass="nav-image"
+                    />
+                    <p style="padding-left: 8px">MY ACCOUNT</p>
+                </p:link>
+            </li>
+            <li>
+                <p:link outcome="/pages/history/History.xhtml">
+                    <h:graphicImage
+                            url="/resources/images/History.png"
+                            styleClass="nav-image"
+                    />
+                    <p style="padding-left: 8px">HISTORY</p>
+                </p:link>
+            </li>
+          <li>
+            <p:commandLink action="#{loginForm.doLogout()}">
+              <h:graphicImage
+                      url="/resources/images/shutdown.png"
+                      styleClass="nav-image"
+              />
+              <p style="padding-left: 8px">LOGOUT</p>
+            </p:commandLink>
+          </li>
+          <li class="active"></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container" style="position: relative; margin-left: 600px; width: 700px;">
+<!--      <h:form id="myForm">-->
+        <!-- Personal Details Section -->
+        <div class="pf-mb-3">
+
+          <!-- Display User's Saved Details -->
+
+          <div
+            class="w-9 h-auto border-50 bg-blue-50 shadow-1 p-2 border-round-sm"
+          >
+<!--            <h:form>-->
+              <div style="margin-bottom: 20px; margin-top: 20px">
+                <h:graphicImage url="/resources/images/account.png" width="80px" height="80px"/>
+                  <h1 style="margin-top: 15px; color: darkblue">PERSONAL DETAILS</h1>
+                <h6>To edit tap the button at the end of that field you want to edit</h6>
+              </div>
+
+              <div class="formgrid grid">
+
+                <div class="field col-12">
+                    <h:form>
+                        <label for="Name">Name:</label>
+                        <p:commandLink action="#{accountBean.updateUserName()}"  style="float: right; margin-right: 30px">
+                            <h:graphicImage
+                                    url="/resources/images/edit.png"
+                                    styleClass="img"
+                            />
+                            <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
+
+                        </p:commandLink>
+                        <p:inputText id="Name" value="#{accountBean.user.name}" name="clientName" required="true" placeholder="#{accountBean.currentUser.name}" style="margin-left: 20px" styleClass="same-width-input"/>
+
+                    </h:form>
+                </div>
+
+                <div class="field col-12">
+                    <h:form>
+                        <label for="Name">Contact: </label>
+
+                        <p:commandLink action="#{accountBean.updateUserContact()}" style="float: right; margin-right: 30px" >
+                            <h:graphicImage
+                                    url="/resources/images/edit.png"
+                                    styleClass="img"
+                            />
+                            <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
+                        </p:commandLink>
+                        <p:inputText id="contact" value="#{accountBean.user.contact}" name="contact" required="true" placeholder="#{accountBean.currentUser.contact}" style="margin-left: 20px" styleClass="same-width-input"/>
+                    </h:form>
+                </div>
+                <div class="field col-12">
+                    <h:form>
+                        <label for="Name">Date of Birth:</label>
+                        <p:commandLink action="#{accountBean.updateUserBirth()}" style="float: right; margin-right: 30px; " >
+                            <h:graphicImage
+                                    url="/resources/images/edit.png"
+                                    styleClass="img"
+                            />
+                            <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
+                        </p:commandLink>
+                        <p:calendar id="dateOfBirth" value="#{accountBean.user.dateOfBirth}" required="true" placeholder="#{accountBean.currentUser.dateOfBirth}"
+                                    mindate="01/01/1970" maxdate="31/12/2005" pattern="dd/MM/yyyy" styleClass="same-width-input"/>
+
+                    </h:form>
+                </div>
+                <div class="field col-12">
+                      <h:form>
+                          <label for="Name">Income:</label>
+
+                          <p:commandLink action="#{accountBean.updateUserIncome()}" style="float: right; margin-right: 30px" >
+                              <h:graphicImage
+                                      url="/resources/images/edit.png"
+                                      styleClass="img"
+                              />
+                              <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
+                          </p:commandLink>
+
+                          <p:selectOneMenu
+                                  id="incomeRange"
+                                  required="true"
+                                  styleClass="drop-hover same-width-input"
+                                  value="#{accountBean.user.incomeRange}"
+                                  style="margin-left: 20px"
+                                  placeholder="#{accountBean.currentUser.incomeRange}"
+                          >
+                              <f:selectItems itemLabel="#{g}" itemValue="#{g}" var="g" value="#{accountBean.incomeRange }"/>
+
+                          </p:selectOneMenu>
+                      </h:form>
+
+                </div>
+                  <div class="field col-12">
+                      <h:form>
+                          <label for="Name">Password:</label>
+
+                          <p:commandLink action="#{accountBean.updateUserPassword()}" style="float: right; margin-right: 30px" >
+                              <h:graphicImage
+                                      url="/resources/images/edit.png"
+                                      styleClass="img"
+                              />
+                              <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
+                          </p:commandLink>
+
+                          <p:password id="password" value="#{accountBean.user.password}" name="contact" required="true" style="margin-left: 20px" styleClass="same-width-input"/>
+                      </h:form>
+
+                  </div>
+
+                <div class="field col-12">
+                    <h:form>
+                        <label for="Name">Gender:</label>
+
+                        <p:commandLink action="#{accountBean.updateUserGender()}" style="float: right; margin-right: 30px" >
+                            <h:graphicImage
+                                    url="/resources/images/edit.png"
+                                    styleClass="img"
+                            />
+                            <p:confirm header="Confirmation" message="Are you sure you want to approve this withdraw?" icon="pi pi-exclamation-triangle"/>
+                        </p:commandLink>
+                        <p:selectOneMenu
+                                id="gender"
+                                required="true"
+                                styleClass="drop-hover same-width-input"
+                                value="#{accountBean.user.gender}"
+                                style="margin-left: 20px"
+                                placeholder="#{accountBean.currentUser.gender}"
+                        >
+                            <f:selectItems itemLabel="#{g}" itemValue="#{g}" var="g" value="#{accountBean.gender}"/>
+
+                        </p:selectOneMenu>
+                    </h:form>
+
+                </div>
+                <div class="field col-12" style="margin-bottom: 30px">
+                    <h:form>
+                        <label for="Name">EmployStatus:</label>
+
+                        <p:commandLink action="#{accountBean.updateUserEmploy()}" style="float: right; margin-right: 30px" >
+                            <h:graphicImage
+                                    url="/resources/images/edit.png"
+                                    styleClass="img"
+                            />
+                            <p:confirm header="Confirmation" message="Are you sure you want to edit this detail?" icon="pi pi-exclamation-triangle"/>
+                        </p:commandLink>
+
+                        <p:selectOneMenu
+                                id="employmentStatus"
+                                name="employmentStatus"
+                                required="true"
+                                styleClass="drop-hover same-width-input"
+                                value="#{accountBean.user.employmentStatus}"
+                                style="margin-left: 20px"
+                                placeholder="#{accountBean.currentUser.employmentStatus}"
+                        >
+                            <f:selectItems itemLabel="#{g}" itemValue="#{g}" var="g" value="#{accountBean.employStatus}"/>
+                        </p:selectOneMenu>
+                    </h:form>
+
+                </div>
+              </div>
+<!--            </h:form>-->
+          </div>
+        </div>
+
+
+
+        <!-- Confirmation Dialog -->
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
+
+        <!-- Success Dialog -->
+        <p:dialog
+          header="Success"
+          widgetVar="successDialog"
+          modal="true"
+          resizable="true"
+        >
+          <h:outputText value="Detail saved successfully." />
+
+        </p:dialog>
+<!--      </h:form>-->
+
+
+    </div>
+      <div class="container" style="position: relative; margin-left: 280px; ">
+
+          <p:fieldset
+                  legend="ABOUT US"
+                  toggleable="true"
+                  toggleSpeed="500"
+                  style="
+          width: auto;
+          margin-left: 30px;
+          margin-top: 40px;
+          background-color: black;
+          color: white;
+        "
+          >
+              <p:ajax event="toggle" />
+              <p class="m-0">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                  aliquip ex ea commodo consequat. Duis aute irure dolor in
+                  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
+                  dolor sit amet, consectetur adipisicing elit. Inventore sed
+                  consequuntur error repudiandae numquam deserunt quisquam repellat
+                  libero asperiores earum nam nobis, culpa ratione quam perferendis
+                  esse, cupiditate neque quas! Lorem ipsum dolor sit amet, consectetur
+                  adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+                  deserunt quisquam repellat libero asperiores earum nam nobis, culpa
+                  ratione quam perferendis esse, cupiditate neque quas! Lorem ipsum
+                  dolor sit amet, consectetur adipisicing elit. Inventore sed
+                  consequuntur error repudiandae numquam deserunt quisquam repellat
+                  libero asperiores earum nam nobis, culpa ratione quam perferendis
+                  esse, cupiditate neque quas!Lorem ipsum dolor sit amet, consectetur
+                  adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+                  deserunt quisquam repellat libero asperiores earum nam nobis, culpa
+                  ratione quam perferendis esse, cupiditate neque quas!
+              </p>
+          </p:fieldset>
+      </div>
+  </h:body>
+</html>

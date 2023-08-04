@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+  <h:head>
+    <f:facet name="first">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      />
+      <meta name="apple-mobile-web-app-capable" content="yes" />
+      <style>
+        .container {
+          margin: 50px auto;
+          margin-top: 120px;
+          width: 450px;
+          padding: 20px;
+          background-color: #f4fafe;
+          border-radius: 10px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+          text-align: center;
+        }
+
+        .login-link {
+          margin-top: 20px;
+          font-size: 14px;
+          color: #777;
+        }
+        .login-link a {
+          color: #4caf50;
+          text-decoration: none;
+        }
+        .login-link a:hover {
+          text-decoration: underline;
+        }
+        .center-button {
+          text-align: center;
+        }
+
+        .logo {
+          width: 110px;
+          height: 90px;
+          margin: 0 auto;
+          display: flex;
+          margin-left: 320px;
+        }
+      </style>
+      <h:outputStylesheet
+        name="primeflex/3.3.1/primeflex.css"
+        library="webjars"
+      />
+    </f:facet>
+  </h:head>
+  <h:body>
+    <f:view>
+      <div class="container">
+        <p:messages id="message" />
+        <h1 style="position: absolute; margin-left: 30px">KIMWANYI SACCO</h1>
+        <h:graphicImage class="logo" url="/resources/images/logo.png" />
+        <h2>Welcomes you</h2>
+        <h6>LOGIN TO ACCESS THE SACCO</h6>
+        <h:form id="LoginForm">
+          <h:panelGrid columns="2" cellpadding="15">
+            <h:outputLabel for="email" value="Email:" />
+            <p:inputText
+              id="email"
+              name="email"
+              required="true"
+              value="#{loginForm.user.email}"
+              requiredMessage="The email field is required."
+              label="Email"
+            >
+              <f:validateRegex pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" for="email" />
+            </p:inputText>
+
+            <h:outputLabel for="password" value="Password:" />
+            <p:password
+              id="password"
+              name="password"
+              required="true"
+              toggleMask="true"
+              redisplay="true"
+              value="#{loginForm.user.password}"
+            />
+
+            <p:spacer />
+          </h:panelGrid>
+          <div style="color: #45a049">
+            <p:growl id="messages" showDetail="true" />
+            <p:commandButton
+              update="messages"
+              icon="pi pi-user"
+              value="Login In"
+              type="submit"
+              styleClass="center-button"
+              action="#{loginForm.doLogin()}"
+            />
+          </div>
+        </h:form>
+        <h5>
+          Don't have an account?<p:link
+            outcome="/pages/authentication/Register.xhtml"
+            value="Register"
+          />
+        </h5>
+      </div>
+    </f:view>
+  </h:body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<h:head>
+  <f:facet name="first">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+      function checkPasswords() {
+        var password1 = document.getElementById('myForm:password').value;
+        var password2 = document.getElementById('myForm:password1').value;
+
+        var messageElement = document.getElementById('myForm:messages'); // Element to display the message
+
+        if (password1 !== password2) {
+          // Passwords do not match, display error message
+          messageElement.innerHTML = "Passwords do not match.";
+          messageElement.style.color = "red";
+        } else {
+          // Passwords match, clear error message
+          messageElement.innerHTML = "";
+        }
+      }
+    </script>
+    <script>
+      function showDialogIfNoErrors() {
+        var hasErrors = false;
+        // Check if there are any error messages displayed
+        $('.ui-message-error').each(function() {
+          hasErrors = true;
+          return false; // exit the loop if any error message is found
+        });
+
+        return hasErrors;
+      }
+
+    </script>
+
+    <style>
+      .container {
+        margin: 50px auto;
+        width: 800px;
+        padding: 20px;
+        background-color: #f4fafe;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        text-align: center;}
+
+
+      .login-link a {
+        color: #4CAF50;
+        text-decoration: none;
+      }
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+      .center-button {
+        text-align: center;
+      }
+
+      .logo {
+        width: 110px;
+        height: 90px;
+        margin: 0 auto;
+        display: flex;
+        margin-left: 550px;
+      }
+
+
+    </style>
+    <h:outputStylesheet name="primeflex/3.3.1/primeflex.css" library="webjars"/>
+  </f:facet>
+</h:head>
+<h:body>
+  <f:view>
+    <div class="container">
+      <h1 style="position: absolute; margin-left: 250px">KIMWANYI SACCO </h1>
+      <h:graphicImage class="logo"  url="/resources/images/logo.png"/>
+      <h2 style="margin-top: 15px">Register form</h2>
+      <h:form id="myForm">
+
+        <h:panelGrid columns="4" cellpadding="10">
+          <h:outputLabel for="clientFName" value="First Name:" />
+          <p:inputText id="clientFName" style="width: 200px;" value="#{registerForm.firstName}" name="clientName" required="true" requiredMessage="First Name is reqired"/>
+
+          <h:outputLabel for="clientLName" value="Last Name:" />
+          <p:inputText id="clientLName" style="width: 200px;"  name="clientName" value="#{registerForm.lastName}"  required="true" requiredMessage="Last Name is reqired"/>
+
+          <h:outputLabel for="email" value="Email:" />
+          <p:inputText id="email" name="email" required="true" value="#{registerForm.user.email}" style="width: 200px;" requiredMessage="Email is required">
+            <f:validateRegex pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" />
+          </p:inputText>
+
+
+          <h:outputLabel for="clientContact" value="Contact:" />
+          <p:inputText id="clientContact" name="clientContact" required="true" value="#{registerForm.user.contact}" style="width: 200px;" requiredMessage="Contact is required"/>
+
+          <h:outputLabel for="dateOfBirth" value="Date of Birth:"  />
+          <p:datePicker id="dateOfBirth" maxdate="#{registerForm.maxSelectableDate}" value="#{registerForm.user.dateOfBirth}" pattern="yyyy-MM-dd" monthNavigator="true" yearNavigator="true" style="width: 200px;" />
+
+          <h:outputLabel for="gender" value="Gender:" />
+          <p:selectOneMenu id="gender" name="gender" required="true" styleClass="drop-hover" value="#{registerForm.user.gender}" style="width: 200px;" requiredMessage="Gender is required">
+            <f:selectItem itemLabel="Select" itemValue="#{null}" />
+            <f:selectItems itemLabel="#{g}" itemValue="#{g}" var="g" value="#{registerForm.gender}"/>
+          </p:selectOneMenu>
+
+          <h:outputLabel for="employmentStatus" value="EmploymentStatus:" />
+          <p:selectOneMenu id="employmentStatus" name="employmentStatus" required="true"  styleClass="drop-hover" style="width: 200px;" value="#{registerForm.user.employmentStatus}" requiredMessage="EmploymentStatus is required">
+            <f:selectItem itemLabel="Select" itemValue="#{null}" />
+            <f:selectItems itemLabel="#{g}" itemValue="#{g}" var="g" value="#{registerForm.employStatus}"/>
+          </p:selectOneMenu>
+
+          <h:outputLabel for="incomeRange" value="IncomeRange:" />
+          <p:selectOneMenu id="incomeRange" name="incomeRange" required="true" styleClass="drop-hover" value="#{registerForm.user.incomeRange}" style="width: 200px;" requiredMessage="Income range is required">
+            <f:selectItem itemLabel="Select" itemValue="#{null}" />
+            <f:selectItems itemLabel="#{g}" itemValue="#{g}" var="g" value="#{registerForm.incomeRange}"/>
+          </p:selectOneMenu>
+
+          <h:outputLabel for="nextOfKin" value="NextOfKin:" />
+          <p:inputText id="nextOfKin" name="nextOfKin" required="true" value="#{registerForm.user.nextOfKinName}" style="width: 200px;" requiredMessage="NextOfKin is required" />
+
+          <h:outputLabel for="nextOfKinContact" value="NextOfKin Tel:" />
+          <p:inputText id="nextOfKinContact" name="nextOfKinContact" required="true" style="width: 200px;" value="#{registerForm.user.nextOfKinContact}" requiredMessage="NextOfKin Tel required" />
+
+
+          <h:outputLabel for="password" value="Password:" />
+          <p:password id="password" name="password" required="true" value="#{registerForm.user.password}" style="width: 200px;" requiredMessage="Password is required" />
+
+          <h:outputLabel for="password1" value="Verify Password:" />
+          <p:password id="password1" name="password" required="true" style="width: 200px;" requiredMessage="Verify password required" onblur="checkPasswords()"/>
+
+
+          <p:dialog header="Terms and Conditions" widgetVar="termsDialog" modal="true" rendered="#{empty facesContext.messageList}" >
+            <h:panelGrid columns="1" cellpadding="5" cellspacing="10px">
+              <p:scrollPanel mode="native" style="width:400px;height:200px">
+                <p class="m-0">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Vitae et leo duis ut diam.
+                  Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur adipiscing elit ut.
+                  Nam libero justo laoreet sit amet. Pharetra massa massa ultricies mi quis hendrerit dolor magna.
+                  Est ultricies integer quis auctor elit sed vulputate. Consequat ac felis donec et. Tellus orci ac auctor augue mauris.
+                  Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus a. Tincidunt arcu non sodales neque sodales.
+                  Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Sodales ut etiam sit amet nisl purus.
+                  Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas.
+                  Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris.
+                  Eget egestas purus viverra accumsan in nisl nisi. Suscipit adipiscing bibendum est ultricies integer.
+                  Mattis aliquam faucibus purus in massa tempor nec.
+                </p>
+              </p:scrollPanel>
+
+            </h:panelGrid>
+          </p:dialog>
+
+          <p:dialog header="Registration" widgetVar="registerDialog" modal="true" >
+            <h:panelGrid columns="1" cellpadding="5" cellspacing="10px">
+              <h:outputText value="Registration Successful" />
+
+              <p:commandButton value="OK"  type="submit" onclick="PF('registerDialog').close();"/>
+            </h:panelGrid>
+          </p:dialog>
+
+
+
+          <p:spacer />
+
+
+        </h:panelGrid>
+        <div class="center" style="margin-bottom: 20px">
+          <p:selectBooleanCheckbox required="true" value="#{registerForm.termsAccepted}" requiredMessage="Terms and conditions should be accepted"><p:ajax update="registerButton"/></p:selectBooleanCheckbox><p:commandLink onclick="PF('termsDialog').show()"> I agree to the terms and conditions of the sacco</p:commandLink>
+        </div>
+        <h:panelGroup id="registerButton">
+          <div class="center-button" style="color: #45a049"  >
+            <div class="center-button" style="color: #45a049" >
+              <p:commandButton value="Register" icon="pi pi-user-plus" action="#{registerForm.registerUsers()}" styleClass="center-button" style="margin-right: 10px" update="messages" />
+              <p:commandButton value="Cancel" icon="pi pi-times-circle" styleClass="center-button" action="#{registerForm.redirectLogin()}"/>
+            </div>
+          </div>
+        </h:panelGroup>
+
+        <p:growl id="messages" showDetail="true"/>
+
+
+      </h:form>
+      <h5>Have an account?<p:link outcome="/pages/authentication/Login.xhtml" value="Login"/></h5>
+    </div>
+  </f:view>
+</h:body>
+</html>
